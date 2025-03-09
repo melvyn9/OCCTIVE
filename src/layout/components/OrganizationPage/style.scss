@@ -1,0 +1,121 @@
+@import '../../../styles';
+
+.orgs-page {
+  padding-bottom: 100px;
+
+  &-header {
+    padding-bottom: 36px;
+
+    h1 {
+      @include font-heading-1;
+      margin-top: 3rem;
+    }
+  }
+
+  .marquee {
+    height: 20rem;
+    margin: 0 -7rem;
+    overflow: hidden;
+    width: 100vw;
+  }
+
+  .marquee-content {
+    animation: scrolling 20s linear infinite;
+    display: flex;
+    list-style: none;
+  }
+
+  .marquee-item {
+    flex-shrink: 0;
+  }
+
+  .marquee-image {
+    height: 20rem;
+  }
+
+  @keyframes scrolling {
+    0% { transform: translateX(0); }
+    100% { transform: translatex(-2171px); }
+  }
+
+  h2 {
+    @include font-heading-3;
+  }
+
+  &-grid {
+    column-gap: 36px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 10px;
+    row-gap: 48px;
+  }
+
+  &-tag {
+    &-button {
+      @include font-subtitle-1;
+      background-color: #fff;
+      border: 0;
+      border-bottom: solid 2px $color-neutrals-grey;
+      color: $color-neutrals-grey;
+      flex: 1;
+      padding: 1rem 1.5rem;
+  
+      &.select {
+        border-bottom: solid 5px $color-primary-blue;
+        color: $color-neutrals-black;
+      }
+    }
+                
+    &-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+  }
+
+  &-mobile-dropdown {
+    display: none;
+
+    .dropdown-root {
+      height: 2.5rem;
+      margin-top: 1rem;
+
+      .dropdown-control {
+        border-radius: 4px;
+      }
+
+      .dropdown-arrow {
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  @media(max-width: $site-size-small) {
+    .marquee {
+      margin: 0 -3.5rem;
+      width: calc(100vw + 3.5rem);
+    }
+
+    &-tag-section {
+      display: none;
+    }
+
+    &-mobile-dropdown {
+      display: unset;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .orgs-page-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .orgs-page-grid {
+    grid-template-columns: 1fr;
+  }
+}

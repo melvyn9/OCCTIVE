@@ -1,0 +1,50 @@
+@import '../../../styles';
+@import '../../../styles/base';
+
+.org-card {
+  h3 {
+    color: #fff;
+    padding-bottom: 8px;
+  }
+
+  &-logo {
+    height: 200px;
+    object-fit: contain;
+    width: 100%;
+  }
+
+  &-tags {
+    @include shared-tags-style;
+  }
+
+  &-tag {
+    @include shared-tag-style;
+    @include shared-tag-color;
+  }
+
+  &-info {
+    background-color: $color-primary-navy;
+    height: calc(100% - 220px);
+    padding: 10px 18px;
+
+    span {
+      background-color: $color-primary-navy;
+      border-radius: 14px;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-right: 4px;
+      padding: 5px 10px;
+    }
+  }
+
+  &-links {
+    display: flex;
+    margin-top: 2rem;
+
+    a {
+      padding-right: 20px;
+    }
+  }
+}

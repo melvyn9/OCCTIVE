@@ -1,0 +1,218 @@
+@import '../../../styles';
+@import '../../../styles/base';
+
+.major-hyperlink {
+  display: block;
+  position: relative;
+  top: calc(-5.25rem - 2.25rem); // Header height offset and padding
+  visibility: hidden;
+
+  @media(max-width: $site-size-small) { 
+    top: calc(-3.5rem - 1rem); // Header height offset and padding
+  }
+}
+
+.major-card {
+  color: $color-neutrals-black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rem;
+  width: 50rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &-photo {
+    flex-shrink: 0;
+    height: 15rem;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &-top {
+    align-items: center;
+    background-color: $color-primary-navy;
+    display: flex;
+    padding: 1.5rem 3rem;
+  }
+
+  &-heading {
+    @include font-heading-3;
+    color: $color-neutrals-white;
+    margin-right: 1.5rem;
+    max-width: 60%;
+  }
+
+  &-tags {
+    display: flex;
+  }
+
+  &-tag {
+    @include font-small-button-text;
+    @include shared-tag-color;
+    border-radius: 3.35rem;
+    color: $color-primary-navy;
+    font-weight: bold;
+    margin-right: 1rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+  }
+
+  &-bottom {
+    background-color: $color-neutrals-white;
+    padding: 3rem;
+  }
+
+  &-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-description {
+    width: 29rem;
+  }
+
+  &-subheading {
+    @include font-subtitle-1;
+  }
+
+  &-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  &-link {
+    margin-top: 0.5rem;
+
+    &,
+    &:link,
+    &:visited,
+    &:focus,
+    &:hover,
+    &:active { // Selectors are needed to override css reset styling
+      @include font-linked-text;
+    }
+
+    &-arrow {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &-specialization {
+    margin-top: 2rem;
+    position: relative;
+
+    &-heading {
+      align-items: center;
+      background-color: $color-primary-navy;
+      color: $color-neutrals-white;
+      display: flex;
+      height: 4.75rem;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+
+    &-name {
+      @include font-heading-3;
+    }
+
+    &-button {
+      background: none;
+      border: 0;
+      cursor: pointer;
+      margin: 0 0.25rem;
+      padding: 0;
+      transform: rotate(180deg);
+
+      &.open {
+        transform: rotate(0deg);
+      }
+    }
+
+    &-content {
+      border: 1px solid $color-primary-navy;
+      display: none;
+      padding: 1rem 2.5rem;
+      transition: height 0.5s;
+
+      &.open {
+        display: block;
+      }
+    }
+
+    &-detail {
+      @include font-text;
+    }
+  }
+
+  &-note {
+    background-color: $color-neutrals-white;
+    border: 2px solid $color-primary-dark-yellow;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+
+    &-text {
+      @include font-text;
+    }
+  }
+
+  @media(max-width: $site-size-small) {
+    margin-bottom: 1.5rem;
+    width: unset;
+
+    &-photo {
+      height: 7.5rem;
+    }
+    
+    &-top {
+      align-items: unset;
+      flex-direction: column;
+      padding: 0.75rem 1rem;
+    }
+
+    &-tags {
+      margin-top: 0.5rem;
+    }
+
+    &-tag {
+      margin-right: 0.5rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    &-bottom {
+      padding: 1.5rem 1rem;
+    }
+    
+    &-info {
+      flex-direction: column;
+
+      &-right {
+        margin-top: 2rem;
+      }
+    }
+    
+    &-description {
+      margin-top: 0.5rem;
+      width: unset;
+    }
+
+    &-specialization {
+      margin-top: 1.5rem;
+
+      &-heading {
+        height: 4.75rem;
+        padding: 0 1rem;
+      }
+
+      &-content {
+        padding: 0.75rem 1rem;
+      }
+    }
+
+    &-note {
+      padding: 0.5rem 1rem;
+    }
+  }
+}

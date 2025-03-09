@@ -1,0 +1,74 @@
+@import '../../../styles/fonts';
+@import '../../../styles/vars';
+@import '../../../styles/base';
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  width: calc(90% - 3rem);
+
+  &-expand-arrow {
+    bottom: 1.15rem;
+    position: absolute;
+    right: 0.75rem;
+    width: 1rem;
+  }
+
+  &-heading {
+    @include font-subtitle-1;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &-photo {
+    height: 10rem;
+    object-fit: cover;
+  }
+
+  &-project-tag {
+    @include font-small-button-text;
+    @include shared-tag-color;
+    border-radius: 1rem;
+    margin: 0.75rem 0.75rem 0 0;
+    overflow: hidden;
+    padding: 0.25rem 0.8rem;
+  }
+
+  &-organization {
+    @include font-subtitle-1;
+    margin: 0.5rem 0 1.25rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &-section {
+    background: $color-primary-navy;
+    color: #fff;
+    padding: 1rem;
+    position: relative;
+  }
+
+  &-section span {
+    color: $color-primary-navy;
+    font-weight: bold;
+  }
+}
+
+.project-modal-card-project-tag.white,
+.project-modal-card-project-tag.light-green,
+.project-modal-card-project-tag.light-yellow,
+.project-modal-card-project-tag.light-red,
+.project-modal-card-project-tag.light-blue,
+.project-modal-card-project-tag.light-brown,
+.project-modal-card-project-tag.mint {
+  color: $color-primary-navy;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+@media (min-width: 768px) {
+  .project-card {
+    width: min(calc(33% - 3rem), 22.5rem);
+  }
+}

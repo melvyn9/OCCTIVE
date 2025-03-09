@@ -1,0 +1,26 @@
+@import '../../../styles';
+
+.story-page {
+  &-title {
+    @include font-heading-1;
+  }
+
+  &-text {
+    @include font-text;
+    margin-top: 1.5rem;
+  }
+
+  &-stories {
+    margin-top: 6rem;
+  }
+
+  @media(max-width: $site-size-small) { 
+    &-text {
+      margin-top: 0.5rem;
+    }
+
+    &-stories {
+      margin-top: 3rem;
+    }
+  }
+}
