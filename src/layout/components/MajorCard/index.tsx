@@ -10,7 +10,6 @@ import './style.scss';
 
 // Interface defining the props for the MajorCard component
 interface MajorCardProps {
-    image: string;
     name: string;
     selective: boolean;
     degreeType: string;
@@ -39,7 +38,7 @@ const tagColorMap: { [key: string]: string } = {
 // MajorCard component renders details about a major, including its image,
 // description, departments, links, and specializations.
 const MajorCard: React.FC<MajorCardProps> = ({
-  image, name, selective, degreeType, description, departments, links, specializations, note,
+  name, selective, degreeType, description, departments, links, specializations, note,
 }) => {
   const tags: Tag[] = [];
   // Add "Selective" tag if the major is selective
@@ -57,8 +56,6 @@ const MajorCard: React.FC<MajorCardProps> = ({
       <div id={name && name.replace(/\s/g, '-')} className="major-hyperlink" />
       {/* Main container for the MajorCard */}
       <div className="major-card">
-        {image && <img className="major-card-photo" src={image} alt={`${name || 'Major Card'}`} />}
-        {/* Top section with the major's name and tags */}
         <div className="major-card-top">
           {name && <p className="major-card-heading">{name}</p>}
           {(selective || degreeType) && (

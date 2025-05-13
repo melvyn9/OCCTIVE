@@ -59,8 +59,8 @@ const MajorPage: React.FC = () => {
 
   return (
     <div className="major-page">
-      <h1 className="major-page-title">Majors</h1>
-      <p className="major-page-text">A wide array of majors offer a unique computing experience at UCSD. These major apply computational skills to both new and traditional subject matter, developing programming skills, fostering scientific study, and bolstering creativity.</p>
+      <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
+      <p className="major-page-text">This course offers an accessible intro to computer science for non-technical backgrounds, covering programming basics, problem-solving, and real-world applications. Students will write simple programs in Python and R, explore how computers process information, and see computing’s impact across industries through hands-on exercises!</p>
       <div className="major-page-content">
         <h2 className="major-page-subheading">Learn more about the computing majors</h2>
         <div className="major-page-scroll-content">
@@ -75,7 +75,6 @@ const MajorPage: React.FC = () => {
           <div className="major-page-cards">
             {majorData.map((major, index) => (
               <MajorCard
-                image={major.image}
                 name={major.name}
                 selective={major.selective === 'TRUE'}
                 degreeType={parseDegree(major.degree_type)}

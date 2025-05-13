@@ -18,16 +18,10 @@
   flex-direction: column;
   margin-bottom: 5rem;
   width: 50rem;
+  border-radius: 1rem;
 
   &:first-child {
     margin-top: 0;
-  }
-
-  &-photo {
-    flex-shrink: 0;
-    height: 15rem;
-    object-fit: cover;
-    width: 100%;
   }
 
   &-top {
@@ -35,6 +29,9 @@
     background-color: $color-primary-navy;
     display: flex;
     padding: 1.5rem 3rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
   }
 
   &-heading {
@@ -62,6 +59,9 @@
   &-bottom {
     background-color: $color-neutrals-white;
     padding: 3rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
   }
 
   &-info {
