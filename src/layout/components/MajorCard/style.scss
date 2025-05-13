@@ -19,6 +19,9 @@
   margin-bottom: 5rem;
   width: 50rem;
   border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1); // light gray border
+  background-color: $color-neutrals-white; // ensure white background
+
 
   &:first-child {
     margin-top: 0;
@@ -26,9 +29,9 @@
 
   &-top {
     align-items: center;
-    background-color: $color-primary-navy;
+    background-color: $color-neutrals-white;
     display: flex;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 1.5rem;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 
@@ -36,7 +39,7 @@
 
   &-heading {
     @include font-heading-3;
-    color: $color-neutrals-white;
+    color: $color-neutrals-black;
     margin-right: 1.5rem;
     max-width: 60%;
   }
@@ -66,7 +69,7 @@
 
   &-info {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
   }
 
   &-description {
@@ -101,7 +104,7 @@
   }
 
   &-specialization {
-    margin-top: 2rem;
+    margin-top: 1rem;
     position: relative;
 
     &-heading {
@@ -150,7 +153,7 @@
   &-note {
     background-color: $color-neutrals-white;
     border: 2px solid $color-primary-dark-yellow;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 1rem 2.5rem;
 
     &-text {
@@ -161,10 +164,6 @@
   @media(max-width: $site-size-small) {
     margin-bottom: 1.5rem;
     width: unset;
-
-    &-photo {
-      height: 7.5rem;
-    }
     
     &-top {
       align-items: unset;
@@ -189,7 +188,7 @@
       flex-direction: column;
 
       &-right {
-        margin-top: 2rem;
+        margin-top: 0.5rem;
       }
     }
     
@@ -216,3 +215,4 @@
     }
   }
 }
+
