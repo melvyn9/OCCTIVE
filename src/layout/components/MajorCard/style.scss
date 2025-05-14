@@ -40,8 +40,8 @@
   &-heading {
     @include font-heading-3;
     color: $color-neutrals-black;
-    margin-right: 1.5rem;
-    max-width: 60%;
+    margin-right: 1rem;
+    max-width: 100%;
   }
 
   &-tags {
@@ -73,7 +73,9 @@
   }
 
   &-description {
-    width: 29rem;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 1.5rem;
   }
 
   &-subheading {
@@ -193,7 +195,7 @@
     }
     
     &-description {
-      margin-top: 0.5rem;
+      margin-top: 0rem;
       width: unset;
     }
 
