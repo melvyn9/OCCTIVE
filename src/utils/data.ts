@@ -7,6 +7,7 @@ export enum DataTypes {
   Home='395547379',
   Stories = '1646384161',
   Majors = '860790804',
+  Videos = '2013487824',
   Departments = '929723649',
   MajorSpecializations = '1867072131',
   Resources = '2135229956',
@@ -79,6 +80,21 @@ export interface Orgs {
   email: string;
   tags: string;
   type: string;
+}
+
+export interface Videos {
+  name: string;
+  description: string;
+  note: string;
+  links: { title: string; url: string }[];
+
+  subunit1: string;
+  subunit1Video1: string;
+  subunit1Video1Url: string;
+  subunit1Video2: string;
+  subunit1Video2Url: string;
+  subunit1Video3: string;
+  subunit1Video3Url: string;
 }
 
 export const useData = (gid: DataTypes): Promise<Array<any>> => new Promise((resolve, reject) => {
