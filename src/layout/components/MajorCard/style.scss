@@ -13,14 +13,14 @@
 }
 
 .major-card {
+  background-color: $color-neutrals-white; // ensure white background
+  border: 1px solid rgba(0, 0, 0, 0.1); // light gray border
+  border-radius: 1rem;
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
   margin-bottom: 5rem;
   width: 50rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1); // light gray border
-  background-color: $color-neutrals-white; // ensure white background
 
 
   &:first-child {
@@ -30,11 +30,10 @@
   &-top {
     align-items: center;
     background-color: $color-neutrals-white;
-    display: flex;
-    padding: 1.5rem 1.5rem;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-
+    display: flex;
+    padding: 1.5rem;
   }
 
   &-heading {
@@ -61,10 +60,9 @@
 
   &-bottom {
     background-color: $color-neutrals-white;
-    padding: 3rem;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-
+    padding: 3rem;
   }
 
   &-info {
@@ -73,9 +71,9 @@
   }
 
   &-description {
-    width: 100%;
-    max-width: none;
     margin-bottom: 1.5rem;
+    max-width: none;
+    width: 100%;
   }
 
   &-subheading {
@@ -195,7 +193,7 @@
     }
     
     &-description {
-      margin-top: 0rem;
+      margin-top: 0.5rem;
       width: unset;
     }
 
