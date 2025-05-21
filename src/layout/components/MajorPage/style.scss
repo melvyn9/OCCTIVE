@@ -2,6 +2,12 @@
 @import '../../../styles/vars';
 
 .major-page {
+  &-hero{
+    background-color: $color-background-grey;
+    margin: 3rem -7rem -3rem;
+    padding: 3rem 7rem;
+  }
+
   &-title {
     @include font-heading-1;
   }
@@ -44,7 +50,7 @@
   }
 
   &-content {
-    background-color: $color-background-grey;
+    background-color: $color-tag-white;
     margin: 3rem -7rem -3rem;
     padding: 3rem 7rem;
   }
