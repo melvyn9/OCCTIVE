@@ -1,16 +1,35 @@
-# Welcome to Computing Paths!
-This repository hosts the source code and site content of the Computing Paths website. For details about how to edit site content and develop new features, please refer to the project [content guide](https://docs.google.com/document/d/1oJeoiLy2kp-hF9ntmxVzWUoYXXmplfEFkj459G5BRE0/edit).
+# Welcome to the OCCTIVE project!
+This repository hosts the source code and site content for the OCCTIVE (Online Computing-Concepts Toolkit of Interdisciplinary Videos for Education) platform. OCCTIVE is a curated video library designed to help non-computing faculty teach fundamental computer science concepts in their courses. This project builds upon and extends the structure of the [ComputingPaths](http://computingpaths.ucsd.edu/) platform.
+
+OCCTIVE is part of an NSF-funded initiative to empower students across disciplines with foundational computing knowledge and support faculty who may not have formal training in computer science. The first version of the OCCTIVE website can be found [here](https://occtive.github.io/www/index.html).
+
+Please keep in mind that this project is on-going and subject to change.
+
+## Project Goals
+
+- **Support non-CS faculty**: Provide ready-to-use videos and materials to help integrate computing into non-computing courses.
+- **Expand student access**: Help students in all majors gain exposure to core computing concepts relevant to their fields.
+- **Facilitate peer tutoring and self-study**: Serve as a learning resource for both students and peer tutors.
+- **Measure impact**: Collect data to assess how the video library influences learning outcomes and instructional practices.
+
 
 ## Development Process
 
-To view the current site, visit [http://computingpaths.ucsd.edu/](http://computingpaths.ucsd.edu/).
-For a preview of the latest stable development branch, visit [https://computingpaths-preview.netlify.app/](https://computingpaths-preview.netlify.app/).
+This project reuses the React + TypeScript-based infrastructure of ComputingPaths.
 
-All PRs that are made will also generate a netlify deployment preview, which can be used to share the status of your PR.
+ComputingPaths uses Netlify for live site and staging previews, but this has not been implemented for OCCTIVE yet.
+
+## Editing Content
+
+To contribute or edit the OCCTIVE site content:
+
+- Refer to the ComputingPaths [Content and Development Guide](https://docs.google.com/document/d/1oJeoiLy2kp-hF9ntmxVzWUoYXXmplfEFkj459G5BRE0/edit). The OCCTIVE content guide will be created and shared once development is complete.
+- Most changes will occur in the `/components`, `/content`, and `/pages` directories
+
 
 ## Style and Conventions
 
-Please make your branch names follow the format `yourname/whatyourworkingon`. For example, if I'm going to be updating the stories page, I'd make my branch called `ronak/update-stories-page`.
+Please make your branch names follow the format `yourname/whatyourworkingon`. For example, if I'm going to be updating the stories page, I'd make my branch called `melvyn/add-video-library-page`.
 
 We require you to use **functional** components, and to define required props using an **interface**. [This guide](https://www.pluralsight.com/guides/use-interface-props-in-functional-components-using-typescript-with-react) can provide some more context.
 
@@ -58,3 +77,5 @@ You can then take advantage of Sass language features to make your `.scss` file 
 }
 ```
 
+## License and Funding
+OCCTIVE is supported by the NSF IUSE: EDU Program and aligns with its mission to improve the effectiveness of STEM education for all students.
