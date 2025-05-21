@@ -71,6 +71,20 @@ const MajorPage: React.FC = () => {
                 subunit1Video2Url={unit['subunit 1 video 2 url']}
                 subunit1Video3={unit['subunit 1 video 3']}
                 subunit1Video3Url={unit['subunit 1 video 3 url']}
+                subunit2={unit['subunit 2']}
+                subunit2Video1={unit['subunit 2 video 1']}
+                subunit2Video1Url={unit['subunit 2 video 1 url']}
+                subunit2Video2={unit['subunit 2 video 2']}
+                subunit2Video2Url={unit['subunit 2 video 2 url']}
+                subunit2Video3={unit['subunit 2 video 3']}
+                subunit2Video3Url={unit['subunit 2 video 3 url']}
+                subunit3={unit['subunit 3']}
+                subunit3Video1={unit['subunit 3 video 1']}
+                subunit3Video1Url={unit['subunit 3 video 1 url']}
+                subunit3Video2={unit['subunit 3 video 2']}
+                subunit3Video2Url={unit['subunit 3 video 2 url']}
+                subunit3Video3={unit['subunit 3 video 3']}
+                subunit3Video3Url={unit['subunit 3 video 3 url']}
               />
             ))}
           </div>

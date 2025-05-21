@@ -95,6 +95,23 @@ export interface Videos {
   subunit1Video2Url: string;
   subunit1Video3: string;
   subunit1Video3Url: string;
+
+  subunit2: string;
+  subunit2Video1: string;
+  subunit2Video1Url: string;
+  subunit2Video2: string;
+  subunit2Video2Url: string;
+  subunit2Video3: string;
+  subunit2Video3Url: string;
+
+  subunit3: string;
+  subunit3Video1: string;
+  subunit3Video1Url: string;
+  subunit3Video2: string;
+  subunit3Video2Url: string;
+  subunit3Video3: string;
+  subunit3Video3Url: string;
+
 }
 
 export const useData = (gid: DataTypes): Promise<Array<any>> => new Promise((resolve, reject) => {
