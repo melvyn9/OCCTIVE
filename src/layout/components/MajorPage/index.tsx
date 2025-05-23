@@ -21,6 +21,7 @@ const MajorPage: React.FC = () => {
     <div className="major-page">
       <div className="major-page-hero">
         <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
+        <img className="hero-image" src="/img/videos.png" alt="OCCTIVE" width="166px" height="32px" />
         <p className="major-page-text">
           {'This course offers an accessible intro to computer science for non-technical backgrounds, '
             + 'covering programming basics, problem-solving, and real-world applications. '

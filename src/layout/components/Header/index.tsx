@@ -42,7 +42,6 @@ const Header: React.FC<HeaderProps> = (props) => {
           {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link">{page.title}</p></Link>))}
         </div>
       </div>
-      <div className="spacer" />
       {heroURL && <img className="hero" src={heroURL} alt="Page Hero Divider" />}
     </>
   );
