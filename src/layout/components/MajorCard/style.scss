@@ -22,6 +22,7 @@
   flex-direction: column;
   margin-bottom: 5rem;
   width: 45rem;
+  grid-column: span 2;
 
   &:first-child {
     margin-top: 0;
