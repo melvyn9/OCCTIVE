@@ -83,7 +83,6 @@ const MajorCard: React.FC<MajorCardProps> = ({
   return (
     <>
       <div className="major-card">
-        <div id={name.replace(/\s/g, '-')} className="major-hyperlink" />
         <div className="major-card-top">
           <p className="major-card-heading">{name}</p>
         </div>
