@@ -59,7 +59,6 @@ const MajorCard: React.FC<MajorCardProps> = ({
   subunit3Video3: video9,
   subunit3Video3Url: url9,
 }) => {
-  // helper to render each subunit if it exists
   const renderSubunit = (title: string, videos: { title: string; url: string }[]) => {
     const filteredVideos = videos.filter((v) => v.title && v.url);
     if (!title || filteredVideos.length === 0) return null;
@@ -81,18 +80,16 @@ const MajorCard: React.FC<MajorCardProps> = ({
   };
 
   return (
-    <>
-      <div className="major-card">
-        <div className="major-card-top">
-          <p className="major-card-heading">{name}</p>
-        </div>
+    <div className="major-card">
+      <div className="major-card-top">
+        <p className="major-card-heading">{name}</p>
+      </div>
 
-        <div className="major-card-bottom">
-          <div className="major-card-info">
-            <div className="major-card-info-left">
-              <p className="major-card-subheading">Description</p>
-              <p className="major-card-description">{description}</p>
-            </div>
+      <div className="major-card-bottom">
+        <div className="major-card-inner">
+          <div className="major-card-info-group">
+            <p className="major-card-subheading">Description</p>
+            <p className="major-card-description">{description}</p>
           </div>
 
           {renderSubunit(subunit1Title, [
@@ -120,7 +117,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

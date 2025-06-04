@@ -12,7 +12,7 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 0.5rem;
     justify-content: space-between;
   }
 
@@ -77,8 +77,16 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 1rem 2rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
   }
 
+  
   .btn-blue {
     background-color: #77c5e7;
     border-radius: 0.5rem;
@@ -86,7 +94,15 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 1rem 2rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
   }
+
 
   @media(max-width: $site-size-small) {
     &-hero-content {

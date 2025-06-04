@@ -17,11 +17,18 @@
   background-color: $color-neutrals-white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   width: 100%;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
 
   &:first-child {
     margin-top: 0;
@@ -50,6 +57,10 @@
     padding: 3rem;
   }
 
+  &-inner {
+    padding-top: 0.5rem;
+  }
+
   &-info {
     display: flex;
     flex-direction: column;
@@ -63,14 +74,27 @@
     }
   }
 
+  &-info-group {
+    margin-bottom: 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    .major-card-subheading {
+      @include font-subtitle-1;
+      margin: 0 0 0.5rem 0;
+    }
+  }
+
   &-subheading {
     @include font-subtitle-1;
-    margin-bottom: 0.75rem;
+    margin: 0 0 0.5rem 0;
   }
 
   &-description {
-    margin-bottom: 0.5rem;
     width: 100%;
+    line-height: 1.6;
   }
 
   &-links {
