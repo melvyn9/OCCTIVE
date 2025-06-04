@@ -131,41 +131,43 @@ const MajorCard: React.FC<MajorCardProps> = ({
   };
 
   return (
-    <div className="major-card">
-      <div className="major-card-top">
-        <p className="major-card-heading">{name}</p>
-      </div>
+    <>
+      <div className="major-card">
+        <div className="major-card-top">
+          <p className="major-card-heading">{name}</p>
+        </div>
 
-      <div className="major-card-bottom">
-        <div className="major-card-inner">
-          <div className="major-card-info-group">
-            <p className="major-card-subheading">Description</p>
-            <p className="major-card-description">{description}</p>
-          </div>
-
-          {renderSubunit(subunit1Title, [
-            { title: video1, url: url1 },
-            { title: video2, url: url2 },
-            { title: video3, url: url3 },
-          ], subunit1Copy)}
-
-          {renderSubunit(subunit2Title, [
-            { title: video4, url: url4 },
-            { title: video5, url: url5 },
-            { title: video6, url: url6 },
-          ], subunit2Copy)}
-
-          {renderSubunit(subunit3Title, [
-            { title: video7, url: url7 },
-            { title: video8, url: url8 },
-            { title: video9, url: url9 },
-          ], subunit3Copy)}
-
-          {note && (
-            <div className="major-card-note">
-              <p className="major-card-note-text">{note}</p>
+        <div className="major-card-bottom">
+          <div className="major-card-inner">
+            <div className="major-card-info-group">
+              <p className="major-card-subheading">Description</p>
+              <p className="major-card-description">{description}</p>
             </div>
-          )}
+
+            {renderSubunit(subunit1Title, [
+              { title: video1, url: url1 },
+              { title: video2, url: url2 },
+              { title: video3, url: url3 },
+            ], subunit1Copy)}
+
+            {renderSubunit(subunit2Title, [
+              { title: video4, url: url4 },
+              { title: video5, url: url5 },
+              { title: video6, url: url6 },
+            ], subunit2Copy)}
+
+            {renderSubunit(subunit3Title, [
+              { title: video7, url: url7 },
+              { title: video8, url: url8 },
+              { title: video9, url: url9 },
+            ], subunit3Copy)}
+
+            {note && (
+              <div className="major-card-note">
+                <p className="major-card-note-text">{note}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {toast && (
