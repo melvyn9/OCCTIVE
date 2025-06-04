@@ -13,6 +13,81 @@
   visibility: hidden;
 }
 
+// Major Card Styling
+.major-card-subheading-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.major-card-subheading-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  gap: 4px;
+}
+
+.major-card-subheading {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+// Notification Toast Styling
+.copy-toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: #70c57f;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  animation: fadeOut 0.4s ease-in-out 2s forwards;
+}
+
+.toast-check {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+// Copy Icon Styling
+.copy-icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.copy-icon, .major-card-link-arrow {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.copy-icon:hover, .major-card-link-arrow:hover {
+  opacity: 1;
+}
+
 .major-card {
   background-color: $color-neutrals-white;
   border: 1px solid rgba(0, 0, 0, 0.1);

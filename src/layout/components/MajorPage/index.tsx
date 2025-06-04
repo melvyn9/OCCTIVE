@@ -62,6 +62,7 @@ const MajorPage: React.FC = () => {
               description={unit.description}
               note={unit.note || ''}
               subunit1={unit['subunit 1']}
+              subunit1Copy={unit['subunit 1 copy']}
               subunit1Video1={unit['subunit 1 video 1']}
               subunit1Video1Url={unit['subunit 1 video 1 url']}
               subunit1Video2={unit['subunit 1 video 2']}
@@ -69,6 +70,7 @@ const MajorPage: React.FC = () => {
               subunit1Video3={unit['subunit 1 video 3']}
               subunit1Video3Url={unit['subunit 1 video 3 url']}
               subunit2={unit['subunit 2']}
+              subunit2Copy={unit['subunit 2 copy']}
               subunit2Video1={unit['subunit 2 video 1']}
               subunit2Video1Url={unit['subunit 2 video 1 url']}
               subunit2Video2={unit['subunit 2 video 2']}
@@ -76,6 +78,7 @@ const MajorPage: React.FC = () => {
               subunit2Video3={unit['subunit 2 video 3']}
               subunit2Video3Url={unit['subunit 2 video 3 url']}
               subunit3={unit['subunit 3']}
+              subunit3Copy={unit['subunit 3 copy']}
               subunit3Video1={unit['subunit 3 video 1']}
               subunit3Video1Url={unit['subunit 3 video 1 url']}
               subunit3Video2={unit['subunit 3 video 2']}
