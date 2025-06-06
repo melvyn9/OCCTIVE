@@ -2,26 +2,6 @@
 @import '../../../styles/vars';
 
 .major-page {
-  &-body {
-    display: flex;
-    gap: 2rem;
-    padding: 3rem 7rem;
-  }
-  
-  &-content {
-    background-color: $color-tag-white;
-    margin: 3rem -7rem -3rem;
-    padding: 3rem 7rem;
-    gap: 2rem;
-    flex: 1;
-  }
-
-  &-sidebar {
-    font-size: 1rem;
-    padding: 1rem;
-    width: 23%;
-  }
-
   &-hero {
     background-color: $color-background-grey;
     margin: 3rem -7rem -3rem;
@@ -67,9 +47,17 @@
   }
   
   &-cards {
+    display: grid;
     gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 2rem;
     padding: 2rem 0;
+  }
+
+  &-content {
+    background-color: $color-tag-white;
+    margin: 3rem -7rem -3rem;
+    padding: 3rem 7rem;
   }
 
   &-link {
@@ -120,8 +108,8 @@
     }
 
     &-cards {
+      grid-template-columns: 1fr;
       padding: 1rem 0;
-      width: 25%
     }
   }
 }
