@@ -11,13 +11,8 @@ import { Link } from 'react-router-dom';
 
 import CarouselRightArrow from '../../../assets/CarouselRightArrow.svg';
 import CarouselLeftArrow from '../../../assets/CarouselLeftArrow.svg';
-import Gear from '../../../assets/Gear.svg';
-import LeftQuote from '../../../assets/LeftQuote.svg';
-import RightQuote from '../../../assets/RightQuote.svg';
-
-import { parseLookup } from '../../../utils/funcs';
 import {
-  DataTypes, Home, Majors, Stories, useData,
+  DataTypes, Home, Majors, useData,
 } from '../../../utils/data';
 
 import './style.scss';
@@ -40,12 +35,6 @@ const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
     projects_photo: '',
     featured_story: '',
   });
-
-  // State for storing stories data
-  const [stories, setStories] = useState<Array<Stories>>([]);
-
-  // Creates a lookup table for stories based on names for quick access
-  const storyLookup = parseLookup(stories, 'name');
 
   // Majors carousel container for handling scroll functionality
   const menuRef = useRef<HTMLDivElement>(null);
@@ -96,15 +85,7 @@ const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
         projects_photo: '',
         featured_story: '',
       }));
-
-    // Fetch stories data
-    useData(DataTypes.Stories)
-      .then((newData) => setStories(newData))
-      .catch(() => setStories([]));
   }, [useData]);
-
-  // Retrive featured story from the lookup table
-  const story = storyLookup.get(homeData.featured_story);
 
   return (
     <main className="home-page">
@@ -135,34 +116,6 @@ const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
       <button className="home-page-right-arrow" type="submit" onClick={handleNav}>
         <img className="home-page-right-arrow-button" src={CarouselRightArrow} alt="Right Arrow" />
       </button>
-
-      {/* Stories and advice section */}
-      <article className="home-page-stories-section">
-        <h2 className="home-page-header">Stories &#38; Advice</h2>
-        {story && (
-        <section className="home-page-stories">
-          <div className="home-page-stories-image">
-            <img className="home-page-stories-gear" src={Gear} alt="Gear Quote" />
-            <img className="home-page-image-circle" src={stories.length > 0 ? story.image : null} alt="Advice" />
-          </div>
-          <div className="home-page-stories-text">
-            <div className="home-page-stories-quote-container">
-              <img className="home-page-stories-left-quote" src={LeftQuote} alt="Left Quote" width="24px" height="20px" />
-              <p className="home-page-stories-quote">{story.highlighted_quote}</p>
-              <img className="home-page-stories-right-quote" src={RightQuote} alt="Right Quote" width="24px" height="20px" />
-            </div>
-            <h3 className="home-page-stories-name">
-              {story.name} &nbsp;
-              <span>{`${story.role ? `${story.role}` : ''}${story.role && story.class ? ' | ' : ''}${story.class ? `Class of ${story.class}` : ''}`}</span>
-            </h3>
-            <Link className="home-page-links" to="/stories">
-              <button id="home-page-stories-button" className="home-page-home-button" type="submit">Read More</button>
-            </Link>
-          </div>
-
-        </section>
-        )}
-      </article>
 
       {/* Student Organizations section */}
       <h2 className="home-page-header">Get Involved</h2>

@@ -5,7 +5,6 @@ const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6rL8
 export enum DataTypes {
   Headers = '29489883',
   Home='395547379',
-  Stories = '1646384161',
   Majors = '860790804',
   Videos = '2013487824',
   Departments = '929723649',
@@ -22,16 +21,6 @@ export interface Home {
   'student_org_photo': string;
   'projects_photo': string;
   'featured_story': string;
-}
-
-export interface Stories {
-  name: string;
-  role: string;
-  'class': string;
-  'highlighted_quote': string;
-  quote: string;
-  image: string;
-  link: string;
 }
 
 export interface Majors {
