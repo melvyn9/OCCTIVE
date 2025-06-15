@@ -6,14 +6,10 @@
 // The content is dynamically fetched using a custom `useData` hook, and the
 // page layout is enhanced with carousel functionality.
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
 
 import CarouselRightArrow from '../../../assets/CarouselRightArrow.svg';
 import CarouselLeftArrow from '../../../assets/CarouselLeftArrow.svg';
-import {
-  DataTypes, Home, Majors, useData,
-} from '../../../utils/data';
 
 import './style.scss';
 
@@ -26,16 +22,6 @@ interface HomePageProps {
 // It uses the `useState` hook to manage the state of majors, home data, and stories,
 // and the `useEffect` hook to fetch data on mount.
 const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
-  // State for storing majors data
-  const [majors, setMajor] = useState<Array<Majors>>([]);
-
-  // State for storing home data such as student organization and project photos
-  const [homeData, setHomeData] = useState<Home>({
-    student_org_photo: '',
-    projects_photo: '',
-    featured_story: '',
-  });
-
   // Majors carousel container for handling scroll functionality
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -70,44 +56,16 @@ const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
     }
   };
 
-  // useEffect hook to fetch data when the component mounts
-  useEffect(() => {
-    // Fetch majors data
-    useData(DataTypes.Majors)
-      .then((newData) => setMajor(newData))
-      .catch(() => setMajor([]));
-
-    // Fetch home data
-    useData(DataTypes.Home)
-      .then((newData) => setHomeData(newData[0] || {}))
-      .catch(() => setHomeData({
-        student_org_photo: '',
-        projects_photo: '',
-        featured_story: '',
-      }));
-  }, [useData]);
-
   return (
     <main className="home-page">
       {/* Hero section with title and hero image */}
       <section className="home-page-landing">
         <div className="home-page-title-section">
           <h1 className="home-page-title">Discover Your Path in Computing</h1>
-          <Link to="/organizations">
-            <button className="home-page-home-button" type="submit">Find Your Home</button>
-          </Link>
         </div>
         <img className="home-page-image" src={heroURL} alt="home page logo" width="320" height="344" />
       </section>
       <h2 className="home-page-header major">Majors</h2>
-      <section className="home-page-majors-container" ref={menuRef}>
-        {majors.map((major) => (
-          <Link to={`/majors#${major.name.replace(/\s/g, '-')}`} className="home-page-majors-section">
-            <img className="home-page-majors-section-image" src={major.image} alt="major" />
-            <h3 className="home-page-majors-section-major">{major.name}</h3>
-          </Link>
-        ))}
-      </section>
 
       {/* Majors section with carousel functionality */}
       <button className="home-page-left-arrow" type="submit" onClick={handleNav}>
@@ -116,31 +74,6 @@ const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
       <button className="home-page-right-arrow" type="submit" onClick={handleNav}>
         <img className="home-page-right-arrow-button" src={CarouselRightArrow} alt="Right Arrow" />
       </button>
-
-      {/* Student Organizations section */}
-      <h2 className="home-page-header">Get Involved</h2>
-      <section className="home-page-resources">
-        <img className="home-page-involed-image" src={homeData.student_org_photo} alt="org logo" />
-        <div className="home-page-resources-section">
-          <h2 className="home-page-subheader">Student Organizations</h2>
-          <p className="home-page-text">Student Organizations allow for extracurricular expierence, utilizing and extending skills imparted in computing courses. These groups demonstrate creating computing efforts by channeling the collaborative spirit of UC San Diego.</p>
-          <Link className="home-page-links" to="/organizations">
-            <button className="home-page-home-button" type="submit">Learn More</button>
-          </Link>
-        </div>
-      </section>
-
-      {/* Projects section */}
-      <section className="home-page-resources">
-        <img className="home-page-involed-image" src={homeData.projects_photo} alt="projects logo" />
-        <div className="home-page-resources-section">
-          <h2 className="home-page-subheader">Projects</h2>
-          <p className="home-page-text">Computing students create impressive bodies of work throughout their time at UC San Diego, whether for classes, internships, or just for fun.</p>
-          <Link className="home-page-links" to="/projects">
-            <button className="home-page-home-button" type="submit">See Projects</button>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 };

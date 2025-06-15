@@ -9,18 +9,6 @@ export enum DataTypes {
   Videos = '2013487824',
   Departments = '929723649',
   MajorSpecializations = '1867072131',
-  Resources = '2135229956',
-  ResourceTags = '167316779',
-  Projects = '1379985722',
-  ProjectTags = '568500304',
-  Orgs = '1399526925',
-  OrgTags = '218206546',
-}
-
-export interface Home {
-  'student_org_photo': string;
-  'projects_photo': string;
-  'featured_story': string;
 }
 
 export interface Majors {
@@ -37,38 +25,6 @@ export interface Majors {
   'link_2_url': string;
   image: string;
   note: string;
-}
-
-export interface Resources {
-  name: string;
-  description: string;
-  image: string;
-  'image_link': string;
-  'view_more_link': string;
-  tags: string;
-}
-
-export interface Projects {
-  name: string;
-  organization: string;
-  intro: string;
-  description: string;
-  members: string;
-  images: string;
-  videos: string;
-  link: string;
-  tags: string;
-}
-
-export interface Orgs {
-  name: string;
-  description: string;
-  'org_image': string;
-  link: string;
-  linkedin: string;
-  email: string;
-  tags: string;
-  type: string;
 }
 
 export interface Videos {
