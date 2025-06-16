@@ -67,6 +67,7 @@ const HomePage: React.FC = () => {
               name={unit.name}
               description={unit.description}
               note={unit.note || ''}
+              allVideosCopy={unit['all videos copy']}
               subunit1={unit['subunit 1']}
               subunit1Copy={unit['subunit 1 copy']}
               subunit1Video1={unit['subunit 1 video 1']}

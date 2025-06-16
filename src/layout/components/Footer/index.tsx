@@ -5,11 +5,6 @@
 // to different pages, and a link to report issues.import React from 'react'
 
 import React from 'react';
-
-import { Link } from 'react-router-dom';
-
-import { pages } from '../../../vars';
-
 import './style.scss';
 
 // The Footer component is a functional component that renders the website's footer.
@@ -17,16 +12,13 @@ import './style.scss';
 const Footer: React.FC = () => (
   <div className="footer">
     <div className="footer-content">
-      <img className="footer-logo" src="/img/logo_ucsd.webp" alt="UCSD Logo" width="166px" height="32px" />
+      <img className="footer-logo" src="/img/occtive_light.png" alt="OCCTIVE Logo" width="166px" height="32px" />
       <p className="footer-contact">Contact</p>
-      <a href="mailto:computingpaths@ucsd.edu"><p className="footer-email">computingpaths@ucsd.edu</p></a>
-    </div>
-    <div className="footer-links">
-      {pages.map((page, index) => (<Link to={page.link} key={index}><p className="footer-link">{page.title}</p></Link>))}
+      <a href="mailto:TODO"><p className="footer-email">OCCTIVE@ucsd.edu</p></a>
     </div>
     <div className="footer-issue">
       <p className="footer-issue-heading">Have an issue?</p>
-      <a target="_blank" rel="noopener noreferrer" href="htts:/p/forms.gle/Sosw6WvxEupsz1Sx6"><p className="footer-issue-link">Fill out this form</p></a>
+      <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"><p className="footer-issue-link">Fill out this form</p></a>
     </div>
   </div>
 );

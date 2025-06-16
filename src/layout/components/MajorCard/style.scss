@@ -67,6 +67,12 @@
 }
 
 // Copy Icon Styling
+// For the copy-all-icon for each cluster
+.major-card-heading-container {
+  display: inline-flex;
+  align-items: center;
+}
+
 .copy-icon-button {
   background: none;
   border: none;

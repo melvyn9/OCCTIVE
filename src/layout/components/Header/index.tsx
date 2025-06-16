@@ -22,7 +22,7 @@ const Header: React.FC = () => {
       <div className="header">
         <div className="header-content">
           <Link to="/">
-            <img className="header-logo" src="/img/logo-dark.webp" alt="Dark Logo" width="166px" height="32px" />
+            <img className="header-logo" src="/img/occtive_dark.png" alt="Dark Logo" width="166px" height="50px" />
           </Link>
           <div className="header-links">
             {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link" key={index}>{page.title}</p></Link>))}

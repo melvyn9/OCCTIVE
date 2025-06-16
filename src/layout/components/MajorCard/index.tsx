@@ -34,12 +34,15 @@ interface MajorCardProps {
   subunit3Video2Url: string;
   subunit3Video3: string;
   subunit3Video3Url: string;
+
+  allVideosCopy: string;
 }
 
 const MajorCard: React.FC<MajorCardProps> = ({
   name,
   description,
   note,
+  allVideosCopy,
 
   subunit1: subunit1Title,
   subunit1Copy,
@@ -74,6 +77,14 @@ const MajorCard: React.FC<MajorCardProps> = ({
   const showToast = (message: string) => {
     setToast(message);
     setTimeout(() => setToast(null), 2500); // disappears after 2.5s
+  };
+
+  // Copie allVideosCopy for all videos link
+  const handleCopyAllClick = () => {
+    navigator.clipboard
+      .writeText(allVideosCopy)
+      .then(() => showToast('All links copied!'))
+      .catch((err) => console.error('Copy failed:', err));
   };
 
   // helper to render each subunit if it exists
@@ -133,8 +144,21 @@ const MajorCard: React.FC<MajorCardProps> = ({
   return (
     <>
       <div className="major-card">
+        {/* ---------- TOP SECTION ---------- */}
         <div className="major-card-top">
-          <p className="major-card-heading">{name}</p>
+          {/* <-- NEW container –-> */}
+          <div className="major-card-heading-container">
+            <p className="major-card-heading">{name}</p>
+
+            <button
+              type="button"
+              className="copy-icon-button"
+              onClick={handleCopyAllClick}
+              aria-label={`Copy all links for ${name}`}
+            >
+              <img src={CopyIcon} alt="Copy all" className="copy-icon" />
+            </button>
+          </div>
         </div>
 
         <div className="major-card-bottom">
