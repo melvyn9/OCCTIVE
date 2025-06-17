@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
               This course offers an accessible intro to computer science,
               covering programming basics, problem-solving, and real-world
               applications. Students will write simple programs in Python and R,
-              explore how computers process information, and see computing’s
+              explore how computers process information, and see computing's
               impact across industries through hands-on exercises!
             </p>
             <div className="major-page-hero-buttons">
