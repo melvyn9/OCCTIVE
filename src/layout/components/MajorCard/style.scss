@@ -73,6 +73,19 @@
   align-items: center;
 }
 
+// For each copy-icon on each link
+.major-card-video-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.major-card-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .copy-icon-button {
   background: none;
   border: none;

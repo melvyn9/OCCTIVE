@@ -98,25 +98,14 @@ const MajorCard: React.FC<MajorCardProps> = ({
 
     const handleCopyClick = () => {
       navigator.clipboard.writeText(copyText)
-        .then(() => showToast('Copied to clipboard!'))
+        .then(() => showToast('Subheading links copied!'))
         .catch((err) => console.error('Copy failed:', err));
     };
-
-    const firstVideoUrl = filteredVideos[0]?.url || '#';
 
     return (
       <div className="major-card-videos">
         <div className="major-card-subheading-container">
-          <a
-            href={firstVideoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="major-card-subheading-link"
-          >
-            <span className="major-card-subheading">{title}</span>
-            <img src={LinkedArrow} alt="Link Arrow" className="major-card-link-arrow" />
-          </a>
-
+          <span className="major-card-subheading">{title}</span>
           <button
             type="button"
             className="copy-icon-button"
@@ -128,12 +117,30 @@ const MajorCard: React.FC<MajorCardProps> = ({
         </div>
 
         <div className="major-card-video-list">
-          {filteredVideos.map((video, index) => (
-            <div key={index} className="major-card-video-item">
-              <a href={video.url} target="_blank" rel="noopener noreferrer">
+          {filteredVideos.map((video) => (
+            <div key={video.url} className="major-card-video-item">
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="major-card-video-link"
+              >
                 {video.title}
-                <img className="major-card-link-arrow" src={LinkedArrow} alt="Link Arrow" />
+                <img src={LinkedArrow} alt="Link arrow" className="major-card-link-arrow" />
               </a>
+
+              {/* copy icon for this single link */}
+              <button
+                type="button"
+                className="copy-icon-button"
+                onClick={() => navigator.clipboard
+                  .writeText(video.url)
+                  .then(() => showToast('Link copied!'))
+                  .catch((err) => console.error('Copy failed', err))}
+                aria-label={`Copy link for ${video.title}`}
+              >
+                <img src={CopyIcon} alt="Copy link" className="copy-icon" />
+              </button>
             </div>
           ))}
         </div>
