@@ -84,7 +84,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
     navigator.clipboard
       .writeText(allVideosCopy)
       .then(() => showToast('All links copied!'))
-      .catch((err) => showToast('Copy failed:'));
+      .catch(() => showToast('Copy failed:'));
   };
 
   // helper to render each subunit if it exists
@@ -99,7 +99,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
     const handleCopyClick = () => {
       navigator.clipboard.writeText(copyText)
         .then(() => showToast('Subheading links copied!'))
-        .catch((err) => showToast('Copy failed:'));
+        .catch(() => showToast('Copy failed:'));
     };
 
     return (
@@ -136,7 +136,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
                 onClick={() => navigator.clipboard
                   .writeText(video.url)
                   .then(() => showToast('Link copied!'))
-                  .catch((err) => showToast('Copy failed'))}
+                  .catch(() => showToast('Copy failed'))}
                 aria-label={`Copy link for ${video.title}`}
               >
                 <img src={CopyIcon} alt="Copy link" className="copy-icon" />
