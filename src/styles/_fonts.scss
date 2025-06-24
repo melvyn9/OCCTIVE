@@ -1,14 +1,21 @@
 @import 'vars';
 
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/SpaceGrotesk-Regular.otf') format('opentype');
+}
+
 // Default font
-$font-family: 'Inter', sans-serif;
+$font-family: 'Space Grotesk', sans-serif;
 
 // Custom font import
 @font-face {
-  font-family: 'Kefir';
+  font-family: 'MBGrotesk';
   font-style: normal;
   font-weight: normal;
-  src: url('../assets/fonts/kefir-regular.otf') format('opentype');
+  src: url('../assets/fonts/MBGrotesk-Regular.otf') format('opentype');
 }
 
 // Display and heading styles
@@ -32,8 +39,8 @@ $font-family: 'Inter', sans-serif;
 
 // New custom heading using Kefir font
 @mixin font-heading-1-kefir {
-  font-family: 'Kefir', sans-serif;
-  font-size: 50px;
+  font-family: 'MBGrotesk', sans-serif;
+  font-size: 3rem;
   font-weight: 400;
 
   @media(max-width: $site-size-small) { 
@@ -42,7 +49,7 @@ $font-family: 'Inter', sans-serif;
 }
 
 @mixin font-heading-2-kefir {
-  font-family: 'Kefir', sans-serif;
+  font-family: 'MBGrotesk', sans-serif;
   font-size: 28px;
   font-weight: 400;
 
