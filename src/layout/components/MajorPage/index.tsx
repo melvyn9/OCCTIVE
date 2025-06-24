@@ -19,12 +19,10 @@ const MajorPage: React.FC = () => {
       <div className="major-page-hero">
         <div className="major-page-hero-content">
           <div className="major-page-hero-text">
-            <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
+            <h1 className="major-page-title">Welcome to the OCCTIVE Library</h1>
             <p className="major-page-text">
-              This course offers an accessible intro to computer science,
-              covering programming basics, problem-solving, and real-world applications.
-              Students will write simple programs in Python and R, explore how computers process
-              information, and see computing’s impact across industries through hands-on exercises!
+              An accessible intro to computer science, covering programming basics, problem-solving,
+              and real-world applications in Python and R.
             </p>
             <div className="major-page-hero-buttons">
               <a
@@ -45,11 +43,6 @@ const MajorPage: React.FC = () => {
               </a>
             </div>
           </div>
-          <img
-            className="major-page-hero-image"
-            src="/img/videos.png"
-            alt="OCCTIVE visual"
-          />
         </div>
       </div>
 
