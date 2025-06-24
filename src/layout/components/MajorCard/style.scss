@@ -6,52 +6,52 @@
   position: relative;
   top: calc(-5.25rem - 2.25rem);
 
+  visibility: hidden;
+
   @media (max-width: $site-size-small) {
     top: calc(-3.5rem - 1rem);
   }
-
-  visibility: hidden;
 }
 
 // Major Card Styling
 .major-card-subheading-container {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
 .major-card-subheading-link {
-  display: flex;
   align-items: center;
-  text-decoration: none;
   color: inherit;
+  display: flex;
   gap: 4px;
+  text-decoration: none;
 }
 
 .major-card-subheading {
-  font-weight: bold;
   font-size: 1.1rem;
+  font-weight: bold;
   margin: 0;
 }
 
 // Notification Toast Styling
 .copy-toast {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
+  align-items: center;
+  animation: fadeOut 0.4s ease-in-out 2s forwards;
   background-color: #70c57f;
-  color: white;
-  padding: 0.75rem 1.25rem;
   border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  display: flex;
   font-size: 0.9rem;
   font-weight: 500;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 1.25rem;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
   z-index: 9999;
-  animation: fadeOut 0.4s ease-in-out 2s forwards;
 }
 
 .toast-check {
@@ -69,41 +69,43 @@
 // Copy Icon Styling
 // For the copy-all-icon for each cluster
 .major-card-heading-container {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
 }
 
 // For each copy-icon on each link
 .major-card-video-item {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 0.5rem;
 }
 
 .major-card-video-link {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   gap: 0.25rem;
 }
 
 .copy-icon-button {
+  align-items: center;
   background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
+  border: 0;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.copy-icon, .major-card-link-arrow {
-  width: 18px;
+.copy-icon,
+.major-card-link-arrow {
   height: 18px;
   opacity: 0.7;
   transition: opacity 0.2s ease;
+  width: 18px;
 }
 
-.copy-icon:hover, .major-card-link-arrow:hover {
+.copy-icon:hover,
+.major-card-link-arrow:hover {
   opacity: 1;
 }
 
@@ -116,8 +118,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
-  width: 100%;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  width: 100%;
 
   &:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -148,7 +150,7 @@
     background-color: $color-neutrals-white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 1rem;
   }
 
   &-inner {
@@ -177,18 +179,18 @@
 
     .major-card-subheading {
       @include font-subtitle-1;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.5rem;
     }
   }
 
   &-subheading {
     @include font-subtitle-1;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
   }
 
   &-description {
-    width: 100%;
     line-height: 1.6;
+    width: 100%;
   }
 
   &-links {
