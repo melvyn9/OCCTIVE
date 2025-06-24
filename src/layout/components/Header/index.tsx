@@ -12,24 +12,17 @@ import { pages } from '../../../vars';
 
 import './style.scss';
 
-interface HeaderProps {
-    heroURL?: string;
-}
-
 // The Header component is a functional component that renders the website's header.
 // It includes a logo, navigation links, a mobile menu toggle, and optionally, a hero image.
-const Header: React.FC<HeaderProps> = (props) => {
-  const { heroURL } = props;
-
-  // Mobile Menu set to false by default, once the mobile menu is clicked, then it is set to true.
-  const [menu, setMenu] = useState<boolean>(false);
+const Header: React.FC = () => {
+  const [menu, setMenu] = useState(false);
 
   return (
     <>
       <div className="header">
         <div className="header-content">
           <Link to="/">
-            <img className="header-logo" src="/img/logo-dark.webp" alt="Dark Logo" width="166px" height="32px" />
+            <img className="header-logo" src="/img/occtive_dark.png" alt="Dark Logo" width="166px" height="50px" />
           </Link>
           <div className="header-links">
             {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link" key={index}>{page.title}</p></Link>))}
@@ -42,8 +35,6 @@ const Header: React.FC<HeaderProps> = (props) => {
           {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link">{page.title}</p></Link>))}
         </div>
       </div>
-      <div className="spacer" />
-      {heroURL && <img className="hero" src={heroURL} alt="Page Hero Divider" />}
     </>
   );
 };

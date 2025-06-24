@@ -1,7 +1,17 @@
 @import 'vars';
 
+// Default font
 $font-family: 'Inter', sans-serif;
 
+// Custom font import
+@font-face {
+  font-family: 'Kefir';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/kefir-regular.otf') format('opentype');
+}
+
+// Display and heading styles
 @mixin font-display-1 {
   font-size: 64px;
   font-weight: 800;
@@ -14,7 +24,28 @@ $font-family: 'Inter', sans-serif;
 @mixin font-heading-1 {
   font-size: 34px;
   font-weight: 800;
-    
+
+  @media(max-width: $site-size-small) { 
+    font-size: 24px;
+  }
+}
+
+// New custom heading using Kefir font
+@mixin font-heading-1-kefir {
+  font-family: 'Kefir', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+
+  @media(max-width: $site-size-small) { 
+    font-size: 24px;
+  }
+}
+
+@mixin font-heading-2-kefir {
+  font-family: 'Kefir', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+
   @media(max-width: $site-size-small) { 
     font-size: 24px;
   }
@@ -23,7 +54,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-heading-2 {
   font-size: 28px;
   font-weight: 800;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 22px;
     font-weight: 700;
@@ -33,7 +64,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-heading-3 {
   font-size: 20px;
   font-weight: 800;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 17px;
     font-weight: 700;
@@ -52,7 +83,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-subtitle-1 {
   font-size: 17px;
   font-weight: 600;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 16px;
   }
@@ -62,7 +93,7 @@ $font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-style: italic;
   font-weight: 400;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 16px;
   }
@@ -71,7 +102,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-text {
   font-size: 15px;
   font-weight: 400;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 14px;
   }
@@ -82,7 +113,7 @@ $font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 400;
   text-decoration: underline;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 14px;
   }
@@ -91,7 +122,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-footer-heading-text {
   font-size: 14px;
   font-weight: 700;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 12px;
   }
@@ -100,7 +131,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-footer-text {
   font-size: 14px;
   font-weight: 400;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 12px;
   }
@@ -109,7 +140,7 @@ $font-family: 'Inter', sans-serif;
 @mixin font-small-button-text {
   font-size: 12px;
   font-weight: 400;
-    
+
   @media(max-width: $site-size-small) { 
     font-size: 10px;
   }

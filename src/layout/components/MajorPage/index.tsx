@@ -1,98 +1,93 @@
-// File: MajorPage/index.tsx
-// This component renders the main page for majors at UCSD, including a list of
-// majors and detailed cards for each major, with options for desktop and mobile navigation.
-
 import React, { useEffect, useState } from 'react';
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { HashLink as Link } from 'react-router-hash-link';
 
 import MajorCard from '../MajorCard';
-
-import {
-  DataTypes, useData, Majors,
-} from '../../../utils/data';
-import {
-  parseDegree, parseList, parseLookup, parseSpecializations,
-} from '../../../utils/funcs';
-
+import { useData, DataTypes, Videos } from '../../../utils/data';
 import './style.scss';
 
-// MajorPage component renders a list of majors and detailed information about each major.
-// It uses state to store and manage data fetched from the backend using the useData hook.
 const MajorPage: React.FC = () => {
-  // State for storing department data
-  const [departmentData, setDepartmentData] = useState<Array<any>>([]);
+  const [videoData, setVideoData] = useState<Array<Videos>>([]);
 
-  // Fetch department data on component mount
   useEffect(() => {
-    useData(DataTypes.Departments)
-      .then((newData) => setDepartmentData(newData))
-      .catch(() => setDepartmentData([]));
-  }, [useData]);
-
-  // Create a lookup map for departments
-  const departmentMap = parseLookup(departmentData);
-
-  // State for storing major data
-  const [majorData, setMajorData] = useState<Array<Majors>>([]);
-
-  // Fetch major data on component mount
-  useEffect(() => {
-    useData(DataTypes.Majors)
-      .then((newData) => setMajorData(newData))
-      .catch(() => setMajorData([]));
-  }, [useData]);
-
-  // State for storing major specializations data
-  const [majorSpecsData, setMajorSpecsData] = useState<Array<any>>([]);
-
-  // Fetch major specializations data on component mount
-  useEffect(() => {
-    useData(DataTypes.MajorSpecializations)
-      .then((newData) => setMajorSpecsData(newData))
-      .catch(() => setMajorSpecsData([]));
-  }, [useData]);
-
-  // Create a lookup map for major specializations
-  const specsMap = parseLookup(majorSpecsData);
+    useData(DataTypes.Videos)
+      .then((data) => setVideoData(data as Videos[]))
+      .catch(() => setVideoData([]));
+  }, []);
 
   return (
     <div className="major-page">
-      <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
-      <p className="major-page-text">This course offers an accessible intro to computer science for non-technical backgrounds, covering programming basics, problem-solving, and real-world applications. Students will write simple programs in Python and R, explore how computers process information, and see computing’s impact across industries through hands-on exercises!</p>
-      <div className="major-page-content">
-        <h2 className="major-page-subheading">Learn more about the computing majors</h2>
-        <div className="major-page-scroll-content">
-          <div className="major-page-sidebar">
-            {majorData.map((major, index) => <div className="major-page-link" key={index}><Link smooth to={`/majors#${major.name.replace(/\s/g, '-')}`}>{major.name}</Link></div>)}
+      <div className="major-page-hero">
+        <div className="major-page-hero-content">
+          <div className="major-page-hero-text">
+            <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
+            <p className="major-page-text">
+              This course offers an accessible intro to computer science,
+              covering programming basics, problem-solving, and real-world applications.
+              Students will write simple programs in Python and R, explore how computers process
+              information, and see computing’s impact across industries through hands-on exercises!
+            </p>
+            <div className="major-page-hero-buttons">
+              <a
+                href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
+                className="btn-orange"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Dependency Chart
+              </a>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
+                className="btn-blue"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Provide Feedback
+              </a>
+            </div>
           </div>
-          {/* Dropdown for mobile navigation */}
-          <div className="major-page-mobile-navigation">
-            <Dropdown className="dropdown-root" controlClassName="dropdown-control" arrowClassName="dropdown-arrow" options={majorData.map((major) => major.name)} placeholder="Select a major" onChange={(major) => { location.hash = `#${major.value.replace(/\s/g, '-')}`; }} />
-          </div>
-          {/* Cards for each major */}
-          <div className="major-page-cards">
-            {majorData.map((major, index) => (
-              <MajorCard
-                name={major.name}
-                selective={major.selective === 'TRUE'}
-                degreeType={parseDegree(major.degree_type)}
-                description={major.description}
-                departments={parseList(major.departments).map((departmentCode) => {
-                  const department = departmentMap.get(departmentCode);
+          <img
+            className="major-page-hero-image"
+            src="/img/videos.png"
+            alt="OCCTIVE visual"
+          />
+        </div>
+      </div>
 
-                  return { title: department.name, url: department.link };
-                })}
-                links={[
-                  { title: major.link_1_title, url: major.link_1_url },
-                  { title: major.link_2_title, url: major.link_2_url }]}
-                specializations={parseSpecializations(specsMap.get(major.code))}
-                note={major.note}
-                key={index}
-              />
-            ))}
-          </div>
+      <div className="major-page-content">
+        <div className="major-page-cards">
+          {videoData.map((unit, index) => (
+            <MajorCard
+              key={index}
+              name={unit.name}
+              description={unit.description}
+              note={unit.note || ''}
+              allVideosCopy={unit['all videos copy']}
+              subunit1={unit['subunit 1']}
+              subunit1Copy={unit['subunit 1 copy']}
+              subunit1Video1={unit['subunit 1 video 1']}
+              subunit1Video1Url={unit['subunit 1 video 1 url']}
+              subunit1Video2={unit['subunit 1 video 2']}
+              subunit1Video2Url={unit['subunit 1 video 2 url']}
+              subunit1Video3={unit['subunit 1 video 3']}
+              subunit1Video3Url={unit['subunit 1 video 3 url']}
+              subunit2={unit['subunit 2']}
+              subunit2Copy={unit['subunit 2 copy']}
+              subunit2Video1={unit['subunit 2 video 1']}
+              subunit2Video1Url={unit['subunit 2 video 1 url']}
+              subunit2Video2={unit['subunit 2 video 2']}
+              subunit2Video2Url={unit['subunit 2 video 2 url']}
+              subunit2Video3={unit['subunit 2 video 3']}
+              subunit2Video3Url={unit['subunit 2 video 3 url']}
+              subunit3={unit['subunit 3']}
+              subunit3Copy={unit['subunit 3 copy']}
+              subunit3Video1={unit['subunit 3 video 1']}
+              subunit3Video1Url={unit['subunit 3 video 1 url']}
+              subunit3Video2={unit['subunit 3 video 2']}
+              subunit3Video2Url={unit['subunit 3 video 2 url']}
+              subunit3Video3={unit['subunit 3 video 3']}
+              subunit3Video3Url={unit['subunit 3 video 3 url']}
+            />
+          ))}
         </div>
       </div>
     </div>

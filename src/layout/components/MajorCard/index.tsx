@@ -1,116 +1,211 @@
-// File: MajorCard/index.tsx
-// This file defines the MajorCard component, which displays details about a
-// specific major, including its description, departments, links,
-// specializations, and tags like whether it's selective (previously capped) or its degree type.
-
 import React, { useState } from 'react';
 import LinkedArrow from '../../../assets/LinkedArrow.svg';
-import Caret from '../../../assets/caret.svg';
+import CopyIcon from '../../../assets/CopyIcon.svg';
 import './style.scss';
 
-// Interface defining the props for the MajorCard component
 interface MajorCardProps {
-    name: string;
-    selective: boolean;
-    degreeType: string;
-    description: string;
-    departments: { title: string; url: string; }[];
-    links: { title: string; url: string }[];
-    specializations: { name: string, detail: string }[];
-    note: string;
-}
-
-// Interface for tags representing the major's attributes
-interface Tag {
   name: string;
-  color: string;
+  description: string;
+  note: string;
+
+  subunit1: string;
+  subunit1Copy: string;
+  subunit1Video1: string;
+  subunit1Video1Url: string;
+  subunit1Video2: string;
+  subunit1Video2Url: string;
+  subunit1Video3: string;
+  subunit1Video3Url: string;
+
+  subunit2: string;
+  subunit2Copy: string;
+  subunit2Video1: string;
+  subunit2Video1Url: string;
+  subunit2Video2: string;
+  subunit2Video2Url: string;
+  subunit2Video3: string;
+  subunit2Video3Url: string;
+
+  subunit3: string;
+  subunit3Copy: string;
+  subunit3Video1: string;
+  subunit3Video1Url: string;
+  subunit3Video2: string;
+  subunit3Video2Url: string;
+  subunit3Video3: string;
+  subunit3Video3Url: string;
+
+  allVideosCopy: string;
 }
 
-// Mapping degree types and other attributes to specific colors for tags
-const tagColorMap: { [key: string]: string } = {
-  /* Add new colors for new bachelor degrees here in the future.
-  Refer to color list in ../styles/_vars.scss */
-  Selective: 'light-yellow',
-  'Bachelor of Art (BA)': 'light-blue',
-  'Bachelor of Science (BS)': 'mint',
-};
-
-// MajorCard component renders details about a major, including its image,
-// description, departments, links, and specializations.
 const MajorCard: React.FC<MajorCardProps> = ({
-  name, selective, degreeType, description, departments, links, specializations, note,
+  name,
+  description,
+  note,
+  allVideosCopy,
+
+  subunit1: subunit1Title,
+  subunit1Copy,
+  subunit1Video1: video1,
+  subunit1Video1Url: url1,
+  subunit1Video2: video2,
+  subunit1Video2Url: url2,
+  subunit1Video3: video3,
+  subunit1Video3Url: url3,
+
+  subunit2: subunit2Title,
+  subunit2Copy,
+  subunit2Video1: video4,
+  subunit2Video1Url: url4,
+  subunit2Video2: video5,
+  subunit2Video2Url: url5,
+  subunit2Video3: video6,
+  subunit2Video3Url: url6,
+
+  subunit3: subunit3Title,
+  subunit3Copy,
+  subunit3Video1: video7,
+  subunit3Video1Url: url7,
+  subunit3Video2: video8,
+  subunit3Video2Url: url8,
+  subunit3Video3: video9,
+  subunit3Video3Url: url9,
 }) => {
-  const tags: Tag[] = [];
-  // Add "Selective" tag if the major is selective
-  if (selective) tags.push({ name: 'Selective', color: tagColorMap.Selective });
-  // Add degree type tag with corresponding color
-  if (degreeType) {
-    /* Change line of code below to add additional colors
-    based on new bachelor degrees in the future */
-    const color = degreeType === 'Bachelor of Arts' ? tagColorMap['Bachelor of Art (BA)'] : tagColorMap['Bachelor of Science (BS)'];
-    tags.push({ name: degreeType, color });
-  }
+  // Notification
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (message: string) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 2500); // disappears after 2.5s
+  };
+
+  // Copie allVideosCopy for all videos link
+  const handleCopyAllClick = () => {
+    navigator.clipboard
+      .writeText(allVideosCopy)
+      .then(() => showToast('All links copied!'))
+      .catch(() => showToast('Copy failed:'));
+  };
+
+  // helper to render each subunit if it exists
+  const renderSubunit = (
+    title: string,
+    videos: { title: string; url: string }[],
+    copyText: string,
+  ) => {
+    const filteredVideos = videos.filter((v) => v.title && v.url);
+    if (!title || filteredVideos.length === 0) return null;
+
+    const handleCopyClick = () => {
+      navigator.clipboard.writeText(copyText)
+        .then(() => showToast('Subheading links copied!'))
+        .catch(() => showToast('Copy failed:'));
+    };
+
+    return (
+      <div className="major-card-videos">
+        <div className="major-card-subheading-container">
+          <span className="major-card-subheading">{title}</span>
+          <button
+            type="button"
+            className="copy-icon-button"
+            onClick={handleCopyClick}
+            aria-label={`Copy content for ${title}`}
+          >
+            <img src={CopyIcon} alt="Copy" className="copy-icon" />
+          </button>
+        </div>
+
+        <div className="major-card-video-list">
+          {filteredVideos.map((video) => (
+            <div key={video.url} className="major-card-video-item">
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="major-card-video-link"
+              >
+                {video.title}
+                <img src={LinkedArrow} alt="Link arrow" className="major-card-link-arrow" />
+              </a>
+
+              {/* copy icon for this single link */}
+              <button
+                type="button"
+                className="copy-icon-button"
+                onClick={() => navigator.clipboard
+                  .writeText(video.url)
+                  .then(() => showToast('Link copied!'))
+                  .catch(() => showToast('Copy failed'))}
+                aria-label={`Copy link for ${video.title}`}
+              >
+                <img src={CopyIcon} alt="Copy link" className="copy-icon" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
-      <div id={name && name.replace(/\s/g, '-')} className="major-hyperlink" />
-      {/* Main container for the MajorCard */}
       <div className="major-card">
+        {/* ---------- TOP SECTION ---------- */}
         <div className="major-card-top">
-          {name && <p className="major-card-heading">{name}</p>}
-          {(selective || degreeType) && (
-            <div className="major-card-tags">
-              {tags.map((tag, index) => (
-                <p key={index} className={`major-card-tag ${tag.color}`}>{tag.name}</p>
-              ))}
-            </div>
-          )}
+          {/* <-- NEW container –-> */}
+          <div className="major-card-heading-container">
+            <p className="major-card-heading">{name}</p>
+
+            <button
+              type="button"
+              className="copy-icon-button"
+              onClick={handleCopyAllClick}
+              aria-label={`Copy all links for ${name}`}
+            >
+              <img src={CopyIcon} alt="Copy all" className="copy-icon" />
+            </button>
+          </div>
         </div>
-        {/* Bottom section with the major's description, departments, and links */}
+
         <div className="major-card-bottom">
-          <div className="major-card-info">
-            <div className="major-card-info-left">
+          <div className="major-card-inner">
+            <div className="major-card-info-group">
               <p className="major-card-subheading">Description</p>
-              {description && <p className="major-card-description">{description}</p>}
+              <p className="major-card-description">{description}</p>
             </div>
-            <div className="major-card-info-right">
-              <p className="major-card-subheading">Departments</p>
-              <div className="major-card-links">
-                {departments && departments.map((department, index) => department.title && department.url && <a className="major-card-link" target="_blank" rel="noopener noreferrer" href={department.url} key={index}>{department.title}<img className="major-card-link-arrow" src={LinkedArrow} alt="Link Arrow" /></a>)}
+
+            {renderSubunit(subunit1Title, [
+              { title: video1, url: url1 },
+              { title: video2, url: url2 },
+              { title: video3, url: url3 },
+            ], subunit1Copy)}
+
+            {renderSubunit(subunit2Title, [
+              { title: video4, url: url4 },
+              { title: video5, url: url5 },
+              { title: video6, url: url6 },
+            ], subunit2Copy)}
+
+            {renderSubunit(subunit3Title, [
+              { title: video7, url: url7 },
+              { title: video8, url: url8 },
+              { title: video9, url: url9 },
+            ], subunit3Copy)}
+
+            {note && (
+              <div className="major-card-note">
+                <p className="major-card-note-text">{note}</p>
               </div>
-              <div className="major-card-links">
-                <p className="major-card-subheading">More Information</p>
-                {links && links.map((link, index) => link.title && link.url && <a className="major-card-link" target="_blank" rel="noopener noreferrer" href={link.url} key={index}>{link.title}<img className="major-card-link-arrow" src={LinkedArrow} alt="Link Arrow" /></a>)}
-              </div>
-            </div>
+            )}
           </div>
-
-          {/* Expandable sections for specializations */}
-          {specializations.length !== 0 && (specializations.map((specialization, index) => {
-            const [open, setOpen] = useState<boolean>(false);
-
-            return (
-              <div className="major-card-specialization" key={index}>
-                <div className="major-card-specialization-heading" onClick={() => setOpen(!open)}>
-                  <p className="major-card-specialization-name">{specialization.name}</p>
-                  <button className={`major-card-specialization-button ${open ? 'open' : ''}`} type="button"><img src={Caret} alt="Description" /></button>
-                </div>
-                <div className={`major-card-specialization-content ${open ? 'open' : ''}`}>
-                  <p className="major-card-specialization-detail">{specialization.detail}</p>
-                </div>
-              </div>
-            );
-          })
-          )}
-
-          {/* Additional notes section */}
-          {note && (
-          <div className="major-card-note">
-            <p className="major-card-note-text">{note}</p>
-          </div>
-          )}
         </div>
       </div>
+      {toast && (
+        <div className="copy-toast">
+          {toast}
+        </div>
+      )}
     </>
   );
 };

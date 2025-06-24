@@ -1,191 +1,99 @@
-// File: HomePage/index.tsx
-// This file defines the HomePage component, which is the main landing page
-// for the "Computing Paths" website.
-// The homepage includes sections for majors, stories and advice,
-// student organizations, and projects.
-// The content is dynamically fetched using a custom `useData` hook, and the
-// page layout is enhanced with carousel functionality.
+// File: src/layout/components/HomePage/index.tsx
+import React, { useEffect, useState } from 'react';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-
-import CarouselRightArrow from '../../../assets/CarouselRightArrow.svg';
-import CarouselLeftArrow from '../../../assets/CarouselLeftArrow.svg';
-import Gear from '../../../assets/Gear.svg';
-import LeftQuote from '../../../assets/LeftQuote.svg';
-import RightQuote from '../../../assets/RightQuote.svg';
-
-import { parseLookup } from '../../../utils/funcs';
-import {
-  DataTypes, Home, Majors, Stories, useData,
-} from '../../../utils/data';
+import MajorCard from '../MajorCard';
+import { useData, DataTypes, Videos } from '../../../utils/data';
 
 import './style.scss';
 
-// Interface defining the props for the HomePage content
-interface HomePageProps {
-  heroURL: string; // URL for the hero image displayed on the homepage
-}
+const HomePage: React.FC = () => {
+  /* ---------- OCCTIVE video data ---------- */
+  const [videoData, setVideoData] = useState<Videos[]>([]);
 
-// The HomePage component is a functional component that renders the main landing page.
-// It uses the `useState` hook to manage the state of majors, home data, and stories,
-// and the `useEffect` hook to fetch data on mount.
-const HomePage: React.FC<HomePageProps> = ({ heroURL }) => {
-  // State for storing majors data
-  const [majors, setMajor] = useState<Array<Majors>>([]);
-
-  // State for storing home data such as student organization and project photos
-  const [homeData, setHomeData] = useState<Home>({
-    student_org_photo: '',
-    projects_photo: '',
-    featured_story: '',
-  });
-
-  // State for storing stories data
-  const [stories, setStories] = useState<Array<Stories>>([]);
-
-  // Creates a lookup table for stories based on names for quick access
-  const storyLookup = parseLookup(stories, 'name');
-
-  // Majors carousel container for handling scroll functionality
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  // Function to handle carousel navigation
-  const handleNav = (event) => {
-    if (menuRef && menuRef.current) {
-      const element = (menuRef.current.childNodes[0] as HTMLDivElement);
-
-      // Sourced from: https://stackoverflow.com/a/23270007
-      const style = window.getComputedStyle(element);
-      const width = element.offsetWidth;
-      const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-      const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
-      const border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
-
-      const elementSize = width + margin - padding + border;
-
-      // Scroll the container baed on left or right arrow
-      if (event.target.className.includes('home-page-left-arrow')) {
-        menuRef.current.scrollBy({
-          top: 0,
-          left: -elementSize,
-          behavior: 'smooth',
-        });
-      } else {
-        menuRef.current.scrollBy({
-          top: 0,
-          left: +elementSize,
-          behavior: 'smooth',
-        });
-      }
-    }
-  };
-
-  // useEffect hook to fetch data when the component mounts
   useEffect(() => {
-    // Fetch majors data
-    useData(DataTypes.Majors)
-      .then((newData) => setMajor(newData))
-      .catch(() => setMajor([]));
+    useData(DataTypes.Videos)
+      .then((d) => setVideoData(d as Videos[]))
+      .catch(() => setVideoData([]));
+  }, []);
 
-    // Fetch home data
-    useData(DataTypes.Home)
-      .then((newData) => setHomeData(newData[0] || {}))
-      .catch(() => setHomeData({
-        student_org_photo: '',
-        projects_photo: '',
-        featured_story: '',
-      }));
-
-    // Fetch stories data
-    useData(DataTypes.Stories)
-      .then((newData) => setStories(newData))
-      .catch(() => setStories([]));
-  }, [useData]);
-
-  // Retrive featured story from the lookup table
-  const story = storyLookup.get(homeData.featured_story);
-
+  /* ---------- render ---------- */
   return (
     <main className="home-page">
-      {/* Hero section with title and hero image */}
-      <section className="home-page-landing">
-        <div className="home-page-title-section">
-          <h1 className="home-page-title">Discover Your Path in Computing</h1>
-          <Link to="/organizations">
-            <button className="home-page-home-button" type="submit">Find Your Home</button>
-          </Link>
-        </div>
-        <img className="home-page-image" src={heroURL} alt="home page logo" width="320" height="344" />
-      </section>
-      <h2 className="home-page-header major">Majors</h2>
-      <section className="home-page-majors-container" ref={menuRef}>
-        {majors.map((major) => (
-          <Link to={`/majors#${major.name.replace(/\s/g, '-')}`} className="home-page-majors-section">
-            <img className="home-page-majors-section-image" src={major.image} alt="major" />
-            <h3 className="home-page-majors-section-major">{major.name}</h3>
-          </Link>
-        ))}
-      </section>
-
-      {/* Majors section with carousel functionality */}
-      <button className="home-page-left-arrow" type="submit" onClick={handleNav}>
-        <img className="home-page-left-arrow-button" src={CarouselLeftArrow} alt="Left Arrow" />
-      </button>
-      <button className="home-page-right-arrow" type="submit" onClick={handleNav}>
-        <img className="home-page-right-arrow-button" src={CarouselRightArrow} alt="Right Arrow" />
-      </button>
-
-      {/* Stories and advice section */}
-      <article className="home-page-stories-section">
-        <h2 className="home-page-header">Stories &#38; Advice</h2>
-        {story && (
-        <section className="home-page-stories">
-          <div className="home-page-stories-image">
-            <img className="home-page-stories-gear" src={Gear} alt="Gear Quote" />
-            <img className="home-page-image-circle" src={stories.length > 0 ? story.image : null} alt="Advice" />
-          </div>
-          <div className="home-page-stories-text">
-            <div className="home-page-stories-quote-container">
-              <img className="home-page-stories-left-quote" src={LeftQuote} alt="Left Quote" width="24px" height="20px" />
-              <p className="home-page-stories-quote">{story.highlighted_quote}</p>
-              <img className="home-page-stories-right-quote" src={RightQuote} alt="Right Quote" width="24px" height="20px" />
+      {/* OCCTIVE hero */}
+      <section className="major-page-hero">
+        <div className="major-page-hero-content">
+          <div className="major-page-hero-text">
+            <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
+            <p className="major-page-text">
+              This course offers an accessible intro to computer science,
+              covering programming basics, problem-solving, and real-world
+              applications. Students will write simple programs in Python and R,
+              explore how computers process information, and see computing
+              impact across industries through hands-on exercises!
+            </p>
+            <div className="major-page-hero-buttons">
+              <a
+                href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
+                className="btn-orange"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Dependency Chart
+              </a>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
+                className="btn-blue"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Provide Feedback
+              </a>
             </div>
-            <h3 className="home-page-stories-name">
-              {story.name} &nbsp;
-              <span>{`${story.role ? `${story.role}` : ''}${story.role && story.class ? ' | ' : ''}${story.class ? `Class of ${story.class}` : ''}`}</span>
-            </h3>
-            <Link className="home-page-links" to="/stories">
-              <button id="home-page-stories-button" className="home-page-home-button" type="submit">Read More</button>
-            </Link>
           </div>
 
-        </section>
-        )}
-      </article>
-
-      {/* Student Organizations section */}
-      <h2 className="home-page-header">Get Involved</h2>
-      <section className="home-page-resources">
-        <img className="home-page-involed-image" src={homeData.student_org_photo} alt="org logo" />
-        <div className="home-page-resources-section">
-          <h2 className="home-page-subheader">Student Organizations</h2>
-          <p className="home-page-text">Student Organizations allow for extracurricular expierence, utilizing and extending skills imparted in computing courses. These groups demonstrate creating computing efforts by channeling the collaborative spirit of UC San Diego.</p>
-          <Link className="home-page-links" to="/organizations">
-            <button className="home-page-home-button" type="submit">Learn More</button>
-          </Link>
+          <img
+            className="major-page-hero-image"
+            src="/img/videos.png"
+            alt="OCCTIVE visual"
+          />
         </div>
       </section>
-
-      {/* Projects section */}
-      <section className="home-page-resources">
-        <img className="home-page-involed-image" src={homeData.projects_photo} alt="projects logo" />
-        <div className="home-page-resources-section">
-          <h2 className="home-page-subheader">Projects</h2>
-          <p className="home-page-text">Computing students create impressive bodies of work throughout their time at UC San Diego, whether for classes, internships, or just for fun.</p>
-          <Link className="home-page-links" to="/projects">
-            <button className="home-page-home-button" type="submit">See Projects</button>
-          </Link>
+      {/* video cards */}
+      <section className="major-page-content">
+        <div className="major-page-cards">
+          {videoData.map((unit) => (
+            <MajorCard
+              key={unit.name}
+              name={unit.name}
+              description={unit.description}
+              note={unit.note || ''}
+              allVideosCopy={unit['all videos copy']}
+              subunit1={unit['subunit 1']}
+              subunit1Copy={unit['subunit 1 copy']}
+              subunit1Video1={unit['subunit 1 video 1']}
+              subunit1Video1Url={unit['subunit 1 video 1 url']}
+              subunit1Video2={unit['subunit 1 video 2']}
+              subunit1Video2Url={unit['subunit 1 video 2 url']}
+              subunit1Video3={unit['subunit 1 video 3']}
+              subunit1Video3Url={unit['subunit 1 video 3 url']}
+              subunit2={unit['subunit 2']}
+              subunit2Copy={unit['subunit 2 copy']}
+              subunit2Video1={unit['subunit 2 video 1']}
+              subunit2Video1Url={unit['subunit 2 video 1 url']}
+              subunit2Video2={unit['subunit 2 video 2']}
+              subunit2Video2Url={unit['subunit 2 video 2 url']}
+              subunit2Video3={unit['subunit 2 video 3']}
+              subunit2Video3Url={unit['subunit 2 video 3 url']}
+              subunit3={unit['subunit 3']}
+              subunit3Copy={unit['subunit 3 copy']}
+              subunit3Video1={unit['subunit 3 video 1']}
+              subunit3Video1Url={unit['subunit 3 video 1 url']}
+              subunit3Video2={unit['subunit 3 video 2']}
+              subunit3Video2Url={unit['subunit 3 video 2 url']}
+              subunit3Video3={unit['subunit 3 video 3']}
+              subunit3Video3Url={unit['subunit 3 video 3 url']}
+            />
+          ))}
         </div>
       </section>
     </main>

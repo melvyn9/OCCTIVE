@@ -1,317 +1,129 @@
 @import '../../../styles/fonts';
 @import '../../../styles/vars';
 
-.home-page-stories-text {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
+/* Applies to BOTH .major-page-* and .home-page-* */
+.major-page,
 .home-page {
-  &-header {
-    @include font-heading-1;
-    margin: 2rem 0;
+  &-hero {
+    background-color: $color-background-grey;
+    margin: 1rem -7rem -3rem;
+    padding: 1rem;
   }
 
-  &-home-button {
-    @include font-subtitle-1;
-    background-color: $color-primary-dark-yellow;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-  }
-
-  &-involed-image {
-    flex-grow: 0;
-    flex-shrink: 0;
-    height: 25rem;
-    object-fit: cover;
-    object-position: center;
-    width: 25rem;
-  }
-
-  &-image {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 25rem;
-
-    &-circle {
-      border-radius: 50%;
-      height: calc(100% - 9rem);
-      object-fit: cover;
-      object-position: left;
-      width: calc(100% - 9rem);
-    }
-  }
-
-  &-landing {
+  &-hero-content {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
   }
 
-  &-left-arrow {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    left: 2.5rem;
-    margin-top: -16rem;
-    position: absolute;
+  &-hero-text {
+    flex: 1 1 500px;
+    max-width: 1000px;
   }
 
-  &-majors-container {
+  &-hero-image {
+    height: auto;
+    max-width: 350px;
+  }
+
+  &-hero-buttons {
     display: flex;
-    overflow-x: scroll;
-    overflow-y: scroll;
-    position: relative;
-    scroll-behavior: smooth;
-  }
-
-  &-majors-section {
-    flex-shrink: 0;
-    height: min(calc(33vw - 1rem), 26rem);
-    margin: 0 1rem;
-    position: relative;
-    width: min(calc(33% - 1rem), 26rem);
-
-    &-image {
-      height: 100%;
-      object-fit: cover;
-      width: 100%;
-    }
-
-    &-major {
-      @include font-heading-3;
-      align-items: center;
-      background-color: $color-primary-navy;
-      bottom: 0;
-      color: #fff;
-      display: flex;
-      height: 3.5rem;
-      justify-content: center;
-      overflow: hidden;
-      padding: 0.5rem 1rem;
-      position: absolute;
-      text-align: center;
-      width: calc(100% - 2rem);
-    }
-  }
-
-  &-resources {
-    align-items: center;
-    display: inline-flex;
-    margin-bottom: 2rem;
-
-    &-section {
-      margin: 0 2rem;
-      padding-bottom: 1rem;
-    }
-  }
-
-  &-right-arrow {
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-    margin-top: -16rem;
-    position: absolute;
-    right: 2.5rem;
-  }
-
-  &-stories {
-    align-items: center;
-    display: flex;
-
-    &-gear {
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: -1;
-    }
-
-    &-image {
-      align-items: center;
-      display: flex;
-      flex-shrink: 0;
-      height: 26rem;
-      justify-content: center;
-      position: relative;
-      width: 26rem;
-      z-index: 0;
-    }
-
-    &-name {
-      @include font-heading-3;
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0 5rem;
-    }
-
-    &-name > span {
-      @include font-text;
-      color: $color-neutrals-dark-grey;
-    }
-
-    &-quote {
-      @include font-heading-2;
-      margin: 1rem auto;
-      padding: 0 5rem;
-    }
-
-    &-section {
-      background: $color-background-grey;
-      box-sizing: border-box;
-      margin: 2rem auto 2rem -7rem;
-      padding: 1rem 7rem;
-      width: 100vw;
-    }
-
-    &-text {
-      margin: 1rem;
-      padding-bottom: 1rem;
-    }
-  }
-
-  &-subheader {
-    @include font-heading-2;
+    gap: 1.5rem;
+    margin-top: 2rem;
   }
 
   &-title {
-    @include font-display-1;
-    margin: 0 1.5rem 2rem 0;
+    @include font-heading-1-kefir;
   }
 
   &-text {
     @include font-text;
-    margin: 0.75rem 0 1rem;
+    line-height: 1.75;
+    margin-top: 1.5rem;
   }
-}
 
-@media(max-width: $site-size-small) {
-  .home-page {
-    &-involed-image {
-      height: 20rem;
-      width: min(20rem, 100%);
+  &-subheading {
+    @include font-heading-2-kefir;
+  }
+
+  &-cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 2rem;
+    padding: 2rem 0;
+  }
+
+  &-content {
+    background-color: $color-tag-white;
+    margin: 1rem -7rem -3rem;
+    padding: 0 1rem;
+  }
+
+  &-link {
+    @include font-subtitle-1;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    color: $color-neutrals-dark-grey;
+    display: inline-flex;
+    padding: 1rem 1.5rem;
+    width: 18rem;
+  }
+
+  /* buttons */
+  .btn-orange {
+    background-color: #ff8c66;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: $color-tag-white;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
     }
+  }
 
-    &-image {
-      width: min(20rem, 100%);
+  .btn-blue {
+    background-color: #77c5e7;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: $color-tag-white;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
     }
+  }
 
-    &-landing {
-      flex-direction: column-reverse;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    &-left-arrow,
-    &-right-arrow {
-      display: none;
-    }
-
-    &-links {
-      margin: auto;
-    }
-
-    &-majors-section {
-      height: min(20rem, calc(100vw - 2.5rem));
-      width: min(20rem, 100%);
-
-      &-major {
-        height: 3rem;
-      }
-    }
-
-    &-resources {
-      display: flex;
+  /* responsive tweaks */
+  @media (max-width: $site-size-small) {
+    &-hero-content {
+      align-items: flex-start;
       flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      &-section {
-        display: flex;
-        flex-direction: column;
-        margin: 2rem auto 0;
-        width: 100%;
-      }
-    }
-    
-    &-stories {
-      flex-wrap: wrap;
-      justify-content: center;
-
-      &-image {
-        height: min(20rem, calc(100vw - 2.5rem));
-        width: min(20rem, 100%);
-      }
-
-      &-left-quote {
-        width: 1.5rem;
-      }
-  
-      &-name {
-        padding: 0 1.8rem 0 2rem;
-      }
-
-      &-quote {
-        padding: 0 1rem;
-      }
-
-      &-section {
-        margin: 2rem auto 2rem -1.5rem;
-        padding: 1rem 1.5rem;
-      }
-
-      .home-page-home-button {
-        margin-top: 1rem;
-      }
     }
 
-    &-title {
-      margin: 2rem;
-      word-break: break-word;
-
-      &-section {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-      }
+    &-content {
+      margin: 1.5rem -1.5rem -1.5rem;
+      padding: 1.5rem;
     }
-  }
-}
 
-.home-page-stories-text {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-}
+    &-hero-image {
+      max-width: 100%;
+    }
 
-.home-page-stories-quote-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.home-page-stories-left-quote {
-  flex-shrink: 0;
-}
-
-.home-page-stories-right-quote {
-  flex-shrink: 0;
-}
-
-@media (max-width: 1199px) {
-  .home-page-stories-name {
-    text-align: left;
+    &-cards {
+      grid-template-columns: 1fr;
+      padding: 1rem 0;
+    }
   }
 }

@@ -5,32 +5,10 @@ const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6rL8
 export enum DataTypes {
   Headers = '29489883',
   Home='395547379',
-  Stories = '1646384161',
   Majors = '860790804',
+  Videos = '2013487824',
   Departments = '929723649',
   MajorSpecializations = '1867072131',
-  Resources = '2135229956',
-  ResourceTags = '167316779',
-  Projects = '1379985722',
-  ProjectTags = '568500304',
-  Orgs = '1399526925',
-  OrgTags = '218206546',
-}
-
-export interface Home {
-  'student_org_photo': string;
-  'projects_photo': string;
-  'featured_story': string;
-}
-
-export interface Stories {
-  name: string;
-  role: string;
-  'class': string;
-  'highlighted_quote': string;
-  quote: string;
-  image: string;
-  link: string;
 }
 
 export interface Majors {
@@ -49,36 +27,36 @@ export interface Majors {
   note: string;
 }
 
-export interface Resources {
+export interface Videos {
   name: string;
   description: string;
-  image: string;
-  'image_link': string;
-  'view_more_link': string;
-  tags: string;
-}
+  note: string;
+  links: { title: string; url: string }[];
 
-export interface Projects {
-  name: string;
-  organization: string;
-  intro: string;
-  description: string;
-  members: string;
-  images: string;
-  videos: string;
-  link: string;
-  tags: string;
-}
+  subunit1: string;
+  subunit1Video1: string;
+  subunit1Video1Url: string;
+  subunit1Video2: string;
+  subunit1Video2Url: string;
+  subunit1Video3: string;
+  subunit1Video3Url: string;
 
-export interface Orgs {
-  name: string;
-  description: string;
-  'org_image': string;
-  link: string;
-  linkedin: string;
-  email: string;
-  tags: string;
-  type: string;
+  subunit2: string;
+  subunit2Video1: string;
+  subunit2Video1Url: string;
+  subunit2Video2: string;
+  subunit2Video2Url: string;
+  subunit2Video3: string;
+  subunit2Video3Url: string;
+
+  subunit3: string;
+  subunit3Video1: string;
+  subunit3Video1Url: string;
+  subunit3Video2: string;
+  subunit3Video2Url: string;
+  subunit3Video3: string;
+  subunit3Video3Url: string;
+
 }
 
 export const useData = (gid: DataTypes): Promise<Array<any>> => new Promise((resolve, reject) => {
