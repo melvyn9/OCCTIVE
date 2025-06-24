@@ -67,7 +67,7 @@
   &-cards {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 0.5rem;
     padding: 0.5rem 0;
   }
@@ -122,11 +122,15 @@
     }
   }
 
-  /* responsive tweaks */
+  // Screens < 1200px
   @media (max-width: $site-size-small) {
-    &-hero-content {
-      align-items: flex-start;
-      flex-direction: column;
+    // &-hero-content {
+    //   align-items: flex-start;
+    //   flex-direction: column;
+    // }
+    &-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 1rem 0;
     }
 
     &-content {
@@ -137,10 +141,31 @@
     &-hero-image {
       max-width: 100%;
     }
+  }
+}
 
+// For Mobile
+@media (max-width: 499px) {
+  .major-page,
+  .home-page {
     &-cards {
-      grid-template-columns: 1fr;
-      padding: 1rem 0;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+  }
+
+  .home-page .btn-orange, .major-page .btn-orange {
+    padding: 1rem;
+  }
+
+  .home-page .btn-blue, .major-page .btn-blue {
+    padding: 1rem;
+  }
+
+  .home-page-hero-buttons, .major-page-hero-buttons {
+    gap: 1rem;
+  }
+
+  .major-card-description, .major-card-video-link {
+    font-size: 14px;
   }
 }

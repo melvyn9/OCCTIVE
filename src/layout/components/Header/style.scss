@@ -42,7 +42,8 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 12.5rem;
+    // height: 12.5rem;
+    height: 3rem;
     justify-content: space-around;
     left: 0;
     padding: 0.25rem 0.5rem;
@@ -113,6 +114,7 @@
   width: 100%;
 
   @media(max-width: $site-size-small) {
-    height: 12.5rem;
+    // height: 12.5rem;
+    height: 3rem;
   }
 }
