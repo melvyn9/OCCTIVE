@@ -2,6 +2,16 @@
 @import '../../../styles/vars';
 
 .major-page {
+  &-back-to-main-menu {
+    color: white;
+    @include font-back-to-main-menu;
+  }
+
+  &-navbar-title {
+    color: white;
+    @include font-nav-bar-title;
+  }
+
   &-hero {
     background-color: $color-background-grey;
     margin: 3rem -7rem -3rem;
@@ -9,27 +19,30 @@
   }
 
   &-hero-content {
-    align-items: center;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
-    justify-content: space-between;
   }
 
   &-hero-text {
     flex: 1 1 500px;
-    max-width: 1000px;
+    width: 100%;
+    max-width: 100%;
   }
 
   &-hero-image {
     height: auto;
-    max-width: 350px;
+    width: 100%;
+    max-width: 100%;
   }
 
-  &-hero-buttons {
-    display: flex;
+  &-sidebuttons {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2rem;
+    text-align: center;
   }
 
   &-title {
@@ -45,19 +58,38 @@
   &-subheading {
     @include font-heading-2-kefir;
   }
-  
+
   &-cards {
+    flex: 1;
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     margin-top: 2rem;
     padding: 2rem 0;
   }
 
   &-content {
+    display: flex;               
+    gap: 2rem;                
     background-color: $color-tag-white;
-    margin: 3rem -7rem -3rem;
+    margin: 0rem 3rem -7rem -3rem;
     padding: 3rem 7rem;
+  }
+
+  &-side-items {
+    width: 250px;
+    flex-shrink: 0;
+    margin-right: 27px;
+  }        
+  
+  &-sidebar {
+    background-color: #3D555E;
+    border-radius: 8px;
+    @include font-nav-bar-text;
+
+    a {
+      color: white;
+    }
   }
 
   &-link {
@@ -103,7 +135,6 @@
     }
   }
 
-
   @media(max-width: $site-size-small) {
     &-hero-content {
       align-items: flex-start;
@@ -125,7 +156,7 @@
 
     &-cards {
       grid-template-columns: 1fr;
-      padding: 1rem 0;
+      padding: 0 1rem 1rem 1rem;
     }
   }
 }

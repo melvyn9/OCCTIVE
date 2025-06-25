@@ -31,8 +31,8 @@
 
 .major-card-subheading {
   font-weight: bold;
-  font-size: 1.1rem;
-  margin: 0;
+  @include font-heading-3;
+  margin-bottom: 12px;
 }
 
 // Notification Toast Styling
@@ -80,7 +80,6 @@
 .copy-icon, .major-card-link-arrow {
   width: 18px;
   height: 18px;
-  opacity: 0.7;
   transition: opacity 0.2s ease;
 }
 
@@ -90,9 +89,7 @@
 
 .major-card {
   background-color: $color-neutrals-white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
@@ -100,13 +97,49 @@
   width: 100%;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 
-  &:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-  }
-
   &:first-child {
     margin-top: 0;
+  }
+
+  &-subunit {
+    background-color: #3D555E;
+    color: #FBF8F6;
+    padding: 19px 42px 53px 25px;
+    border-radius: 8px;
+    margin-bottom: 39px;
+  }
+
+  &-video-title {
+    @include font-video-title;
+    margin-bottom: 14px;
+  }
+
+  &-time {
+    color: black;
+    @include font-time;
+  }
+
+  &-desc {
+    color: black;
+    @include font-desc;
+  }
+
+  &-video-cards {
+    background-color: #FBF8F6;
+    color: black;
+    border-radius: 8px;
+    padding: 31px 31px 31px 24px;
+  }
+
+  &-resources {
+    color: #FBF8F6;
+    @include font-resources;
+  }
+
+  &-practice-questions {
+    color: #FBF8F6;
+    @include font-practice;
+    margin-bottom: 19px;
   }
 
   &-top {
@@ -119,9 +152,10 @@
   }
 
   &-heading {
-    @include font-heading-3;
+    @include font-heading-2;
     color: $color-neutrals-black;
     margin-right: 1rem;
+    margin-bottom: 15px;
     max-width: 100%;
   }
 
@@ -170,6 +204,8 @@
   &-description {
     width: 100%;
     line-height: 1.6;
+    @include font-frame2-unit-description;
+    margin-bottom: 30px;
   }
 
   &-links {
@@ -248,5 +284,15 @@
     &-video-list {
       padding-left: 0;
     }
+  }
+
+  .btn-lightblue {
+    background-color: #71BFDE;
+    color: white;
+    @include font-button;
+    padding: 8px;
+    border-radius: 8px;
+    width: 145px;
+    height: 35px;
   }
 }
