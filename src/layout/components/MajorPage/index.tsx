@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
 import MajorCard from '../MajorCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
