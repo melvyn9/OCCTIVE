@@ -16,43 +16,6 @@ const MajorPage: React.FC = () => {
 
   return (
     <div className="major-page">
-      <div className="major-page-hero">
-        <div className="major-page-hero-content">
-          <div className="major-page-hero-text">
-            <h1 className="major-page-title">Welcome to the OCCTIVE Library!</h1>
-            <p className="major-page-text">
-              This course offers an accessible intro to computer science,
-              covering programming basics, problem-solving, and real-world applications.
-              Students will write simple programs in Python and R, explore how computers process
-              information, and see computing’s impact across industries through hands-on exercises!
-            </p>
-            <div className="major-page-hero-buttons">
-              <a
-                href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
-                className="btn-orange"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Dependency Chart
-              </a>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
-                className="btn-blue"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Provide Feedback
-              </a>
-            </div>
-          </div>
-          <img
-            className="major-page-hero-image"
-            src="/img/videos.png"
-            alt="OCCTIVE visual"
-          />
-        </div>
-      </div>
-
       <div className="major-page-content">
         <div className="major-page-side-items">
           <div className="major-page-sidebar">

@@ -1,9 +1,23 @@
 @import 'vars';
 
 // Default font
-$font-family: 'Inter', sans-serif;
+$font-family: 'Space Grotesk', sans-serif;
 
-// Custom font import
+// Font imports
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/SpaceGrotesk-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MBGrotesk';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/MBGrotesk-Regular.otf') format('opentype');
+}
+
 @font-face {
   font-family: 'Kefir';
   font-style: normal;
@@ -11,31 +25,17 @@ $font-family: 'Inter', sans-serif;
   src: url('../assets/fonts/kefir-regular.otf') format('opentype');
 }
 
-// Display and heading styles
-@mixin font-video-title {
-  font-size: 16px;
+// Mixins
+@mixin font-back-to-main-menu {
+  font-size: 10px;
   font-weight: bold;
-  text-decoration: underline;
-}
-
-@mixin font-time {
-  font-size: 12px;
-}
-
-@mixin font-desc {
-  font-size: 14px;
-}
-
-@mixin font-resources {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-@mixin font-practice {
-  font-size: 14px;
 }
 
 @mixin font-button {
+  font-size: 14px;
+}
+
+@mixin font-desc {
   font-size: 14px;
 }
 
@@ -43,37 +43,48 @@ $font-family: 'Inter', sans-serif;
   font-size: 64px;
   font-weight: 800;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 36px;
   }
+}
+
+@mixin font-footer-heading-text {
+  font-size: 14px;
+  font-weight: 700;
+
+  @media(max-width: $site-size-small) {
+    font-size: 12px;
+  }
+}
+
+@mixin font-footer-text {
+  font-size: 14px;
+  font-weight: 400;
+
+  @media(max-width: $site-size-small) {
+    font-size: 12px;
+  }
+}
+
+@mixin font-frame2-unit-description {
+  font-size: 18px;
 }
 
 @mixin font-heading-1 {
   font-size: 34px;
   font-weight: 800;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 24px;
   }
 }
 
-// New custom heading using Kefir font
 @mixin font-heading-1-kefir {
   font-family: 'Kefir', sans-serif;
   font-size: 50px;
   font-weight: 400;
 
-  @media(max-width: $site-size-small) { 
-    font-size: 24px;
-  }
-}
-
-@mixin font-heading-2-kefir {
-  font-family: 'Kefir', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 24px;
   }
 }
@@ -82,9 +93,19 @@ $font-family: 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 800;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 22px;
     font-weight: 700;
+  }
+}
+
+@mixin font-heading-2-kefir {
+  font-family: 'Kefir', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+
+  @media(max-width: $site-size-small) {
+    font-size: 24px;
   }
 }
 
@@ -92,60 +113,9 @@ $font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 800;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 17px;
     font-weight: 700;
-  }
-}
-
-@mixin font-frame2-unit-description {
-  font-size: 18px;
-}
-
-@mixin font-back-to-main-menu {
-  font-size: 10px;
-  font-weight: bold;
-}
-
-@mixin font-nav-bar-title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-@mixin font-nav-bar-text {
-  font-size: 18px;
-  font-weight: 500;
-
-  @media(max-width: $site-size-small) { 
-    font-size: 16px;
-  }
-}
-
-@mixin font-subtitle-1 {
-  font-size: 17px;
-  font-weight: 600;
-
-  @media(max-width: $site-size-small) { 
-    font-size: 16px;
-  }
-}
-
-@mixin font-story-text {
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 400;
-
-  @media(max-width: $site-size-small) { 
-    font-size: 16px;
-  }
-}
-
-@mixin font-text {
-  font-size: 15px;
-  font-weight: 400;
-
-  @media(max-width: $site-size-small) { 
-    font-size: 14px;
   }
 }
 
@@ -155,34 +125,77 @@ $font-family: 'Inter', sans-serif;
   font-weight: 400;
   text-decoration: underline;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 14px;
   }
 }
 
-@mixin font-footer-heading-text {
-  font-size: 14px;
-  font-weight: 700;
+@mixin font-nav-bar-text {
+  font-size: 18px;
+  font-weight: 500;
 
-  @media(max-width: $site-size-small) { 
-    font-size: 12px;
+  @media(max-width: $site-size-small) {
+    font-size: 16px;
   }
 }
 
-@mixin font-footer-text {
-  font-size: 14px;
-  font-weight: 400;
+@mixin font-nav-bar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
 
-  @media(max-width: $site-size-small) { 
-    font-size: 12px;
-  }
+@mixin font-practice {
+  font-size: 14px;
+}
+
+@mixin font-resources {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 @mixin font-small-button-text {
   font-size: 12px;
   font-weight: 400;
 
-  @media(max-width: $site-size-small) { 
+  @media(max-width: $site-size-small) {
     font-size: 10px;
   }
+}
+
+@mixin font-story-text {
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+
+  @media(max-width: $site-size-small) {
+    font-size: 16px;
+  }
+}
+
+@mixin font-subtitle-1 {
+  font-size: 17px;
+  font-weight: 600;
+
+  @media(max-width: $site-size-small) {
+    font-size: 16px;
+  }
+}
+
+@mixin font-text {
+  font-size: 15px;
+  font-weight: 400;
+
+  @media(max-width: $site-size-small) {
+    font-size: 14px;
+  }
+}
+
+@mixin font-time {
+  font-size: 12px;
+}
+
+@mixin font-video-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
 }

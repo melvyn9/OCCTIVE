@@ -103,18 +103,21 @@ const MajorCard: React.FC<MajorCardProps> = ({
   subunit3Video3Time: time9,
   subunit3Video3Desc: desc9,
 }) => {
-  // Notification
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (message: string) => {
     setToast(message);
-    setTimeout(() => setToast(null), 2500); // disappears after 2.5s
+    setTimeout(() => setToast(null), 2500);
   };
 
-  // helper to render each subunit if it exists
+  const getEmbedUrl = (url: string): string => {
+    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n]+)/);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+  };
+
   const renderSubunit = (
     title: string,
-    videos: { title: string; time: string, desc: string, url: string }[],
+    videos: { title: string; time: string; desc: string; url: string }[],
     copyText: string,
   ) => {
     const filteredVideos = videos.filter((v) => v.title && v.url);
@@ -148,16 +151,22 @@ const MajorCard: React.FC<MajorCardProps> = ({
         <div className="major-card-video-cards">
           {filteredVideos.map((video, index) => (
             <div key={index} className="major-card-video-card">
-              <a
-                href={video.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="major-card-video-link"
-              >
-                <p className="major-card-video-title">{video.title}</p>
-              </a>
+              <p className="major-card-video-title">{video.title}</p>
               <p className="major-card-time">{video.time}</p>
               <p className="major-card-desc">{video.desc}</p>
+
+              <div className="video-frame-container">
+                <iframe
+                  width="100%"
+                  height="250"
+                  src={getEmbedUrl(video.url)}
+                  title={`Video ${index + 1}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+
               <a
                 href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
                 className="btn-lightblue"
@@ -188,47 +197,86 @@ const MajorCard: React.FC<MajorCardProps> = ({
 
         <div className="major-card-subunits">
           <div className="major-card-subunit-1">
-
-            {renderSubunit(subunit1Title, [
-              {
-                title: video1, time: time1, desc: desc1, url: url1,
-              },
-              {
-                title: video2, time: time2, desc: desc2, url: url2,
-              },
-              {
-                title: video3, time: time3, desc: desc3, url: url3,
-              },
-            ], subunit1Copy)}
+            {renderSubunit(
+              subunit1Title,
+              [
+                {
+                  title: video1,
+                  time: time1,
+                  desc: desc1,
+                  url: url1,
+                },
+                {
+                  title: video2,
+                  time: time2,
+                  desc: desc2,
+                  url: url2,
+                },
+                {
+                  title: video3,
+                  time: time3,
+                  desc: desc3,
+                  url: url3,
+                },
+              ],
+              subunit1Copy,
+            )}
           </div>
 
           <div className="major-card-subunit-2">
-            {renderSubunit(subunit2Title, [
-              {
-                title: video4, time: time4, desc: desc4, url: url4,
-              },
-              {
-                title: video5, time: time5, desc: desc5, url: url5,
-              },
-              {
-                title: video6, time: time6, desc: desc6, url: url6,
-              },
-            ], subunit2Copy)}
+            {renderSubunit(
+              subunit2Title,
+              [
+                {
+                  title: video4,
+                  time: time4,
+                  desc: desc4,
+                  url: url4,
+                },
+                {
+                  title: video5,
+                  time: time5,
+                  desc: desc5,
+                  url: url5,
+                },
+                {
+                  title: video6,
+                  time: time6,
+                  desc: desc6,
+                  url: url6,
+                },
+              ],
+              subunit2Copy,
+            )}
           </div>
 
           <div className="major-card-subunit-3">
-            {renderSubunit(subunit3Title, [
-              {
-                title: video7, time: time7, desc: desc7, url: url7,
-              },
-              {
-                title: video8, time: time8, desc: desc8, url: url8,
-              },
-              {
-                title: video9, time: time9, desc: desc9, url: url9,
-              },
-            ], subunit3Copy)}
+            {renderSubunit(
+              subunit3Title,
+              [
+                {
+                  title: video7,
+                  time: time7,
+                  desc: desc7,
+                  url: url7,
+                },
+                {
+                  title: video8,
+                  time: time8,
+                  desc: desc8,
+                  url: url8,
+                },
+                {
+                  title: video9,
+                  time: time9,
+                  desc: desc9,
+                  url: url9,
+                },
+              ],
+              subunit3Copy,
+            )}
           </div>
+
           {note && (
             <div className="major-card-note">
               <p className="major-card-note-text">{note}</p>
@@ -236,6 +284,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
           )}
         </div>
       </div>
+
       {toast && (
         <div className="copy-toast">
           {toast}

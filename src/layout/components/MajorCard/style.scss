@@ -5,53 +5,51 @@
   display: block;
   position: relative;
   top: calc(-5.25rem - 2.25rem);
+  visibility: hidden;
 
   @media (max-width: $site-size-small) {
     top: calc(-3.5rem - 1rem);
   }
-
-  visibility: hidden;
 }
 
 // Major Card Styling
 .major-card-subheading-container {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
 .major-card-subheading-link {
-  display: flex;
   align-items: center;
-  text-decoration: none;
   color: inherit;
+  display: flex;
   gap: 4px;
+  text-decoration: none;
 }
 
 .major-card-subheading {
-  font-weight: bold;
   @include font-heading-3;
+  font-weight: bold;
   margin-bottom: 12px;
 }
 
 // Notification Toast Styling
 .copy-toast {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
+  align-items: center;
+  animation: fadeOut 0.4s ease-in-out 2s forwards;
   background-color: #70c57f;
-  color: white;
-  padding: 0.75rem 1.25rem;
   border-radius: 6px;
+  color: #fff;
+  display: flex;
   font-size: 0.9rem;
   font-weight: 500;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 1.25rem;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
   z-index: 9999;
-  animation: fadeOut 0.4s ease-in-out 2s forwards;
 }
 
 .toast-check {
@@ -68,22 +66,24 @@
 
 // Copy Icon Styling
 .copy-icon-button {
+  align-items: center;
   background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
+  border: 0;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.copy-icon, .major-card-link-arrow {
-  width: 18px;
+.copy-icon,
+.major-card-link-arrow {
   height: 18px;
   transition: opacity 0.2s ease;
+  width: 18px;
 }
 
-.copy-icon:hover, .major-card-link-arrow:hover {
+.copy-icon:hover,
+.major-card-link-arrow:hover {
   opacity: 1;
 }
 
@@ -94,19 +94,19 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
-  width: 100%;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  width: 100%;
 
   &:first-child {
     margin-top: 0;
   }
 
   &-subunit {
-    background-color: #3D555E;
-    color: #FBF8F6;
-    padding: 19px 42px 53px 25px;
+    background-color: #3d555e;
     border-radius: 8px;
+    color: #fbf8f6;
     margin-bottom: 39px;
+    padding: 19px 42px 53px 25px;
   }
 
   &-video-title {
@@ -115,30 +115,30 @@
   }
 
   &-time {
-    color: black;
     @include font-time;
+    color: #000;
   }
 
   &-desc {
-    color: black;
     @include font-desc;
+    color: #000;
   }
 
   &-video-cards {
-    background-color: #FBF8F6;
-    color: black;
+    background-color: #fbf8f6;
     border-radius: 8px;
+    color: #000;
     padding: 31px 31px 31px 24px;
   }
 
   &-resources {
-    color: #FBF8F6;
     @include font-resources;
+    color: #fbf8f6;
   }
 
   &-practice-questions {
-    color: #FBF8F6;
     @include font-practice;
+    color: #fbf8f6;
     margin-bottom: 19px;
   }
 
@@ -154,8 +154,8 @@
   &-heading {
     @include font-heading-2;
     color: $color-neutrals-black;
-    margin-right: 1rem;
     margin-bottom: 15px;
+    margin-right: 1rem;
     max-width: 100%;
   }
 
@@ -192,20 +192,20 @@
 
     .major-card-subheading {
       @include font-subtitle-1;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.5rem;
     }
   }
 
   &-subheading {
     @include font-subtitle-1;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
   }
 
   &-description {
-    width: 100%;
-    line-height: 1.6;
     @include font-frame2-unit-description;
+    line-height: 1.6;
     margin-bottom: 30px;
+    width: 100%;
   }
 
   &-links {
@@ -287,12 +287,24 @@
   }
 
   .btn-lightblue {
-    background-color: #71BFDE;
-    color: white;
     @include font-button;
-    padding: 8px;
+    background-color: #71bfde;
     border-radius: 8px;
-    width: 145px;
+    color: #fff;
     height: 35px;
+    padding: 8px;
+    width: 145px;
+  }
+}
+
+.video-frame-container {
+  aspect-ratio: 16 / 9;
+  margin: 1rem 0;
+  width: 100%;
+
+  iframe {
+    border: 0;
+    height: 100%;
+    width: 100%;
   }
 }
