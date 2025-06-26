@@ -20,15 +20,15 @@ const HomePage: React.FC = () => {
   return (
     <main className="home-page">
       {/* OCCTIVE hero */}
-      <section className="major-page-hero">
-        <div className="major-page-hero-content">
-          <div className="major-page-hero-text">
-            <h1 className="major-page-title">Welcome to the OCCTIVE Library</h1>
-            <p className="major-page-text">
+      <section className="home-page-hero">
+        <div className="home-page-hero-content">
+          <div className="home-page-hero-text">
+            <h1 className="home-page-title">Welcome to the OCCTIVE Library</h1>
+            <p className="home-page-text">
               An accessible intro to computer science, covering programming basics,
               problem-solving, and real-world applications in Python and R.
             </p>
-            <div className="major-page-hero-buttons">
+            <div className="home-page-hero-buttons">
               <a
                 href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
                 className="btn-orange"
@@ -49,9 +49,10 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
       {/* video cards */}
-      <section className="major-page-content">
-        <div className="major-page-cards">
+      <section className="home-page-content">
+        <div className="home-page-cards">
           {videoData.map((unit) => (
             <MajorCard
               key={unit.name}
