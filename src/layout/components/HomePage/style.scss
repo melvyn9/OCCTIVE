@@ -153,19 +153,23 @@
     }
   }
 
-  .home-page .btn-orange, .major-page .btn-orange {
+  .home-page .btn-orange,
+  .major-page .btn-orange {
     padding: 1rem;
   }
 
-  .home-page .btn-blue, .major-page .btn-blue {
+  .home-page .btn-blue,
+  .major-page .btn-blue {
     padding: 1rem;
   }
 
-  .home-page-hero-buttons, .major-page-hero-buttons {
+  .home-page-hero-buttons,
+  .major-page-hero-buttons {
     gap: 1rem;
   }
 
-  .major-card-description, .major-card-video-link {
+  .major-card-description,
+  .major-card-video-link {
     font-size: 14px;
   }
 }
