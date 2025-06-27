@@ -1,42 +1,28 @@
 @import '../../../styles/fonts';
 @import '../../../styles/vars';
 
-/* Applies to BOTH .major-page-* and .home-page-* */
-.major-page,
+/* Only targets HomePage */
 .home-page {
   &-hero {
     background-color: #37555b;
     left: 50%;
-    margin: 0; // remove auto-centering
+    margin: 0;
     margin-left: -50vw;
     margin-right: -50vw;
     padding: 5rem 0 3rem;
-    position: relative; // optional for further layout control
+    position: relative;
     text-align: center;
-    width: 100vw; // force full viewport width
-  }
-
-  &-hero-buttons {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 2rem;
-    width: 100%;
+    width: 100vw;
   }
 
   &-hero-content {
-    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    align-items: center;
     justify-content: center;
+    gap: 2rem;
     margin: 0;
     max-width: none;
-  }
-
-  &-hero-image {
-    height: auto;
-    max-width: 350px;
   }
 
   &-hero-text {
@@ -60,16 +46,12 @@
     max-width: 700px;
   }
 
-  &-subheading {
-    @include font-heading-2-kefir;
-  }
-
-  &-cards {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 0.5rem;
-    padding: 0.5rem 0;
+  &-hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 100%;
   }
 
   &-content {
@@ -79,16 +61,13 @@
     padding: 2rem 1.5rem;
   }
 
-  &-link {
-    @include font-subtitle-1;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    color: $color-neutrals-dark-grey;
-    display: inline-flex;
-    padding: 1rem 1.5rem;
-    width: 18rem;
+  &-cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
   }
-
   /* buttons */
   .btn-orange {
     background-color: #ff8c66;
@@ -121,13 +100,11 @@
       transform: scale(1.02);
     }
   }
+}
 
-  // Screens < 1200px
-  @media (max-width: $site-size-small) {
-    // &-hero-content {
-    //   align-items: flex-start;
-    //   flex-direction: column;
-    // }
+/* Medium screens (<1200px) */
+@media (max-width: $site-size-small) {
+  .home-page {
     &-cards {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       padding: 1rem 0;
@@ -137,37 +114,27 @@
       margin: 1.5rem -1.5rem -1.5rem;
       padding: 1.5rem;
     }
-
-    &-hero-image {
-      max-width: 100%;
-    }
   }
 }
 
-// For Mobile
+/* Mobile (<500px) */
 @media (max-width: 499px) {
-  .major-page,
   .home-page {
     &-cards {
-      grid-template-columns: repeat(1, minmax(0, 1fr));
+      grid-template-columns: 1fr;
     }
   }
 
-  .home-page .btn-orange,
-  .major-page .btn-orange {
-    padding: 1rem;
-  }
-
-  .home-page .btn-blue,
-  .major-page .btn-blue {
-    padding: 1rem;
-  }
-
-  .home-page-hero-buttons,
-  .major-page-hero-buttons {
+  .home-page-hero-buttons {
     gap: 1rem;
   }
 
+  .home-page .btn-orange,
+  .home-page .btn-blue {
+    padding: 1rem;
+  }
+
+  /* Optional: shrink card text */
   .major-card-description,
   .major-card-video-link {
     font-size: 14px;
