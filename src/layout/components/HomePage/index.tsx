@@ -5,10 +5,12 @@ import MajorCard from '../MajorCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
 
 import './style.scss';
+import DependencyGraph from '../DependencyGraph';
 
 const HomePage: React.FC = () => {
   /* ---------- OCCTIVE video data ---------- */
   const [videoData, setVideoData] = useState<Videos[]>([]);
+  const [showGraph, setShowGraph] = useState(false);
 
   useEffect(() => {
     useData(DataTypes.Videos)
@@ -45,10 +47,18 @@ const HomePage: React.FC = () => {
               >
                 Provide Feedback
               </a>
+              <button
+                type="button"
+                className="btn-green"
+                onClick={() => setShowGraph((v) => !v)}
+              >
+                {showGraph ? 'Hide' : 'Show'} Dependency Graph
+              </button>
             </div>
           </div>
         </div>
       </section>
+      {showGraph && <DependencyGraph />}
 
       {/* video cards */}
       <section className="home-page-content">
