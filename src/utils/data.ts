@@ -3,28 +3,7 @@ import Papa from 'papaparse';
 const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6rL8L7-EZNE9qQHbA18j3gcUAvWLQ2B5TnloSPkxQR4iKvDMJxp-UFOdsFlGhjM0x47pUK4gcuC2/pub?output=csv';
 
 export enum DataTypes {
-  Headers = '29489883',
-  Home='395547379',
-  Majors = '860790804',
   Videos = '2013487824',
-  Departments = '929723649',
-  MajorSpecializations = '1867072131',
-}
-
-export interface Majors {
-  code: string;
-  name: string;
-  selective: string;
-  'degree_type': string;
-  departments: string;
-  hook: string;
-  description: string;
-  'link_1_title': string;
-  'link_1_url': string;
-  'link_2_title': string;
-  'link_2_url': string;
-  image: string;
-  note: string;
 }
 
 export interface Videos {

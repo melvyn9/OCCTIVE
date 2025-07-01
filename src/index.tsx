@@ -15,7 +15,7 @@ ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route exact path="/majors" component={MajorPage} />
+      <Route exact path="/units" component={MajorPage} />
       <Route path="/" component={ErrorPage} />
     </Switch>
   </Router>,

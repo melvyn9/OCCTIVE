@@ -1,3 +1,3 @@
 export const pages = [
-  { title: 'Majors', link: '/majors' },
+  { title: 'Units', link: '/units' },
 ];
