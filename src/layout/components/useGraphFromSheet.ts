@@ -6,7 +6,7 @@ const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6rL8L7-EZNE9
 interface Row {
   id: string;
   title: string;
-  parent_ids: string;
+  parentIds: string;
 }
 
 export function useGraphFromSheet() {
@@ -34,7 +34,7 @@ export function useGraphFromSheet() {
               data: { label: r.title, group },
             });
 
-            r.parent_ids
+            r.parentIds
               ?.split(',')
               .filter(Boolean)
               .forEach((p) => e.push({ id: `${p}->${r.id}`, source: p, target: r.id }));
