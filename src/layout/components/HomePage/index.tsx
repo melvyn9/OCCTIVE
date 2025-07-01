@@ -31,14 +31,14 @@ const HomePage: React.FC = () => {
               problem-solving, and real-world applications in Python and R.
             </p>
             <div className="home-page-hero-buttons">
-              <a
-                href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
+              <button
+                type="button"
                 className="btn-orange"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => setShowGraph((v) => !v)}
               >
-                Dependency Chart
-              </a>
+                {showGraph ? 'Hide Dependency Graph' : 'Show Dependency Graph'}
+              </button>
+
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
                 className="btn-blue"
@@ -47,17 +47,11 @@ const HomePage: React.FC = () => {
               >
                 Provide Feedback
               </a>
-              <button
-                type="button"
-                className="btn-green"
-                onClick={() => setShowGraph((v) => !v)}
-              >
-                {showGraph ? 'Hide' : 'Show'} Dependency Graph
-              </button>
             </div>
           </div>
         </div>
       </section>
+
       {showGraph && <DependencyGraph />}
 
       {/* video cards */}

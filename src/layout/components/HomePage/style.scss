@@ -55,9 +55,9 @@
   }
 
   &-content {
-    background-color: $color-tag-white;
+    // background-color: $color-tag-white;
     margin: 0 auto;
-    max-width: 1500px;
+    // max-width: 1500px;
     padding: 2rem 1.5rem;
   }
 
@@ -75,6 +75,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     color: $color-tag-white;
     cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1rem;
     padding: 1rem 2rem;
     transition: background-color 0.2s ease, transform 0.15s ease;
@@ -132,6 +133,9 @@
   .home-page .btn-orange,
   .home-page .btn-blue {
     padding: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    font-size: 14px;
   }
 
   /* Optional: shrink card text */

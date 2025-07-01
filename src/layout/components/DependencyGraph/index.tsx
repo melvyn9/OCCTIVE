@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
-import { toPng } from 'html-to-image';
 import 'reactflow/dist/style.css';
 import { useGraphFromSheet } from '../useGraphFromSheet';
 
@@ -91,16 +90,6 @@ const DependencyGraph: React.FC = () => {
 
   const { nodes: laidNodes, edges: laidEdges } = layout(nodes, edges);
 
-  const downloadPNG = () => {
-    const el = document.querySelector('.react-flow__viewport') as HTMLElement;
-    toPng(el).then((url) => {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'dependency-graph.png';
-      a.click();
-    });
-  };
-
   return (
     <ReactFlowProvider>
       <div style={{ height: 520, border: '1px solid #d1d5db' }}>
@@ -108,10 +97,6 @@ const DependencyGraph: React.FC = () => {
           <Background />
         </ReactFlow>
       </div>
-
-      <button type="button" className="btn-orange mt-2" onClick={downloadPNG}>
-        Download PNG
-      </button>
     </ReactFlowProvider>
   );
 };
