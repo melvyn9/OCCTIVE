@@ -5,23 +5,35 @@ import { toPng } from 'html-to-image';
 import 'reactflow/dist/style.css';
 import { useGraphFromSheet } from '../useGraphFromSheet';
 
-/* ───────── helpers ──────── */
+/* ───────── colour palette ───────── */
 
-const colourFor = (status: string) => {
-  switch (status) {
-    case 'new': return '#a7f3d0';
-    case 'old': return '#e5e7eb';
-    default: return '#fce7f3'; // planned
-  }
-};
+const palette = [
+  '#00AEEF', // Bright Blue
+  '#F5FF66', // Lime Yellow
+  '#FF69B4', // Hot Pink
+  '#FF8866', // Coral
+  '#FFD966', // Soft Yellow
+  '#7FDBFF', // Sky Blue
+  '#32CD32', // Lime Green
+  // Additional colors
+  '#8A2BE2', // Deep Purple
+  '#20B2AA', // Teal
+  '#FF7034', // Burnt Orange
+  '#4B0082', // Indigo
+  '#BA55D3', // Medium Orchid
+  '#6A5ACD', // Slate Blue
+  '#DAA520', // Goldenrod
+  '#48D1CC', // Medium Turquoise
+  '#FF6347', // Tomato
+  '#4682B4', // Steel Blue
+];
+
+/* ───────── helpers ───────── */
 
 function uniqById(list: any[]) {
   const seen = new Set<string>();
   return list.filter((n) => {
-    if (seen.has(n.id)) {
-      console.warn(`⚠︎ duplicate id "${n.id}" ignored`);
-      return false;
-    }
+    if (seen.has(n.id)) return false;
     seen.add(n.id);
     return true;
   });
@@ -30,15 +42,22 @@ function uniqById(list: any[]) {
 function layout(nodes: any[], edges: any[]) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
   g.setGraph({ rankdir: 'TB' });
-  g.setDefaultEdgeLabel(() => ({})); // avoid undefined labels
+  g.setDefaultEdgeLabel(() => ({}));
 
   nodes.forEach((n) => g.setNode(n.id, { width: 160, height: 40 }));
-  edges.forEach((e) => {
-    /* 4th param = unique key => prevents duplicate-edge crash */
-    g.setEdge(e.source, e.target, {}, e.id);
-  });
+  edges.forEach((e) => g.setEdge(e.source, e.target, {}, e.id));
 
   dagre.layout(g);
+
+  /* map every unique group → a colour from the palette */
+  const colourOf = new Map<string, string>();
+  let next = 0;
+  nodes.forEach(({ data: { group } }) => {
+    if (!colourOf.has(group)) {
+      colourOf.set(group, palette[next % palette.length]);
+      next += 1;
+    }
+  });
 
   return {
     nodes: nodes.map((n) => {
@@ -47,10 +66,10 @@ function layout(nodes: any[], edges: any[]) {
         ...n,
         position: { x: pos.x, y: pos.y },
         style: {
-          background: colourFor(n.data.status),
+          background: '#f1f5f9',
           borderRadius: 6,
           padding: 4,
-          border: '1px solid #94a3b8',
+          border: `3px solid ${colourOf.get(n.data.group)}`,
           fontSize: 12,
         },
       };
@@ -66,14 +85,9 @@ const DependencyGraph: React.FC = () => {
 
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
-
-  const edges = rawEdges.filter((e) => {
-    const ok = nodeIds.has(e.source) && nodeIds.has(e.target);
-    if (!ok) {
-      console.warn(`⚠︎ dropped edge ${e.id} — bad endpoint`);
-    }
-    return ok;
-  });
+  const edges = rawEdges.filter(
+    (e) => nodeIds.has(e.source) && nodeIds.has(e.target),
+  );
 
   const { nodes: laidNodes, edges: laidEdges } = layout(nodes, edges);
 

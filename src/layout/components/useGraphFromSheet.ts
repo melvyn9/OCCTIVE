@@ -7,7 +7,6 @@ interface Row {
   id: string;
   title: string;
   parent_ids: string;
-  status: 'new' | 'old' | 'planned';
 }
 
 export function useGraphFromSheet() {
@@ -26,17 +25,21 @@ export function useGraphFromSheet() {
 
           data.forEach((r) => {
             if (!r.id) return;
+
+            /** prefix before the first digit, eg "A", "B", "C" */
+            const group = (r.id.match(/^[A-Za-z]+/) ?? [''])[0];
+
             n.push({
               id: r.id,
-              data: { label: r.title, status: r.status },
+              data: { label: r.title, group },
             });
+
             r.parent_ids
               ?.split(',')
               .filter(Boolean)
               .forEach((p) => e.push({ id: `${p}->${r.id}`, source: p, target: r.id }));
           });
 
-          console.log('nodes', n.length, 'edges', e.length);
           setNodes(n);
           setEdges(e);
         },
