@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-console': 'off',
     'react/require-default-props': 'off',
     'linebreak-style': 0,
     'react/prop-types': 'off',
