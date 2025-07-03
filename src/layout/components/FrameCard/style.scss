@@ -2,9 +2,9 @@
 @import '../../../styles/base';
 
 .video-card-container {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
+  align-items: flex-start;
+  display: flex;
+  gap: 24px;
 }
 
 .frame-hyperlink {
@@ -18,7 +18,7 @@
   }
 }
 
-// frame Card Styling
+// Frame Card Styling
 .frame-card-subheading-container {
   align-items: center;
   display: flex;
@@ -116,6 +116,7 @@
 
   &-video-title {
     @include font-video-title;
+    color: #000;
     margin-bottom: 14px;
   }
 
@@ -133,7 +134,7 @@
   }
 
   &-video-cards {
-    background-color: #fbf8f6;
+    background-color: #fff;
     border-radius: 8px;
     color: #000;
     padding: 31px 31px 31px 24px;
@@ -141,12 +142,12 @@
 
   &-resources {
     @include font-resources;
-    color: #fbf8f6;
+    color: #fff;
   }
 
   &-practice-questions {
     @include font-practice;
-    color: #fbf8f6;
+    color: #fff;
     margin-bottom: 19px;
   }
 
@@ -304,25 +305,108 @@
     width: 145px;
 
     &:hover {
-        filter: brightness(1.05);
-        transform: scale(1.02);
+      filter: brightness(1.05);
+      transform: scale(1.02);
     }
   }
 }
 
 .video-card.info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .video-frame-container {
   aspect-ratio: 16 / 9;
-  margin: 31px 0;
   flex: 1;
+  margin: 31px 0;
 
   iframe {
     border: 0;
+  }
+}
+
+/* NEW LAYOUT FOR VIDEO ENTRIES */
+.video-entry-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  width: 100%;
+
+  @media (max-width: $site-size-small) {
+    flex-direction: column;
+  }
+}
+
+.video-entry-left {
+  flex: 1;
+  min-width: 50%;
+
+  iframe {
+    height: 100%;
+    min-height: 220px;
+    width: 100%;
+  }
+}
+
+.video-entry-right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25rem;
+
+  .frame-card-video-title {
+    @include font-video-title;
+    margin-bottom: 10px;
+  }
+
+  .frame-card-time {
+    @include font-time;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .frame-card-desc {
+    @include font-desc;
+    color: #000;
+    margin-bottom: 14px;
+  }
+
+  .btn-lightblue {
+    @include font-button;
+    background-color: #71bfde;
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px;
+    transition: 0.2s ease;
+    width: fit-content;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
+    }
+  }
+
+  .btn-dependencies {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 500;
+    gap: 0.5rem;
+    height: auto;
+    line-height: 1;
+    padding: 0.5rem 1rem;
+    width: auto;
+
+    .dependency-icon {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
   }
 }

@@ -4,13 +4,13 @@
 .major-page {
   &-back-to-main-menu {
     @include font-back-to-main-menu;
+    color: #fff;
     margin-left: 20px;
-    color: #fbf8f6;
   }
 
   &-navbar-title {
     @include font-nav-bar-title;
-    color: #fbf8f6;
+    color: #fff;
     margin-left: 20px;
   }
 
@@ -87,7 +87,7 @@
     border-radius: 8px;
 
     a {
-      color: #fbf8f6;
+      color: #fff;
     }
   }
 

@@ -16,11 +16,11 @@
   }
 
   &-hero-content {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     gap: 2rem;
+    justify-content: center;
     margin: 0;
     max-width: none;
   }
@@ -55,9 +55,7 @@
   }
 
   &-content {
-    // background-color: $color-tag-white;
     margin: 0 auto;
-    // max-width: 1500px;
     padding: 2rem 1.5rem;
   }
 
@@ -68,6 +66,7 @@
     margin-top: 0.5rem;
     padding: 0.5rem 0;
   }
+
   /* buttons */
   .btn-orange {
     background-color: #ff8c66;
@@ -123,20 +122,20 @@
     &-cards {
       grid-template-columns: 1fr;
     }
-  }
 
-  .home-page-hero-buttons {
-    gap: 1rem;
-  }
+    &-hero-buttons {
+      gap: 1rem;
+    }
 
-  .home-page .btn-orange,
-  .home-page .btn-blue {
-    padding: 1rem;
-  }
+    .btn-orange,
+    .btn-blue {
+      padding: 1rem;
+    }
 
-  /* Optional: shrink card text */
-  .major-card-description,
-  .major-card-video-link {
-    font-size: 14px;
+    /* Optional: shrink card text */
+    .major-card-description,
+    .major-card-video-link {
+      font-size: 14px;
+    }
   }
 }

@@ -12,6 +12,13 @@ $font-family: 'Space Grotesk', sans-serif;
 }
 
 @font-face {
+  font-family: 'Space Grotesk';
+  font-style: 700;
+  font-weight: bold;
+  src: url('../assets/fonts/SpaceGrotesk-SemiBold.otf') format('opentype');
+}
+
+@font-face {
   font-family: 'MBGrotesk';
   font-style: normal;
   font-weight: normal;
@@ -80,7 +87,7 @@ $font-family: 'Space Grotesk', sans-serif;
 }
 
 @mixin font-heading-1-kefir {
-  font-family: 'Kefir', sans-serif;
+  font-family: 'MBGrotesk', sans-serif;
   font-size: 50px;
   font-weight: 400;
 
@@ -100,7 +107,7 @@ $font-family: 'Space Grotesk', sans-serif;
 }
 
 @mixin font-heading-2-kefir {
-  font-family: 'Kefir', sans-serif;
+  font-family: 'MBGrotesk', sans-serif;
   font-size: 28px;
   font-weight: 400;
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CopyIconWhite from '../../../assets/CopyIconWhite.svg';
+import DependencyChartBtnIcon from '../../../assets/dependency_chart_btn_icon.svg';
 import './style.scss';
 
 /* ------------------------------------------------------------------ */
@@ -69,7 +70,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
   description,
   note,
 
-  /* ---------- Sub-unit 1 ---------- */
   subunit1: subunit1Title,
   subunit1Copy,
   subunit1Video1: video1,
@@ -85,7 +85,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
   subunit1Video3Time: time3,
   subunit1Video3Desc: desc3,
 
-  /* ---------- Sub-unit 2 ---------- */
   subunit2: subunit2Title,
   subunit2Copy,
   subunit2Video1: video4,
@@ -101,7 +100,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
   subunit2Video3Time: time6,
   subunit2Video3Desc: desc6,
 
-  /* ---------- Sub-unit 3 ---------- */
   subunit3: subunit3Title,
   subunit3Copy,
   subunit3Video1: video7,
@@ -117,7 +115,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
   subunit3Video3Time: time9,
   subunit3Video3Desc: desc9,
 }) => {
-  /* ------------------------- Toast logic ------------------------- */
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (message: string) => {
@@ -125,7 +122,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
     setTimeout(() => setToast(null), 2500);
   };
 
-  /* -------------------------- Helpers ---------------------------- */
   const getEmbedUrl = (url: string): string => {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n]+)/);
     return match ? `https://www.youtube.com/embed/${match[1]}` : url;
@@ -150,7 +146,6 @@ const FrameCard: React.FC<FrameCardProps> = ({
       <div className="frame-card-subunit">
         <div className="frame-card-subheading-container">
           <span className="frame-card-subheading">{title}</span>
-
           {copyText && (
             <button
               type="button"
@@ -163,121 +158,139 @@ const FrameCard: React.FC<FrameCardProps> = ({
           )}
         </div>
 
-        { /* <p className="frame-card-resources">Resources</p> */ }
-        { /* <p className="frame-card-practice-questions">Practice Questions</p> */ }
-
-        <div className="frame-card-video-cards">
-          {filteredVideos.map((video, index) => (
-            <div key={index} className="frame-card-video-card">
-              <div className="video-card-container">
-                <div className="video-frame-container">
-                  <iframe
-                    width="100%"
-                    height="250"
-                    src={getEmbedUrl(video.url)}
-                    title={`Video ${index + 1}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+        {filteredVideos.map((video, index) => (
+          <div key={index} className="video-entry-card">
+            <div className="video-entry-left">
+              <iframe
+                src={getEmbedUrl(video.url)}
+                title={`Video ${index + 1}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="video-entry-right">
+              <p className="frame-card-video-title">
+                {video.title}
+              </p>
+              <p className="frame-card-time">
+                {video.time}
+              </p>
+              <p className="frame-card-desc">
+                {video.desc}
+              </p>
+              <div style={{ display: 'inline-block' }}>
+                <a
+                  href="..."
+                  className="btn-lightblue btn-dependencies"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={DependencyChartBtnIcon}
+                    alt="Dependencies Icon"
+                    className="dependency-icon"
                   />
-                </div>
-                <div className="video-card-info">
-                  <p className="frame-card-video-title">{video.title}</p>
-                  <p className="frame-card-time">{video.time}</p>
-                  <p className="frame-card-desc">{video.desc}</p>
-
-                  <a
-                    href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
-                    className="btn-lightblue"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      src="/img/dependency_icon.png"
-                      alt="Dependencies Icon"
-                      className="dependency-icon"
-                    />
-                    Dependencies
-                  </a>
-                </div>
+                  Dependencies
+                </a>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     );
   };
 
-  /* --------------------------- JSX ------------------------------- */
   return (
     <>
       <div className="frame-card">
-        {/* --------- Unit heading + overview --------- */}
         <div className="frame-card-unit">
           <p className="frame-card-heading">{name}</p>
           <p className="frame-card-description">{description}</p>
         </div>
 
-        {/* --------- Sub-units --------- */}
-        {/* Sub-unit 1 */}
         {renderSubunit(
           subunit1Title,
           [
             {
-              title: video1, time: time1, desc: desc1, url: url1,
+              title: video1,
+              time: time1,
+              desc: desc1,
+              url: url1,
             },
             {
-              title: video2, time: time2, desc: desc2, url: url2,
+              title: video2,
+              time: time2,
+              desc: desc2,
+              url: url2,
             },
             {
-              title: video3, time: time3, desc: desc3, url: url3,
+              title: video3,
+              time: time3,
+              desc: desc3,
+              url: url3,
             },
           ],
           subunit1Copy,
         )}
 
-        {/* Sub-unit 2 */}
         {renderSubunit(
           subunit2Title,
           [
             {
-              title: video4, time: time4, desc: desc4, url: url4,
+              title: video4,
+              time: time4,
+              desc: desc4,
+              url: url4,
             },
             {
-              title: video5, time: time5, desc: desc5, url: url5,
+              title: video5,
+              time: time5,
+              desc: desc5,
+              url: url5,
             },
             {
-              title: video6, time: time6, desc: desc6, url: url6,
+              title: video6,
+              time: time6,
+              desc: desc6,
+              url: url6,
             },
           ],
           subunit2Copy,
         )}
 
-        {/* Sub-unit 3 */}
         {renderSubunit(
           subunit3Title,
           [
             {
-              title: video7, time: time7, desc: desc7, url: url7,
+              title: video7,
+              time: time7,
+              desc: desc7,
+              url: url7,
             },
             {
-              title: video8, time: time8, desc: desc8, url: url8,
+              title: video8,
+              time: time8,
+              desc: desc8,
+              url: url8,
             },
             {
-              title: video9, time: time9, desc: desc9, url: url9,
+              title: video9,
+              time: time9,
+              desc: desc9,
+              url: url9,
             },
           ],
           subunit3Copy,
         )}
 
-        {/* Optional note */}
         {note && (
           <div className="frame-card-note">
             <p className="frame-card-note-text">{note}</p>
           </div>
         )}
       </div>
-      {/* Toast */}
+
       {toast && <div className="copy-toast">{toast}</div>}
     </>
   );
