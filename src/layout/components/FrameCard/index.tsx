@@ -143,7 +143,7 @@ const FrameCard: React.FC<FrameCardProps> = ({
       navigator.clipboard
         .writeText(copyText)
         .then(() => showToast('Copied to clipboard!'))
-        .catch((err) => console.error('Copy failed:', err));
+        .catch(() => showToast('Copy failed!'));
     };
 
     return (
