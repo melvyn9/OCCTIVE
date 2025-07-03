@@ -4,12 +4,14 @@
 .major-page {
   &-back-to-main-menu {
     @include font-back-to-main-menu;
+    margin-left: 20px;
     color: #fbf8f6;
   }
 
   &-navbar-title {
     @include font-nav-bar-title;
     color: #fbf8f6;
+    margin-left: 20px;
   }
 
   &-hero {
@@ -62,10 +64,7 @@
   &-cards {
     display: grid;
     flex: 1;
-    gap: 2rem;
     grid-template-columns: 1fr;
-    margin-top: 2rem;
-    padding: 2rem 0;
   }
 
   &-content {
@@ -99,7 +98,6 @@
     color: #fff;
     display: inline-flex;
     padding: 1rem 1.5rem;
-    width: 18rem;
   }
 
   .btn-orange {

@@ -24,7 +24,7 @@ const MajorPage: React.FC = () => {
         <div className="major-page-side-items">
           <div className="major-page-sidebar">
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
+              href="/"
               className="major-page-back-to-main-menu"
               target="_blank"
               rel="noopener noreferrer"
@@ -36,13 +36,12 @@ const MajorPage: React.FC = () => {
               />
               Back to Main Menu
             </a>
-
+            <br />
             <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
-
             {videoData.map((unit, index) => (
               <div className="major-page-link" key={index}>
-                <Link smooth to={`/majors#${unit.name.replace(/\s/g, '-')}`}>
-                  {unit.name}
+                <Link smooth to={`/majors#${unit.name.slice(2).replace(/\s/g, '-')}`}>
+                  {unit.name.slice(2)}
                 </Link>
               </div>
             ))}
