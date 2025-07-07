@@ -74,6 +74,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     color: $color-tag-white;
     cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1rem;
     padding: 1rem 2rem;
     transition: background-color 0.2s ease, transform 0.15s ease;
@@ -127,10 +128,13 @@
       gap: 1rem;
     }
 
-    .btn-orange,
-    .btn-blue {
-      padding: 1rem;
-    }
+  .home-page .btn-orange,
+  .home-page .btn-blue {
+    font-size: 14px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 1rem;
+  }
 
     /* Optional: shrink card text */
     .major-card-description,

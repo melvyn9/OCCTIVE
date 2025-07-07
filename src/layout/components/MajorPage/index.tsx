@@ -5,7 +5,7 @@ import 'react-dropdown/style.css';
 import BackToMenuIcon from '../../../assets/back_to_main_menu.svg';
 import DependencyChartIcon from '../../../assets/dependency_chart.svg';
 
-import FrameCard from '../FrameCard'; // ⬅️ NEW CARD
+import FrameCard from '../FrameCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
 
 import './style.scss';
@@ -82,7 +82,7 @@ const MajorPage: React.FC = () => {
         {/* ---------- cards grid ---------- */}
         <div className="major-page-cards">
           {videoData.map((unit, index) => (
-            <FrameCard /* ⬅️ use the new card */
+            <FrameCard
               key={index}
               name={unit.name}
               description={unit.description}
