@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
+import BackToMenuIcon from '../../../assets/back_to_main_menu.svg';
+import DependencyChartIcon from '../../../assets/dependency_chart.svg';
 
 import FrameCard from '../FrameCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
@@ -24,25 +26,24 @@ const MajorPage: React.FC = () => {
         <div className="major-page-side-items">
           <div className="major-page-sidebar">
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
+              href="/"
               className="major-page-back-to-main-menu"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
-                src="/img/back-arrow.png"
+                src={BackToMenuIcon}
                 alt="Back to Menu Icon"
                 className="back-to-main-menu-icon"
               />
               Back to Main Menu
             </a>
-
+            <br />
             <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
-
             {videoData.map((unit, index) => (
               <div className="major-page-link" key={index}>
-                <Link smooth to={`/majors#${unit.name.replace(/\s/g, '-')}`}>
-                  {unit.name}
+                <Link smooth to={`/majors#${unit.name.slice(2).replace(/\s/g, '-')}`}>
+                  {unit.name.slice(2)}
                 </Link>
               </div>
             ))}
@@ -72,7 +73,7 @@ const MajorPage: React.FC = () => {
           <div className="major-page-dependency-chart-icon">
             <img
               className="major-page-dependency-chart-image"
-              src="img/dependency_graph_temp.png"
+              src={DependencyChartIcon}
               alt="OCCTIVE dependency chart visual"
             />
           </div>

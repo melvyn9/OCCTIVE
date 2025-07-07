@@ -1,0 +1,412 @@
+@import '../../../styles';
+@import '../../../styles/base';
+
+.video-card-container {
+  align-items: flex-start;
+  display: flex;
+  gap: 24px;
+}
+
+.frame-hyperlink {
+  display: block;
+  position: relative;
+  top: calc(-5.25rem - 2.25rem);
+  visibility: hidden;
+
+  @media (max-width: $site-size-small) {
+    top: calc(-3.5rem - 1rem);
+  }
+}
+
+// Frame Card Styling
+.frame-card-subheading-container {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.frame-card-subheading-link {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.frame-card-subheading {
+  @include font-heading-3;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+// Notification Toast Styling
+.copy-toast {
+  align-items: center;
+  animation: fadeOut 0.4s ease-in-out 2s forwards;
+  background-color: #70c57f;
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  font-size: 0.9rem;
+  font-weight: 500;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 9999;
+}
+
+.toast-check {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+// Copy Icon Styling
+.copy-icon-button {
+  align-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.copy-icon,
+.frame-card-link-arrow {
+  height: 18px;
+  transition: opacity 0.2s ease;
+  width: 18px;
+}
+
+.copy-icon:hover,
+.frame-card-link-arrow:hover {
+  opacity: 1;
+}
+
+.frame-card {
+  background-color: $color-tag-white;
+  border-radius: 1rem;
+  color: $color-neutrals-black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  width: 100%;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &-subunit {
+    background-color: #3d555e;
+    border-radius: 8px;
+    color: $color-tag-white;
+    margin-bottom: 39px;
+    padding: 19px 42px 53px 25px;
+  }
+
+  &-video-title {
+    @include font-video-title;
+    color: #000;
+    margin-bottom: 14px;
+  }
+
+  &-time {
+    @include font-time;
+    color: #000;
+    margin-bottom: 12px;
+  }
+
+  &-desc {
+    @include font-desc;
+    color: #000;
+    margin-bottom: 18px;
+    width: 311px;
+  }
+
+  &-video-cards {
+    background-color: #fff;
+    border-radius: 8px;
+    color: #000;
+    padding: 31px 31px 31px 24px;
+  }
+
+  &-resources {
+    @include font-resources;
+    color: #fff;
+  }
+
+  &-practice-questions {
+    @include font-practice;
+    color: #fff;
+    margin-bottom: 19px;
+  }
+
+  &-top {
+    align-items: center;
+    background-color: $color-neutrals-white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    display: flex;
+    padding: 1.5rem;
+  }
+
+  &-heading {
+    @include font-heading-2;
+    color: $color-neutrals-black;
+    margin-bottom: 15px;
+    margin-right: 1rem;
+    max-width: 100%;
+  }
+
+  &-bottom {
+    background-color: $color-neutrals-white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 3rem;
+  }
+
+  &-inner {
+    padding-top: 0.5rem;
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+
+    &-left {
+      margin-bottom: 2rem;
+    }
+
+    &-right {
+      margin-top: 1rem;
+    }
+  }
+
+  &-info-group {
+    margin-bottom: 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    .frame-card-subheading {
+      @include font-subtitle-1;
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  &-subheading {
+    @include font-subtitle-1;
+    margin: 0 0 0.5rem;
+  }
+
+  &-description {
+    @include font-frame2-unit-description;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+
+  &-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  &-link {
+    margin-top: 0.5rem;
+
+    &,
+    &:link,
+    &:visited,
+    &:focus,
+    &:hover,
+    &:active {
+      @include font-linked-text;
+    }
+
+    &-arrow {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &-videos {
+    margin-top: 2rem;
+  }
+
+  &-video-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 0;
+
+    a {
+      color: $color-primary-blue;
+      text-decoration: underline;
+    }
+  }
+
+  &-note {
+    background-color: $color-tag-white;
+    border: 2px solid $color-primary-dark-yellow;
+    margin-top: 1.5rem;
+    padding: 1rem 2.5rem;
+
+    &-text {
+      @include font-text;
+    }
+  }
+
+  @media (max-width: $site-size-small) {
+    margin-bottom: 1.5rem;
+    width: unset;
+
+    &-top {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 0.75rem 1rem;
+    }
+
+    &-bottom {
+      padding: 1.5rem 1rem;
+    }
+
+    &-description {
+      margin-top: 0.5rem;
+      width: unset;
+    }
+
+    &-note {
+      padding: 0.5rem 1rem;
+    }
+
+    &-video-list {
+      padding-left: 0;
+    }
+  }
+
+  .btn-lightblue {
+    @include font-button;
+    background-color: #71bfde;
+    border-radius: 8px;
+    color: #fff;
+    height: 35px;
+    padding: 8px;
+    width: 145px;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
+    }
+  }
+}
+
+.video-card.info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.video-frame-container {
+  aspect-ratio: 16 / 9;
+  flex: 1;
+  margin: 31px 0;
+
+  iframe {
+    border: 0;
+  }
+}
+
+/* NEW LAYOUT FOR VIDEO ENTRIES */
+.video-entry-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  width: 100%;
+
+  @media (max-width: $site-size-small) {
+    flex-direction: column;
+  }
+}
+
+.video-entry-left {
+  flex: 1;
+  min-width: 50%;
+
+  iframe {
+    height: 100%;
+    min-height: 220px;
+    width: 100%;
+  }
+}
+
+.video-entry-right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25rem;
+
+  .frame-card-video-title {
+    @include font-video-title;
+    margin-bottom: 10px;
+  }
+
+  .frame-card-time {
+    @include font-time;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .frame-card-desc {
+    @include font-desc;
+    color: #000;
+    margin-bottom: 14px;
+  }
+
+  .btn-lightblue {
+    @include font-button;
+    background-color: #71bfde;
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px;
+    transition: 0.2s ease;
+    width: fit-content;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
+    }
+  }
+
+  .btn-dependencies {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 500;
+    gap: 0.5rem;
+    height: auto;
+    line-height: 1;
+    padding: 0.5rem 1rem;
+    width: auto;
+
+    .dependency-icon {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+}
