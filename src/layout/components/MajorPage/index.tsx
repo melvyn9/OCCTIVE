@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
 import BackToMenuIcon from '../../../assets/back_to_main_menu.svg';
-import DependencyChartIcon from '../../../assets/dependency_chart.svg';
 
 import FrameCard from '../FrameCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
@@ -68,14 +67,6 @@ const MajorPage: React.FC = () => {
             >
               Compact View
             </a>
-          </div>
-
-          <div className="major-page-dependency-chart-icon">
-            <img
-              className="major-page-dependency-chart-image"
-              src={DependencyChartIcon}
-              alt="OCCTIVE dependency chart visual"
-            />
           </div>
         </div>
 
