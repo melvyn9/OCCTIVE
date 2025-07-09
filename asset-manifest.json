@@ -1,13 +1,12 @@
 {
   "files": {
     "main.css": "/OCCTIVE/static/css/main.af46477a.css",
-    "main.js": "/OCCTIVE/static/js/main.0114a815.js",
+    "main.js": "/OCCTIVE/static/js/main.3794f5ad.js",
     "static/media/kefir-regular.otf": "/OCCTIVE/static/media/kefir-regular.3b3d57883fef1b86ff39.otf",
     "static/media/SpaceGrotesk-SemiBold.otf": "/OCCTIVE/static/media/SpaceGrotesk-SemiBold.63d05cfd2eaac0be6085.otf",
     "static/media/SpaceGrotesk-Regular.otf": "/OCCTIVE/static/media/SpaceGrotesk-Regular.107ef1bf316015682af9.otf",
     "static/media/MBGrotesk-Regular.otf": "/OCCTIVE/static/media/MBGrotesk-Regular.2b180eb4e1fd29a043d8.otf",
     "static/media/dependency_chart_btn_icon.svg": "/OCCTIVE/static/media/dependency_chart_btn_icon.7b9fe564d0fa02ec9657108bbbb7a983.svg",
-    "static/media/dependency_chart.svg": "/OCCTIVE/static/media/dependency_chart.ef9fe4f19d80d59b09ccd6537c1d319f.svg",
     "index.html": "/OCCTIVE/index.html",
     "static/media/CopyIcon.svg": "/OCCTIVE/static/media/CopyIcon.065785500daab7d1e8a559b35d7f5e8a.svg",
     "static/media/CopyIconWhite.svg": "/OCCTIVE/static/media/CopyIconWhite.ff10b9d781692353df1ed80fb4f2f93f.svg",
@@ -15,10 +14,10 @@
     "static/media/LinkedArrow.svg": "/OCCTIVE/static/media/LinkedArrow.7ec96cdf34db1b7c6a6548e5514084e2.svg",
     "static/media/back_to_main_menu.svg": "/OCCTIVE/static/media/back_to_main_menu.1233b413a2084dc17546771ec9167853.svg",
     "main.af46477a.css.map": "/OCCTIVE/static/css/main.af46477a.css.map",
-    "main.0114a815.js.map": "/OCCTIVE/static/js/main.0114a815.js.map"
+    "main.3794f5ad.js.map": "/OCCTIVE/static/js/main.3794f5ad.js.map"
   },
   "entrypoints": [
     "static/css/main.af46477a.css",
-    "static/js/main.0114a815.js"
+    "static/js/main.3794f5ad.js"
   ]
 }
