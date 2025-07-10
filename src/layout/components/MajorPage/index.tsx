@@ -21,7 +21,7 @@ const MajorPage: React.FC = () => {
   return (
     <div className="major-page">
       <div className="major-page-content">
-        {/* ---------- side bar & buttons ---------- */}
+        {/* ---------- Side Panel: Navigation & Buttons ---------- */}
         <div className="major-page-side-items">
           <div className="major-page-sidebar">
             <a
@@ -37,8 +37,9 @@ const MajorPage: React.FC = () => {
               />
               Back to Main Menu
             </a>
-            <br />
+
             <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
+
             {videoData.map((unit, index) => (
               <div className="major-page-link" key={index}>
                 <Link smooth to={`/majors#${unit.name.slice(2).replace(/\s/g, '-')}`}>
@@ -70,7 +71,7 @@ const MajorPage: React.FC = () => {
           </div>
         </div>
 
-        {/* ---------- cards grid ---------- */}
+        {/* ---------- Main Content: Cards Grid ---------- */}
         <div className="major-page-cards">
           {videoData.map((unit, index) => (
             <FrameCard
