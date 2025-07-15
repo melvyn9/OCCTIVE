@@ -81,6 +81,7 @@
     font-size: 1rem;
     padding: 1rem 2rem;
     transition: background-color 0.2s ease, transform 0.15s ease;
+    border: none;
 
     &:hover {
       filter: brightness(1.05);
@@ -158,8 +159,7 @@
       gap: 1rem;
     }
 
-    .home-page .btn-orange,
-    .home-page .btn-blue {
+    .btn-orange, .btn-blue {
       font-size: 14px;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
