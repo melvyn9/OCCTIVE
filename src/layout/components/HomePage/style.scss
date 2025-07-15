@@ -41,7 +41,7 @@
     @include font-text;
     color: $color-tag-white;
     font-size: 1.2rem;
-    line-height: 1.75;
+    line-height: 1.4;
     margin: 0 auto 2rem;
     max-width: 700px;
   }
@@ -60,11 +60,14 @@
   }
 
   &-cards {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 0.5rem;
-    padding: 0.5rem 0;
+    // display: grid;
+    // gap: 2rem;
+    // grid-template-columns: repeat(3, minmax(0, 1fr));
+    // margin-top: 0.5rem;
+    // padding: 0.5rem 0;
+    column-width: 45rem;       /* min column width */
+    column-gap: 1.5rem;        /* space between the masonry columns */
+    padding: 0 0.75rem;        /* optional side air */
   }
 
   /* buttons */
