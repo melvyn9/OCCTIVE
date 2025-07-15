@@ -105,12 +105,39 @@
   }
 }
 
+/* Larger screens (<2881px Mac) */
+@media (max-width: 2881) {
+  .home-page {
+    &-cards {
+      column-width: 40rem;
+    }
+  }
+}
+
+/* Larger screens (<2000px) */
+@media (max-width: 2000px) {
+  .home-page {
+    &-cards {
+      column-width: 30rem;
+    }
+  }
+}
+
+/* Larger screens (<1500px) */
+@media (max-width: 1500px) {
+  .home-page {
+    &-cards {
+      column-width: 20rem;
+    }
+  }
+}
+
+
 /* Medium screens (<1200px) */
 @media (max-width: $site-size-small) {
   .home-page {
     &-cards {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      padding: 1rem 0;
+      column-width: 20rem;
     }
 
     &-content {
