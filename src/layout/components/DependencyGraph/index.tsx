@@ -27,10 +27,21 @@ function uniqById(list: any[]) {
 
 function layout(rawNodes: any[], edges: any[]) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
-  g.setGraph({ rankdir: 'TB' });
+  // CHANGE GENERAL STYLINGS OF GRAPH LAYOUT HERE
+  g.setGraph({
+    rankdir: 'TB',  // top-to-bottom
+    ranksep: 100,   // vertical space between layers   (default 50)
+    nodesep: 100,   // horizontal space between nodes  (default 50)
+    marginx: 20,    // extra canvas padding left/right
+    marginy: 20,    // extra canvas padding top/bottom
+  });
   g.setDefaultEdgeLabel(() => ({}));
 
-  rawNodes.forEach((n) => g.setNode(n.id, { width: 160, height: 40 }));
+  rawNodes.forEach((n) => {
+    /* supply true size so Dagre knows how big each block is */
+    g.setNode(n.id, { width: 200, height: 80 }); // or compute from text
+  });
+
   edges.forEach((e) => g.setEdge(e.source, e.target, {}, e.id));
   dagre.layout(g);
 
@@ -76,14 +87,14 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
 
   const { positioned, colourOf } = layout(nodes, edges);
 
-  /* build styled nodes */
+  /* CHANGE STYLINGS OF NODES IN GRAPH */
   const graphNodes = positioned.map((n) => {
     const base = {
-      background: '#f1f5f9',
+      background: '#d3d3d3',
       borderRadius: 6,
-      padding: 4,
-      fontSize: 12,
-      border: `3px solid ${colourOf.get(n.data.group)}`,
+      padding: 12,
+      fontSize: 16,
+      border: `5px solid ${colourOf.get(n.data.group)}`,
     };
 
     const target = highlightId?.trim().toLowerCase();

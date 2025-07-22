@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import smoothscroll from 'smoothscroll-polyfill';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import HomePage from './layout/containers/HomePage';
 import MajorPage from './layout/containers/MajorPage';
