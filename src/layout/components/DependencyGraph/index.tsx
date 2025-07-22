@@ -104,7 +104,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
       return {
         ...n,
         data: { ...n.data, label: `⭐ ${n.data.label}` },
-        style: { ...base, border: '4px solid #a855f7' }, // purple highlight
+        style: { ...base, border: '4px solid #a855f7', background: '#ffffff' }, // purple highlight
       };
     }
     return { ...n, style: base };

@@ -2,6 +2,7 @@
   "name": "new",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://melvyn9.github.io/OCCTIVE",
   "dependencies": {
     "@dagrejs/dagre": "^1.1.5",
     "html-to-image": "^1.11.13",
@@ -25,8 +26,6 @@
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix && npx stylelint \"src/**/*.scss\" --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish": "scp -r build/* cpaths@computingpaths.ucsd.edu:/var/www/cpaths/htdocs",
-    "publish-dev": "scp -r build/* cpaths@cpaths-dev.ucsd.edu:/var/www/cpaths/htdocs",
     "prepublish": "yarn build"
   },
   "eslintConfig": {
