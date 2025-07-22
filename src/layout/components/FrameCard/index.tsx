@@ -88,7 +88,7 @@ const FrameCard: React.FC<FrameCardProps> = (props) => {
 
         {open && (
           <div className="video-entry-graph-wrapper">
-            <DependencyGraph flowId={`${baseId}-v${idx}`} />
+            <DependencyGraph flowId={`${baseId}-v${idx}`} highlightId={video.t} />
           </div>
         )}
       </>
