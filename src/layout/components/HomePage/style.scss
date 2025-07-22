@@ -60,19 +60,20 @@
   }
 
   &-cards {
+    column-gap: 1.5rem;        /* space between the masonry columns */
     // display: grid;
     // gap: 2rem;
     // grid-template-columns: repeat(3, minmax(0, 1fr));
     // margin-top: 0.5rem;
     // padding: 0.5rem 0;
     column-width: 45rem;       /* min column width */
-    column-gap: 1.5rem;        /* space between the masonry columns */
     padding: 0 0.75rem;        /* optional side air */
   }
 
   /* buttons */
   .btn-orange {
     background-color: #ff8c66;
+    border: none;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     color: $color-tag-white;
@@ -81,7 +82,6 @@
     font-size: 1rem;
     padding: 1rem 2rem;
     transition: background-color 0.2s ease, transform 0.15s ease;
-    border: none;
 
     &:hover {
       filter: brightness(1.05);
@@ -159,7 +159,8 @@
       gap: 1rem;
     }
 
-    .btn-orange, .btn-blue {
+    .btn-orange,
+    .btn-blue {
       font-size: 14px;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
