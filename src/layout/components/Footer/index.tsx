@@ -12,7 +12,7 @@ import './style.scss';
 const Footer: React.FC = () => (
   <div className="footer">
     <div className="footer-content">
-      <img className="footer-logo" src="/img/occtive_light.png" alt="OCCTIVE Logo" width="166px" height="32px" />
+      <img className="footer-logo" src={`${process.env.PUBLIC_URL}/img/occtive_logo.png`} alt="OCCTIVE Logo" />
       <p className="footer-contact">Contact</p>
       <a href="mailto:occtive@gmail.com"><p className="footer-email">occtive@gmail.com</p></a>
     </div>
