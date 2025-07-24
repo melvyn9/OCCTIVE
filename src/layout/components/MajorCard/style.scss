@@ -110,6 +110,8 @@
 }
 
 .major-card {
+  @include font-text;
+
   background-color: $color-neutrals-white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
@@ -243,6 +245,33 @@
     }
   }
 
+  &-dependency-btn {
+    background-color: #77c5e7;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: none;
+    color: $color-neutrals-white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: normal;
+    margin-top: 0.5rem;
+    outline: none;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    transition: background 0.2s;
+    width: auto;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:hover {
+      background-color: #5bb0d6;
+    }
+  }
+
   @media (max-width: $site-size-small) {
     margin-bottom: 1.5rem;
     width: unset;
@@ -268,4 +297,16 @@
       padding-left: 0;
     }
   }
+}
+
+// Fix for .btn-dependencies utility class
+.btn-dependencies {
+  border: 0 !important;
+  box-shadow: none !important;
+  display: inline-block !important;
+  max-width: unset !important; // <-- moved before outline
+  min-width: unset !important;
+  outline: none !important;
+  padding: 0.5rem 1rem !important;
+  width: auto !important;
 }
