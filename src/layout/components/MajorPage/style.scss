@@ -178,8 +178,16 @@
   .major-page-card-anchor::before {
     content: '';
     display: block;
-    height: 5rem;
+    height: 5rem; // Match your sticky sidebar/header height
     margin-top: -5rem;
     pointer-events: none;
+  }
+
+  .major-page-anchor {
+    display: block;
+    height: 0;
+    position: relative;
+    top: -5rem; // Match your sticky sidebar/header height
+    visibility: hidden;
   }
 }

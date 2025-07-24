@@ -76,10 +76,12 @@ const MajorPage: React.FC = () => {
         {/* ---------- Main Content: Cards Grid ---------- */}
         <div className="major-page-cards">
           {videoData.map((unit, index) => (
-            <div
-              key={index}
-              id={unit.name.slice(2).replace(/\s/g, '-')} // Add id for anchor navigation
-            >
+            <div key={index}>
+              <div
+                id={unit.name.slice(2).replace(/\s/g, '-')}
+                className="major-page-anchor"
+                aria-hidden="true"
+              />
               <FrameCard
                 name={unit.name}
                 description={unit.description}
