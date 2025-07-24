@@ -4,14 +4,25 @@
 .major-page {
   &-back-to-main-menu {
     @include font-back-to-main-menu;
+    align-items: center;
     color: #fff;
-    margin-left: 20px;
+    display: inline-flex;
+    font-weight: bold;
+    margin: 1rem 0 0.5rem 20px;
+    text-transform: uppercase;
+
+    img {
+      height: 16px;
+      margin-right: 8px;
+      width: auto;
+    }
   }
 
   &-navbar-title {
     @include font-nav-bar-title;
     color: #fff;
-    margin-left: 20px;
+    display: block;
+    margin: 0 0 1.5rem 20px;
   }
 
   &-hero {
@@ -78,26 +89,47 @@
   &-side-items {
     flex-shrink: 0;
     margin-right: 27px;
-    width: 250px;
+    width: 280px;
   }
 
   &-sidebar {
     @include font-nav-bar-text;
     background-color: #3d555e;
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 1.5rem 0;
+
+    position: sticky;
+    top: 2rem; // Adjust as needed for your layout/header
 
     a {
-      color: #fff;
+      color: #fff !important;
     }
   }
 
+  &-sidebar-sticky {
+    position: sticky;
+    top: 8rem; // <-- Increase this to match your header height
+    z-index: 10;
+  }
+
   &-link {
-    @include font-subtitle-1;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    color: #fff;
-    display: inline-flex;
-    padding: 1rem 1.5rem;
+    display: block;
+    margin: 1rem 0;
+    padding: 0 20px;
+
+    a {
+      color: #fff !important;
+      font-weight: 400 !important;
+      line-height: 1.8 !important;
+      text-decoration: underline !important;
+      transition: all 0.2s ease;
+
+      &:hover,
+      &:focus {
+        color: #77c5e7 !important;
+        text-decoration: underline;
+      }
+    }
   }
 
   .btn-orange {
@@ -137,23 +169,25 @@
       align-items: flex-start;
       flex-direction: column;
     }
+  }
 
-    &-mobile-navigation {
-      display: unset;
-    }
+  .major-page-card-anchor {
+    position: relative;
+  }
 
-    &-content {
-      margin: 1.5rem -1.5rem -1.5rem;
-      padding: 1.5rem;
-    }
+  .major-page-card-anchor::before {
+    content: '';
+    display: block;
+    height: 5rem; // Match your sticky sidebar/header height
+    margin-top: -5rem;
+    pointer-events: none;
+  }
 
-    &-hero-image {
-      max-width: 100%;
-    }
-
-    &-cards {
-      grid-template-columns: 1fr;
-      padding: 0 1rem 1rem;
-    }
+  .major-page-anchor {
+    display: block;
+    height: 0;
+    position: relative;
+    top: -5rem; // Match your sticky sidebar/header height
+    visibility: hidden;
   }
 }
