@@ -306,13 +306,13 @@
 }
 
 // Fix for .btn-dependencies utility class
-.btn-dependencies {
-  border: 0 !important;
-  box-shadow: none !important;
-  display: inline-block !important;
-  max-width: unset !important; // <-- moved before outline
-  min-width: unset !important;
-  outline: none !important;
-  padding: 0.5rem 1rem !important;
-  width: auto !important;
-}
+// .btn-dependencies {
+//   border: 0 !important;
+//   box-shadow: none !important;
+//   display: inline-block !important;
+//   max-width: unset !important; // <-- moved before outline
+//   min-width: unset !important;
+//   outline: none !important;
+//   padding: 0.5rem 1rem !important;
+//   width: auto !important;
+// }

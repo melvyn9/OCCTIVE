@@ -29,11 +29,11 @@ function layout(rawNodes: any[], edges: any[]) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
   // CHANGE GENERAL STYLINGS OF GRAPH LAYOUT HERE
   g.setGraph({
-    rankdir: 'TB',  // top-to-bottom
-    ranksep: 100,   // vertical space between layers   (default 50)
-    nodesep: 100,   // horizontal space between nodes  (default 50)
-    marginx: 20,    // extra canvas padding left/right
-    marginy: 20,    // extra canvas padding top/bottom
+    rankdir: 'TB', // top‑to‑bottom
+    ranksep: 100, // vertical space between layers (default 50)
+    nodesep: 100, // horizontal space between nodes (default 50)
+    marginx: 20, // extra canvas padding left/right
+    marginy: 20, // extra canvas padding top/bottom
   });
   g.setDefaultEdgeLabel(() => ({}));
 
@@ -68,7 +68,7 @@ function layout(rawNodes: any[], edges: any[]) {
 /* ------------------------------------------------------------------ */
 
 export interface DependencyGraphProps {
-  /** Optional id so multiple graphs don't collide */
+  /** Optional id so multiple graphs do not collide */
   flowId?: string;
   /** Node id to highlight with a ⭐ */
   highlightId?: string;
@@ -88,26 +88,45 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
   const { positioned, colourOf } = layout(nodes, edges);
 
   /* CHANGE STYLINGS OF NODES IN GRAPH */
+  // Normalise the search term
+  const target = highlightId?.trim().toLowerCase() || '';
+
+  // Decide whether *any* node matches that term
+  const hasTarget =    target !== ''
+    && positioned.some(
+      (n) =>
+        n.id.toLowerCase() === target
+        || n.data.label.toLowerCase() === target,
+    );
+
+  // Build the styled nodes
   const graphNodes = positioned.map((n) => {
+    const isTarget =      hasTarget
+      && (
+        n.id.toLowerCase() === target
+        || n.data.label.toLowerCase() === target
+      );
+
+    // Background switches to grey *only* when a match exists
     const base = {
-      background: '#d3d3d3',
+      background: hasTarget ? '#d3d3d3' : '#ffffff',
       borderRadius: 6,
       padding: 12,
       fontSize: 16,
       border: `5px solid ${colourOf.get(n.data.group)}`,
     };
 
-    const target = highlightId?.trim().toLowerCase();
-    const isTarget = !!target && (n.id.toLowerCase() === target || n.data.label.toLowerCase() === target);
-
-    if (isTarget) {
-      return {
+    return isTarget
+      ? {
         ...n,
         data: { ...n.data, label: `⭐ ${n.data.label}` },
-        style: { ...base, border: '4px solid #a855f7', background: '#ffffff' }, // purple highlight
-      };
-    }
-    return { ...n, style: base };
+        style: {
+          ...base,
+          border: '4px solid #a855f7',
+          background: '#ffffff', // target node stays white
+        },
+      }
+      : { ...n, style: base };
   });
 
   const id = React.useMemo(

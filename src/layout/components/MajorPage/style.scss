@@ -191,3 +191,111 @@
     visibility: hidden;
   }
 }
+
+@media (max-width: 1199px) {
+  .major-page {
+    &-hero {
+      margin: 2rem -2rem;
+      padding: 3rem 2rem;
+    }
+ 
+ 
+    &-content {
+      flex-direction: column;
+      margin: 2rem -2rem;
+      padding: 2rem;
+    }
+ 
+ 
+    &-side-items {
+      margin-right: 0;
+      width: 100%;
+    }
+ 
+ 
+    &-cards {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+    }
+ 
+ 
+    &-sidebuttons {
+      gap: 1rem;
+      grid-template-columns: 1fr 1fr;
+    }
+ 
+ 
+    &-title,
+    &-subheading {
+      text-align: center;
+    }
+ 
+ 
+    &-text {
+      margin-top: 1rem;
+    }
+  }
+}
+ 
+ 
+@media (max-width: 499px) {
+  .major-page {
+    &-hero {
+      margin: 1.5rem -1rem;
+      padding: 2rem 1rem;
+    }
+ 
+ 
+    &-content {
+      flex-direction: column;
+      margin: 1.5rem -1rem;
+      padding: 1.5rem 1rem;
+    }
+ 
+ 
+    &-side-items {
+      margin-right: 0;
+      width: 100%;
+    }
+ 
+ 
+    &-cards {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+ 
+ 
+    &-sidebuttons {
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+ 
+ 
+    &-title,
+    &-subheading {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+ 
+ 
+    &-text {
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+ 
+ 
+    &-back-to-main-menu,
+    &-navbar-title {
+      font-size: 0.9rem;
+      margin-left: 10px;
+    }
+ 
+ 
+    .btn-orange,
+    .btn-blue {
+      font-size: 0.9rem;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+}
+ 
