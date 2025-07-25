@@ -220,8 +220,8 @@
  
  
     &-sidebuttons {
-      grid-template-columns: 1fr 1fr;
       gap: 1rem;
+      grid-template-columns: 1fr 1fr;
     }
  
  
@@ -235,10 +235,10 @@
       margin-top: 1rem;
     }
   }
- }
+}
  
  
- @media (max-width: 499px) {
+@media (max-width: 499px) {
   .major-page {
     &-hero {
       margin: 1.5rem -1rem;
@@ -254,8 +254,8 @@
  
  
     &-side-items {
-      width: 100%;
       margin-right: 0;
+      width: 100%;
     }
  
  
@@ -266,8 +266,8 @@
  
  
     &-sidebuttons {
-      grid-template-columns: 1fr;
       gap: 1rem;
+      grid-template-columns: 1fr;
     }
  
  
@@ -279,8 +279,8 @@
  
  
     &-text {
-      margin-top: 1rem;
       font-size: 1rem;
+      margin-top: 1rem;
     }
  
  
@@ -297,5 +297,5 @@
       padding: 0.75rem 1.25rem;
     }
   }
- }
+}
  
