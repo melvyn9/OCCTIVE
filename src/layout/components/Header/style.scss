@@ -18,7 +18,11 @@
   }
 
   &-logo {
-    width: 11rem;
+    width: 3.5rem;      // or 56px, adjust as needed for your design
+    height: 3.5rem;     // same as width for square
+    object-fit: cover;  // ensures the image fills the square
+    border-radius: 50%; // optional: makes it a circle, remove if you want a square
+    display: block;
   }
 
   &-links {
