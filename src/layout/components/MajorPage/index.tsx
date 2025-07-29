@@ -39,7 +39,7 @@ const MajorPage: React.FC = () => {
                 Back to Main Menu
               </a>
 
-              <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
+              <span className="major-page-navbar-title">OCCTIVE Library</span>
 
               {videoData.map((unit, index) => (
                 <div className="major-page-link" key={index}>
