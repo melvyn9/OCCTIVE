@@ -3,18 +3,22 @@
 
 .major-page {
   &-back-to-main-menu {
-    @include font-back-to-main-menu;
+    display: flex;
     align-items: center;
+    font-size: 0.8rem !important;    // force smaller text
+    font-weight: 400 !important;     // normal weight
+    margin: 1rem 0 0.5rem 16px;
     color: #fff;
-    display: inline-flex;
-    font-weight: bold;
-    margin: 1rem 0 0.5rem 20px;
     text-transform: uppercase;
+    letter-spacing: 0.02em;
 
-    img {
-      height: 16px;
-      margin-right: 8px;
-      width: auto;
+    .back-to-main-menu-icon {
+      height: 13px;
+      width: 13px;
+      margin-right: 7px;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
     }
   }
 
@@ -97,12 +101,27 @@
     background-color: #3d555e;
     border-radius: 12px;
     padding: 1.5rem 0;
-
     position: sticky;
-    top: 2rem; // Adjust as needed for your layout/header
+    top: 2rem;
 
     a {
       color: #fff !important;
+      font-size: 1rem; // Match your normal text size
+      font-weight: 400 !important;
+      line-height: 1.8 !important;
+      text-decoration: underline !important;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      display: block;
+
+      &:hover,
+      &:focus {
+        color: #77c5e7 !important;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -116,20 +135,6 @@
     display: block;
     margin: 1rem 0;
     padding: 0 20px;
-
-    a {
-      color: #fff !important;
-      font-weight: 400 !important;
-      line-height: 1.8 !important;
-      text-decoration: underline !important;
-      transition: all 0.2s ease;
-
-      &:hover,
-      &:focus {
-        color: #77c5e7 !important;
-        text-decoration: underline;
-      }
-    }
   }
 
   .btn-orange {
