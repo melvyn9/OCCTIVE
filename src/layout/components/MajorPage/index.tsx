@@ -17,6 +17,12 @@ const MajorPage: React.FC = () => {
       .catch(() => setVideoData([]));
   }, []);
 
+  // Removes all the characters before "Unit" on the data spreadsheet
+  const cleanUnitName = (raw: string) => {
+    const i = raw.search(/Unit/i); // first occurrence of “Unit”
+    return i === -1 ? raw.trimStart() // fallback if someone forgets “Unit”
+      : raw.slice(i).trimStart();
+  };
   return (
     <div className="major-page">
       <div className="major-page-content">
@@ -24,16 +30,18 @@ const MajorPage: React.FC = () => {
         <div className="major-page-side-items">
           <div className="major-page-sidebar-sticky">
             <div className="major-page-sidebar">
-
               <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
 
-              {videoData.map((unit, index) => (
-                <div className="major-page-link" key={index}>
-                  <Link smooth to={`#${unit.name.slice(2).replace(/\s/g, '-')}`}>
-                    {unit.name.slice(2)}
-                  </Link>
-                </div>
-              ))}
+              {videoData.map((unit, index) => {
+                const cleanName = cleanUnitName(unit.name);
+                const anchorId = cleanName.replace(/\s+/g, '-').replace(/:/g, '');
+
+                return (
+                  <div className="major-page-link" key={index}>
+                    <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="major-page-sidebuttons">
