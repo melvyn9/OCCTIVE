@@ -40,7 +40,7 @@ const HomePage: React.FC = () => {
               </button>
 
               <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdy5MtrwNQZ9VHM32Tjm6UL3MTuc9vu-oQ9vknjkVrviUYC0g/viewform"
                 className="btn-blue"
                 target="_blank"
                 rel="noopener noreferrer"

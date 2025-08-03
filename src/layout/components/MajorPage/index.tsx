@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
-import BackToMenuIcon from '../../../assets/back_to_main_menu.svg';
 
 import FrameCard from '../FrameCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
@@ -25,19 +24,6 @@ const MajorPage: React.FC = () => {
         <div className="major-page-side-items">
           <div className="major-page-sidebar-sticky">
             <div className="major-page-sidebar">
-              <a
-                href="/"
-                className="major-page-back-to-main-menu"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={BackToMenuIcon}
-                  alt="Back to Menu Icon"
-                  className="back-to-main-menu-icon"
-                />
-                Back to Main Menu
-              </a>
 
               <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
 
@@ -51,7 +37,7 @@ const MajorPage: React.FC = () => {
             </div>
 
             <div className="major-page-sidebuttons">
-              <a
+              {/* <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
                 className="btn-blue"
                 id="sidebar-btn-blue"
@@ -68,7 +54,7 @@ const MajorPage: React.FC = () => {
                 rel="noopener noreferrer"
               >
                 Compact View
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

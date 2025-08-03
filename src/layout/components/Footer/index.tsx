@@ -12,13 +12,13 @@ import './style.scss';
 const Footer: React.FC = () => (
   <div className="footer">
     <div className="footer-content">
-      <img className="footer-logo" src={`${process.env.PUBLIC_URL}/img/occtive_logo.png`} alt="OCCTIVE Logo" />
+      <img className="footer-logo" src={`${process.env.PUBLIC_URL}/img/occtive_dark.png`} alt="OCCTIVE Logo" />
       <p className="footer-contact">Contact</p>
       <a href="mailto:occtive@gmail.com"><p className="footer-email">occtive@gmail.com</p></a>
     </div>
     <div className="footer-issue">
       <p className="footer-issue-heading">Have an issue?</p>
-      <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"><p className="footer-issue-link">Fill out this form</p></a>
+      <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSdy5MtrwNQZ9VHM32Tjm6UL3MTuc9vu-oQ9vknjkVrviUYC0g/viewform"><p className="footer-issue-link">Fill out this form</p></a>
     </div>
   </div>
 );
