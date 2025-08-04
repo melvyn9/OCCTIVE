@@ -1,4 +1,6 @@
+// File: src/layout/components/MajorCard/index.tsx
 import React, { useState } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import LinkedArrow from '../../../assets/LinkedArrow.svg';
 import CopyIcon from '../../../assets/CopyIcon.svg';
 import './style.scss';
@@ -38,6 +40,17 @@ interface MajorCardProps {
   allVideosCopy: string;
 }
 
+/* ───────────────────────── helpers ───────────────────────── */
+
+/** Strip any emoji / blanks that come before “Unit …” */
+const cleanUnitName = (raw: string) => {
+  const i = raw.search(/Unit/i);
+  return i === -1 ? raw.trimStart() : raw.slice(i).trimStart();
+};
+
+/** Convert “Unit 1: Setting Context” → “Unit-1-Setting-Context” */
+const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
+
 const MajorCard: React.FC<MajorCardProps> = ({
   name,
   description,
@@ -71,7 +84,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
   subunit3Video3: video9,
   subunit3Video3Url: url9,
 }) => {
-  // Notification
+  /* ─────────────── notification toast ─────────────── */
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (message: string) => {
@@ -79,15 +92,15 @@ const MajorCard: React.FC<MajorCardProps> = ({
     setTimeout(() => setToast(null), 2500); // disappears after 2.5s
   };
 
-  // Copie allVideosCopy for all videos link
+  /* ───────────── copy-all links handler ───────────── */
   const handleCopyAllClick = () => {
     navigator.clipboard
       .writeText(allVideosCopy)
       .then(() => showToast('All links copied!'))
-      .catch(() => showToast('Copy failed:'));
+      .catch(() => showToast('Copy failed'));
   };
 
-  // helper to render each subunit if it exists
+  /* ───────────── helper to render a subunit ───────────── */
   const renderSubunit = (
     title: string,
     videos: { title: string; url: string }[],
@@ -97,9 +110,10 @@ const MajorCard: React.FC<MajorCardProps> = ({
     if (!title || filteredVideos.length === 0) return null;
 
     const handleCopyClick = () => {
-      navigator.clipboard.writeText(copyText)
+      navigator.clipboard
+        .writeText(copyText)
         .then(() => showToast('Subheading links copied!'))
-        .catch(() => showToast('Copy failed:'));
+        .catch(() => showToast('Copy failed'));
     };
 
     return (
@@ -126,7 +140,11 @@ const MajorCard: React.FC<MajorCardProps> = ({
                 className="major-card-video-link"
               >
                 {video.title}
-                <img src={LinkedArrow} alt="Link arrow" className="major-card-link-arrow" />
+                <img
+                  src={LinkedArrow}
+                  alt="Link arrow"
+                  className="major-card-link-arrow"
+                />
               </a>
 
               {/* copy icon for this single link */}
@@ -148,14 +166,25 @@ const MajorCard: React.FC<MajorCardProps> = ({
     );
   };
 
+  /* ───────────────────────── render ───────────────────────── */
+  const cleanedName = cleanUnitName(name); // for anchor only
+  const anchorId = toAnchorId(cleanedName); // for anchor only
+  const displayName = name.trim(); // keeps emoji in heading
+
   return (
     <>
       <div className="major-card">
         {/* ---------- TOP SECTION ---------- */}
         <div className="major-card-top">
-          {/* <-- NEW container –-> */}
           <div className="major-card-heading-container">
-            <p className="major-card-heading">{name}</p>
+            {/* heading text keeps emoji; link still targets cleaned anchor */}
+            <Link
+              smooth
+              to={`/units#${anchorId}`}
+              className="major-card-heading major-card-heading-link"
+            >
+              {displayName}
+            </Link>
 
             <button
               type="button"
@@ -168,6 +197,7 @@ const MajorCard: React.FC<MajorCardProps> = ({
           </div>
         </div>
 
+        {/* ---------- BOTTOM SECTION ---------- */}
         <div className="major-card-bottom">
           <div className="major-card-inner">
             <div className="major-card-info-group">
@@ -175,23 +205,35 @@ const MajorCard: React.FC<MajorCardProps> = ({
               <p className="major-card-description">{description}</p>
             </div>
 
-            {renderSubunit(subunit1Title, [
-              { title: video1, url: url1 },
-              { title: video2, url: url2 },
-              { title: video3, url: url3 },
-            ], subunit1Copy)}
+            {renderSubunit(
+              subunit1Title,
+              [
+                { title: video1, url: url1 },
+                { title: video2, url: url2 },
+                { title: video3, url: url3 },
+              ],
+              subunit1Copy,
+            )}
 
-            {renderSubunit(subunit2Title, [
-              { title: video4, url: url4 },
-              { title: video5, url: url5 },
-              { title: video6, url: url6 },
-            ], subunit2Copy)}
+            {renderSubunit(
+              subunit2Title,
+              [
+                { title: video4, url: url4 },
+                { title: video5, url: url5 },
+                { title: video6, url: url6 },
+              ],
+              subunit2Copy,
+            )}
 
-            {renderSubunit(subunit3Title, [
-              { title: video7, url: url7 },
-              { title: video8, url: url8 },
-              { title: video9, url: url9 },
-            ], subunit3Copy)}
+            {renderSubunit(
+              subunit3Title,
+              [
+                { title: video7, url: url7 },
+                { title: video8, url: url8 },
+                { title: video9, url: url9 },
+              ],
+              subunit3Copy,
+            )}
 
             {note && (
               <div className="major-card-note">
@@ -201,11 +243,9 @@ const MajorCard: React.FC<MajorCardProps> = ({
           </div>
         </div>
       </div>
-      {toast && (
-        <div className="copy-toast">
-          {toast}
-        </div>
-      )}
+
+      {/* toast */}
+      {toast && <div className="copy-toast">{toast}</div>}
     </>
   );
 };
