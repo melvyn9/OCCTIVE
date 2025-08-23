@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/OCCTIVE/static/css/main.4def3c9f.css",
+    "main.css": "/OCCTIVE/static/css/main.4926540c.css",
     "main.js": "/OCCTIVE/static/js/main.0f5a9805.js",
     "static/media/kefir-regular.otf": "/OCCTIVE/static/media/kefir-regular.3b3d57883fef1b86ff39.otf",
     "static/media/SpaceGrotesk-SemiBold.otf": "/OCCTIVE/static/media/SpaceGrotesk-SemiBold.63d05cfd2eaac0be6085.otf",
@@ -12,11 +12,11 @@
     "static/media/CopyIconWhite.svg": "/OCCTIVE/static/media/CopyIconWhite.ff10b9d781692353df1ed80fb4f2f93f.svg",
     "static/media/HeaderMenu.svg": "/OCCTIVE/static/media/HeaderMenu.fbe584f8ebcba54603d9b2fde7609fb4.svg",
     "static/media/LinkedArrow.svg": "/OCCTIVE/static/media/LinkedArrow.7ec96cdf34db1b7c6a6548e5514084e2.svg",
-    "main.4def3c9f.css.map": "/OCCTIVE/static/css/main.4def3c9f.css.map",
+    "main.4926540c.css.map": "/OCCTIVE/static/css/main.4926540c.css.map",
     "main.0f5a9805.js.map": "/OCCTIVE/static/js/main.0f5a9805.js.map"
   },
   "entrypoints": [
-    "static/css/main.4def3c9f.css",
+    "static/css/main.4926540c.css",
     "static/js/main.0f5a9805.js"
   ]
 }
