@@ -86,6 +86,17 @@
   gap: 0.25rem;
 }
 
+// Add hover effect to links similar to copy icon
+.major-card-video-link,
+.major-card-heading-link {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
 .copy-icon-button {
   align-items: center;
   background: none;
@@ -144,8 +155,8 @@
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     display: flex;
-    padding-top: 1.5rem;
     padding-left: 32px;
+    padding-top: 1.5rem;
   }
 
   &-heading {
