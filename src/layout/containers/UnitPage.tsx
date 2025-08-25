@@ -2,17 +2,17 @@ import React from 'react';
 
 import Header from '../components/Header';
 import PageLayout from './PageLayout';
-import MajorPage from '../components/MajorPage';
+import UnitPage from '../components/UnitPage';
 import Footer from '../components/Footer';
 
-const MajorPageContainer: React.FC = () => (
+const UnitPageContainer: React.FC = () => (
   <>
     <Header />
     <PageLayout>
-      <MajorPage />
+      <UnitPage />
     </PageLayout>
     <Footer />
   </>
 );
 
-export default MajorPageContainer;
+export default UnitPageContainer;

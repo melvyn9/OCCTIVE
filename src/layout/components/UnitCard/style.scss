@@ -1,6 +1,17 @@
 @import '../../../styles';
 @import '../../../styles/base';
 
+/* Unified link style for all links inside cards */
+.frame-card a {
+  color: #1a1a1a;              /* default link color */
+  text-decoration: underline;  /* underline always */
+  transition: color 0.2s ease; /* smooth hover */
+}
+
+.frame-card a:hover {
+  color: #007acc;              /* hover color */
+}
+
 .video-card-container {
   align-items: flex-start;
   display: flex;
@@ -248,11 +259,6 @@
     flex-direction: column;
     gap: 0.5rem;
     padding-left: 0;
-
-    a {
-      color: $color-primary-blue;
-      text-decoration: underline;
-    }
   }
 
   &-note {

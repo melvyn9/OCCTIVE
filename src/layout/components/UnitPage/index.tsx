@@ -1,14 +1,14 @@
-// File: src/layout/components/MajorPage/index.tsx
+// File: src/layout/components/UnitPage/index.tsx
 import React, { useEffect, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
 
-import FrameCard from '../FrameCard';
+import UnitCard from '../UnitCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
 
 import './style.scss';
 
-const MajorPage: React.FC = () => {
+const UnitPage: React.FC = () => {
   const [videoData, setVideoData] = useState<Videos[]>([]);
 
   useEffect(() => {
@@ -27,51 +27,30 @@ const MajorPage: React.FC = () => {
   const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
   return (
-    <div className="major-page">
-      <div className="major-page-content">
+    <div className="unit-page">
+      <div className="unit-page-content">
         {/* ---------- Side Panel ---------- */}
-        <div className="major-page-side-items">
-          <div className="major-page-sidebar-sticky">
-            <div className="major-page-sidebar">
-              <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
+        <div className="unit-page-side-items">
+          <div className="unit-page-sidebar-sticky">
+            <div className="unit-page-sidebar">
+              <span className="unit-page-navbar-title">💻 OCCTIVE Library</span>
 
               {videoData.map((unit, index) => {
                 const cleanName = cleanUnitName(unit.name);
                 const anchorId = toAnchorId(cleanName);
 
                 return (
-                  <div className="major-page-link" key={index}>
+                  <div className="unit-page-link" key={index}>
                     <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
                   </div>
                 );
               })}
             </div>
-
-            {/* <div className="major-page-sidebuttons">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeg0R3tgG7Wdv1g4jPJSk34dweuWTdZg1hTUHLghnmD5bB7dQ/viewform"
-                className="btn-blue"
-                id="sidebar-btn-blue"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Additional Resources
-              </a>
-              <a
-                href="https://docs.google.com/drawings/d/1lD1CxMXV6G_83KfyaABuvqY-g2SodAKmKiVu3FFWMo8/edit"
-                className="btn-orange"
-                id="sidebar-btn-orange"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Compact View
-              </a>
-            </div> */}
           </div>
         </div>
 
         {/* ---------- Main Content ---------- */}
-        <div className="major-page-cards">
+        <div className="unit-page-cards">
           {videoData.map((unit, index) => {
             const cleanName = cleanUnitName(unit.name);
             const anchorId = toAnchorId(cleanName);
@@ -79,9 +58,9 @@ const MajorPage: React.FC = () => {
             return (
               <div key={index}>
                 {/* anchor that matches the sidebar link */}
-                <div id={anchorId} className="major-page-anchor" aria-hidden="true" />
+                <div id={anchorId} className="unit-page-anchor" aria-hidden="true" />
 
-                <FrameCard
+                <UnitCard
                   name={unit.name}
                   description={unit.description}
                   note={unit.note || ''}
@@ -140,4 +119,4 @@ const MajorPage: React.FC = () => {
   );
 };
 
-export default MajorPage;
+export default UnitPage;

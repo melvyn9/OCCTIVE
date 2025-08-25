@@ -35,7 +35,6 @@ export const parseList = (input: string): string[] => {
   return input.split(',').map((element) => element.trim());
 };
 
-// Parse the major specializations structure into an array
 // Handles empty specializations and makes rendering easier
 export const parseSpecializations = (input: any): { name: string, detail: string }[] => {
   if (!input) {

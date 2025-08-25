@@ -1,7 +1,7 @@
 @import '../../../styles/fonts';
 @import '../../../styles/vars';
 
-.major-page {
+.unit-page {
   &-back-to-main-menu {
     @include font-back-to-main-menu;
     align-items: center;
@@ -99,7 +99,7 @@
     padding: 1.5rem 0;
 
     position: sticky;
-    top: 2rem; // Adjust as needed for your layout/header
+    top: 2rem;
 
     a {
       color: #fff !important;
@@ -108,7 +108,7 @@
 
   &-sidebar-sticky {
     position: sticky;
-    top: 8rem; // <-- Increase this to match your header height
+    top: 8rem;
     z-index: 10;
   }
 
@@ -171,29 +171,29 @@
     }
   }
 
-  .major-page-card-anchor {
+  .unit-page-card-anchor {
     position: relative;
   }
 
-  .major-page-card-anchor::before {
+  .unit-page-card-anchor::before {
     content: '';
     display: block;
-    height: 5rem; // Match your sticky sidebar/header height
+    height: 5rem; // Match sticky sidebar/header height
     margin-top: -5rem;
     pointer-events: none;
   }
 
-  .major-page-anchor {
+  .unit-page-anchor {
     display: block;
     height: 0;
     position: relative;
-    top: -5rem; // Match your sticky sidebar/header height
+    top: -5rem; // Match sticky sidebar/header height
     visibility: hidden;
   }
 }
 
 @media (max-width: 1199px) {
-  .major-page {
+  .unit-page {
     &-hero {
       margin: 2rem -2rem;
       padding: 3rem 2rem;
@@ -239,7 +239,7 @@
  
  
 @media (max-width: 499px) {
-  .major-page {
+  .unit-page {
     &-hero {
       margin: 1.5rem -1rem;
       padding: 2rem 1rem;

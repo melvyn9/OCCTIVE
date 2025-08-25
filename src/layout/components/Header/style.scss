@@ -1,6 +1,11 @@
 @import '../../../styles';
 
 .header {
+  /* reuse the same blue everywhere */
+  --link-blue: #007acc;
+  /* optional: recolor <img> SVGs inside links on hover */
+  --link-blue-filter: invert(20%) sepia(88%) saturate(2321%)
+    hue-rotate(191deg) brightness(92%) contrast(101%);
   left: 0;
   position: fixed;
   right: 0;
@@ -30,12 +35,72 @@
     margin-left: 9rem;
   }
 
+  /* =========================
+     NAV LINK (chip on hover)
+     - No underline in any state
+     - Hover: rounded light square + subtle outline
+     - Focus-visible: clear ring for a11y
+     ========================= */
   &-link {
     @include font-nav-bar-text;
+    align-items: center;
+
+    background-color: transparent;
+    border-radius: 10px;
+    box-shadow: none;
+    color: inherit;
+    display: inline-flex;
+    gap: 0.375rem;
+    outline: 2px solid transparent; /* outline avoids layout shift */
+    outline-offset: 2px;
+
+    /* room for the chip background */
+    padding: 0.35rem 0.6rem;
+
+    transition:
+      background-color 0.18s ease,
+      box-shadow 0.18s ease,
+      outline-color 0.18s ease,
+      color 0.18s ease;
+
+    /* remove underline everywhere (beats global a{} rules) */
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+
+    /* if the link contains an icon image, let it tint on hover/focus */
+    img {
+      transition: filter 0.18s ease;
+    }
   }
 
+  /* hover → chip + blue text (same as copy icon) */
   &-link:hover {
-    opacity: 0.7;
+    background-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    color: var(--link-blue);            /* <-- key change */
+    /* remove any old opacity fades */
+    opacity: 1;
+  }
+
+  &-link:hover img {
+    filter: var(--link-blue-filter);    /* optional icon tint */
+  }
+
+  /* keyboard focus: keep chip + blue and show a clearer ring */
+  &-link:focus-visible {
+    background-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+    color: var(--link-blue);
+    outline-color: var(--link-blue);
+  }
+
+  &-link:focus-visible img {
+    filter: var(--link-blue-filter);
   }
 
   &-mobile {
@@ -59,7 +124,7 @@
     z-index: -1;
   }
 
-  @media(max-width: $site-size-small) {
+  @media (max-width: $site-size-small) {
     &-content {
       height: 3.5rem;
       justify-content: space-between;
@@ -70,13 +135,13 @@
       margin-top: 0.5rem;
       width: 3rem;
     }
-  
+
     &-links {
       display: none;
     }
-  
+
     &-link {
-      padding: 0.25rem;
+      padding: 0.25rem 0.5rem; /* slightly tighter on mobile */
     }
 
     &-mobile {
@@ -99,6 +164,7 @@
       top: calc(-12.5rem + 3.5rem);
 
       &.open {
+        height: 8rem;
         top: 3.5rem;
       }
     }
@@ -108,7 +174,7 @@
 .spacer {
   min-height: 5.25rem;
 
-  @media(max-width: $site-size-small) {
+  @media (max-width: $site-size-small) {
     min-height: 3.5rem;
   }
 }
@@ -119,7 +185,7 @@
   object-fit: cover;
   width: 100%;
 
-  @media(max-width: $site-size-small) {
+  @media (max-width: $site-size-small) {
     // height: 12.5rem;
     height: 3rem;
   }

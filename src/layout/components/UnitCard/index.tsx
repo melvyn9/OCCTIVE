@@ -11,7 +11,7 @@ import './style.scss';
 /*                             PROP TYPES                             */
 /* ------------------------------------------------------------------ */
 
-export interface FrameCardProps {
+export interface UnitCardProps {
   name: string;
   description: string;
   note: string;
@@ -39,7 +39,7 @@ export interface FrameCardProps {
 /*                              COMPONENT                             */
 /* ------------------------------------------------------------------ */
 
-const FrameCard: React.FC<FrameCardProps> = (props) => {
+const UnitCard: React.FC<UnitCardProps> = (props) => {
   /* toast handling */
   const [toast, setToast] = useState<string | null>(null);
   const showToast = (msg: string) => {
@@ -182,4 +182,4 @@ const FrameCard: React.FC<FrameCardProps> = (props) => {
   );
 };
 
-export default FrameCard;
+export default UnitCard;
