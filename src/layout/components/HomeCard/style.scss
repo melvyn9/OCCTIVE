@@ -1,27 +1,29 @@
 @import '../../../styles';
 @import '../../../styles/base';
 
-.major-hyperlink {
-  display: block;
-  position: relative;
-  top: calc(-5.25rem - 2.25rem);
-
-  visibility: hidden;
-
-  @media (max-width: $site-size-small) {
-    top: calc(-3.5rem - 1rem);
-  }
+.home-card {
+  --link-blue-filter: invert(20%) sepia(88%) saturate(2321%)
+    hue-rotate(191deg) brightness(92%) contrast(101%);
 }
 
-// Major Card Styling
-.major-card-subheading-container {
+.home-card a {
+  color: #1a1a1a;              /* default link color */
+  text-decoration: underline;  /* underline always */
+  transition: color 0.2s ease; /* smooth hover */
+}
+
+.home-card a:hover {
+  color: #007acc;              /* hover color */
+}
+
+.home-card-subheading-container {
   align-items: center;
   display: flex;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
-.major-card-subheading-link {
+.home-card-subheading-link {
   align-items: center;
   color: inherit;
   display: flex;
@@ -29,7 +31,7 @@
   text-decoration: none;
 }
 
-.major-card-subheading {
+.home-card-subheading {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0;
@@ -68,33 +70,34 @@
 
 // Copy Icon Styling
 // For the copy-all-icon for each cluster
-.major-card-heading-container {
+.home-card-heading-container {
   align-items: center;
   display: inline-flex;
 }
 
 // For each copy-icon on each link
-.major-card-video-item {
+.home-card-video-item {
   align-items: center;
   display: flex;
   gap: 0.5rem;
 }
 
-.major-card-video-link {
+.home-card-video-link {
   align-items: center;
   display: inline-flex;
   gap: 0.25rem;
 }
 
-// Add hover effect to links similar to copy icon
-.major-card-video-link,
-.major-card-heading-link {
-  opacity: 1;
-  transition: opacity 0.2s ease;
+.home-card-video-link,
+.home-card-heading-link {
+  color: #1a1a1a;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
 
-  &:hover {
-    opacity: 0.7;
-  }
+.home-card-video-link:hover,
+.home-card-heading-link:hover {
+  color: #007acc;
 }
 
 .copy-icon-button {
@@ -108,19 +111,33 @@
 }
 
 .copy-icon,
-.major-card-link-arrow {
+.home-card-link-arrow {
+  border-radius: 4px;      /* so the outline has soft corners */
   height: 18px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  /* smooth recolor + outline without layout shift */
+  transition:
+    filter 0.2s ease,
+    outline-color 0.2s ease,
+    box-shadow 0.2s ease;
   width: 18px;
 }
 
-.copy-icon:hover,
-.major-card-link-arrow:hover {
-  opacity: 1;
+/* hover when the interactive wrapper is hovered */
+.copy-icon-button:hover .copy-icon,
+.home-card-video-link:hover .home-card-link-arrow {
+  box-shadow: 0 0 0 1px rgba(0, 122, 204, 0.18);
+  /* recolor to link blue */
+  filter: var(--link-blue-filter);
+  /* visible outline chip */
+  outline-color: rgba(0, 122, 204, 0.35);
 }
 
-.major-card {
+/* ensure pointer on the copy control */
+.copy-icon-button { cursor: pointer; }
+
+.home-card {
   @include font-text;
 
   background-color: $color-neutrals-white;
@@ -130,9 +147,6 @@
   /* keep each card intact — prevents it from being split in the middle  */
   break-inside: avoid;       /* Firefox+Chrome */
   color: $color-neutrals-black;
-  // display: flex;
-  // flex-direction: column;
-  // margin-bottom: 3rem;
   display: inline-block;
   margin: 0 0 1.5rem;
   page-break-inside: avoid;  /* legacy Safari                            */
@@ -197,7 +211,7 @@
       margin: 0;
     }
 
-    .major-card-subheading {
+    .home-card-subheading {
       @include font-subtitle-1;
       margin: 0 0 0.5rem;
     }
@@ -245,11 +259,6 @@
     flex-direction: column;
     gap: 0.5rem;
     padding-left: 0;
-
-    a {
-      color: $color-primary-blue;
-      text-decoration: underline;
-    }
   }
 
   &-note {
@@ -317,14 +326,6 @@
   }
 }
 
-// Fix for .btn-dependencies utility class
-// .btn-dependencies {
-//   border: 0 !important;
-//   box-shadow: none !important;
-//   display: inline-block !important;
-//   max-width: unset !important; // <-- moved before outline
-//   min-width: unset !important;
-//   outline: none !important;
-//   padding: 0.5rem 1rem !important;
-//   width: auto !important;
-// }
+.btn-lightblue.btn-dependencies {
+  cursor: pointer;
+}

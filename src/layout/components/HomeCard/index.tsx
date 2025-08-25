@@ -1,11 +1,11 @@
-// File: src/layout/components/MajorCard/index.tsx
+// File: src/layout/components/HomeCard/index.tsx
 import React, { useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import LinkedArrow from '../../../assets/LinkedArrow.svg';
 import CopyIcon from '../../../assets/CopyIcon.svg';
 import './style.scss';
 
-interface MajorCardProps {
+interface HomeCardProps {
   name: string;
   description: string;
   note: string;
@@ -51,7 +51,7 @@ const cleanUnitName = (raw: string) => {
 /** Convert “Unit 1: Setting Context” → “Unit-1-Setting-Context” */
 const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
-const MajorCard: React.FC<MajorCardProps> = ({
+const HomeCard: React.FC<HomeCardProps> = ({
   name,
   description,
   note,
@@ -117,9 +117,9 @@ const MajorCard: React.FC<MajorCardProps> = ({
     };
 
     return (
-      <div className="major-card-videos">
-        <div className="major-card-subheading-container">
-          <span className="major-card-subheading">{title}</span>
+      <div className="home-card-videos">
+        <div className="home-card-subheading-container">
+          <span className="home-card-subheading">{title}</span>
           <button
             type="button"
             className="copy-icon-button"
@@ -130,20 +130,20 @@ const MajorCard: React.FC<MajorCardProps> = ({
           </button>
         </div>
 
-        <div className="major-card-video-list">
+        <div className="home-card-video-list">
           {filteredVideos.map((video) => (
-            <div key={video.url} className="major-card-video-item">
+            <div key={video.url} className="home-card-video-item">
               <a
                 href={video.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="major-card-video-link"
+                className="home-card-video-link"
               >
                 {video.title}
                 <img
                   src={LinkedArrow}
                   alt="Link arrow"
-                  className="major-card-link-arrow"
+                  className="home-card-link-arrow"
                 />
               </a>
 
@@ -173,15 +173,15 @@ const MajorCard: React.FC<MajorCardProps> = ({
 
   return (
     <>
-      <div className="major-card">
+      <div className="home-card">
         {/* ---------- TOP SECTION ---------- */}
-        <div className="major-card-top">
-          <div className="major-card-heading-container">
+        <div className="home-card-top">
+          <div className="home-card-heading-container">
             {/* heading text keeps emoji; link still targets cleaned anchor */}
             <Link
               smooth
               to={`/units#${anchorId}`}
-              className="major-card-heading major-card-heading-link"
+              className="home-card-heading home-card-heading-link"
             >
               {displayName}
             </Link>
@@ -198,11 +198,11 @@ const MajorCard: React.FC<MajorCardProps> = ({
         </div>
 
         {/* ---------- BOTTOM SECTION ---------- */}
-        <div className="major-card-bottom">
-          <div className="major-card-inner">
-            <div className="major-card-info-group">
-              <p className="major-card-subheading">Description</p>
-              <p className="major-card-description">{description}</p>
+        <div className="home-card-bottom">
+          <div className="home-card-inner">
+            <div className="home-card-info-group">
+              <p className="home-card-subheading">Description</p>
+              <p className="home-card-description">{description}</p>
             </div>
 
             {renderSubunit(
@@ -236,8 +236,8 @@ const MajorCard: React.FC<MajorCardProps> = ({
             )}
 
             {note && (
-              <div className="major-card-note">
-                <p className="major-card-note-text">{note}</p>
+              <div className="home-card-note">
+                <p className="home-card-note-text">{note}</p>
               </div>
             )}
           </div>
@@ -250,4 +250,4 @@ const MajorCard: React.FC<MajorCardProps> = ({
   );
 };
 
-export default MajorCard;
+export default HomeCard;

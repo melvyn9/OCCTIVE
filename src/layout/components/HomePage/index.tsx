@@ -1,7 +1,7 @@
 // File: src/layout/components/HomePage/index.tsx
 import React, { useEffect, useState } from 'react';
 
-import MajorCard from '../MajorCard';
+import HomeCard from '../HomeCard';
 import { useData, DataTypes, Videos } from '../../../utils/data';
 
 import './style.scss';
@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
       <section className="home-page-content">
         <div className="home-page-cards">
           {videoData.map((unit) => (
-            <MajorCard
+            <HomeCard
               key={unit.name}
               name={unit.name}
               description={unit.description}

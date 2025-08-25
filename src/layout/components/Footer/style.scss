@@ -4,81 +4,101 @@
   align-items: flex-start;
   background-color: #37555b;
   color: $color-neutrals-white;
-  display: flex;
+  column-gap: 4rem;
+  /* 3-column grid:
+     logo/contact] [issue] [grant takes the rest] */
+  display: grid;
   flex: 0 0 auto;
-  height: 10rem;
-  padding-left: 7rem;
-  padding-top: 4rem;
+  grid-template-columns: 100px 100px 1fr; /* tweak as you like */
+  min-height: 10rem;
+  padding: 2rem 7rem 0; /* top, right, bottom, left */
+}
 
-  &-content {
-    display: flex;
-    flex-direction: column;
-  }
+/* unify footer link styles (email + issue + grant) */
+.footer a {
+  color: inherit;               /* keep the footer’s white text by default */
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
 
-  &-logo {
-    width: 3rem;
-  }
+.footer a:hover,
+.footer a:focus-visible {
+  color: #007acc;               /* same blue as the copy icon */
+}
 
-  &-contact {
-    @include font-footer-heading-text;
-    margin-top: 1rem;
-  }
+/* left column */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+}
 
-  &-email {
-    @include font-footer-text;
-    margin-top: 0.5rem;
-  }
+.footer-logo { width: 3rem; }
 
-  &-links {
-    display: flex;
-    flex-direction: column;
-    margin-left: 4rem;
-  }
+.footer-contact { @include font-footer-heading-text; margin-top: 1rem; }
+.footer-email { @include font-footer-text;        margin-top: 0.5rem; }
 
-  &-link {
-    @include font-footer-heading-text;
-  }
+/* middle column — keep to ~2 lines max by bounding the width */
+.footer-issue {
+  max-width: 180px; /* fits “Have an issue?” in 2 lines */
+}
 
-  &-issue {
-    margin-left: 4.5rem;
+.footer-issue-heading { @include font-footer-heading-text; }
 
-    &-heading {
-      @include font-footer-heading-text;
-    }
+.footer-issue-link {
+  @include font-footer-text;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  overflow-wrap: anywhere;
+  text-decoration-line: underline;
+  /* make sure it wraps instead of squeezing super narrow */
+  white-space: normal;
+  word-wrap: break-word;
+}
 
-    &-link {
-      @include font-footer-text;
-      cursor: pointer;
-      margin-top: 1.25rem;
-      text-decoration-line: underline;
-    }
-  }
+.footer-grant {
 
-  @media(max-width: $site-size-small) { 
-    flex-direction: column;
-    height: unset;
+  /* key changes */
+  align-self: start;         /* was: stretch — now height = content + padding */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 10px;
+
+  box-sizing: border-box;
+  grid-column: 3;
+  justify-self: stretch;     /* still fill the column width */
+  margin-bottom: 1rem;
+  max-width: none;
+  padding: 1rem 1.25rem;     /* bottom padding = 1rem from text */
+}
+
+/* NSF grant: logo + text side-by-side */
+.footer-grant-inner {
+  align-items: flex-start;  /* align top edges */
+  display: flex;
+  gap: 0.75rem;             /* space between logo and text */
+}
+
+.footer-grant-logo {
+  border-radius: 50%;       /* optional: keeps it nicely circular if the file is square */
+  flex: 0 0 auto;
+  height: 50px;
+  object-fit: contain;
+  width: 50px;
+}
+
+.footer-grant-text {
+  font-size: 14px;
+}
+
+/* mobile: stack everything */
+@media (max-width: $site-size-small) {
+  .footer {
+    column-gap: 0;
+    grid-template-columns: 1fr;
     padding: 1.5rem;
-
-    &-email { 
-      margin-top: 0.25rem;
-    }
-
-    &-links {
-      margin-left: 0;
-      margin-top: 1.5rem;
-    }
-
-    &-link { 
-      margin-top: 0.5rem;
-    }
-
-    &-issue {
-      margin-left: 0;
-      margin-top: 1.5rem;
-
-      &-link {
-        margin-top: 0.25rem;
-      }
-    }
+    row-gap: 1.25rem;
   }
+
+  .footer-issue { max-width: none; }
+  .footer-grant { grid-column: 1; }
 }
