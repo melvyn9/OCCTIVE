@@ -39,7 +39,7 @@ const Footer: React.FC = () => (
         >
           <img
             className="footer-grant-logo"
-            src={`${process.env.PUBLIC_URL}/IMG/NSF_logo.png`}
+            src={`${process.env.PUBLIC_URL}/img/NSF_logo.png`}
             alt="National Science Foundation logo"
             loading="lazy"
           />

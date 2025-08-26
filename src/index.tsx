@@ -6,8 +6,9 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './layout/containers/HomePage';
 import UnitPage from './layout/containers/UnitPage';
 import ErrorPage from './layout/containers/ErrorPage';
-import ResourcePage from './layout/containers/ResourcePage';
+import AdoptPage from './layout/containers/AdoptPage';
 import AboutPage from './layout/containers/AboutPage';
+import WorkshopPage from './layout/containers/WorkshopPage';
 
 import './index.scss';
 
@@ -18,8 +19,9 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/units" component={UnitPage} />
-      <Route exact path="/resources" component={ResourcePage} />
+      <Route exact path="/adopt" component={AdoptPage} />
       <Route exact path="/about" component={AboutPage} />
+      <Route exact path="/workshop" component={WorkshopPage} />
       <Route path="/" component={ErrorPage} />
     </Switch>
   </Router>,

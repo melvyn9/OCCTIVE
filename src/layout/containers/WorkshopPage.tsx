@@ -1,23 +1,23 @@
-// File: src/layout/pages/ResourcePageContainer.tsx
+// File: src/layout/pages/WorkshopPageContainer.tsx
 import React from 'react';
 
 import Header from '../components/Header';
 import PageLayout from './PageLayout';
-import ResourcePage from '../components/ResourcePage';
+import WorkshopPage from '../components/WorkshopPage';
 import Footer from '../components/Footer';
 
-const ResourcePageContainer: React.FC = () => (
+const WorkshopPageContainer: React.FC = () => (
   <>
     {/* no heroURL prop now */}
     <Header />
 
     <PageLayout>
       {/* <HomePage heroURL={header} /> prop removed inside HomePage */}
-      <ResourcePage />
+      <WorkshopPage />
     </PageLayout>
 
     <Footer />
   </>
 );
 
-export default ResourcePageContainer;
+export default WorkshopPageContainer;

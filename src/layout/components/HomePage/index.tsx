@@ -25,6 +25,21 @@ const HomePage: React.FC = () => {
       <section className="home-page-hero">
         <div className="home-page-hero-content">
           <div className="home-page-hero-text">
+            {/* Remove Later */}
+            <div className="home-page-notice" role="note" aria-label="site notice">
+              <p className="home-page-notice-text">
+                This is a new page under development. For the currently active site, please see:{' '}
+                <a
+                  className="home-page-notice-link"
+                  href="https://occtive.github.io/www/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://occtive.github.io/www/index.html
+                </a>
+              </p>
+            </div>
+            {/* Remove Later */}
             <h1 className="home-page-title">Welcome to the OCCTIVE Library</h1>
             <p className="home-page-text">
               An accessible intro to computer science, covering programming basics,
@@ -38,15 +53,14 @@ const HomePage: React.FC = () => {
               >
                 {showGraph ? 'Hide Dependency Graph' : 'Show Dependency Graph'}
               </button>
-
-              <a
+              {/* <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSdy5MtrwNQZ9VHM32Tjm6UL3MTuc9vu-oQ9vknjkVrviUYC0g/viewform"
                 className="btn-blue"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Provide Feedback
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

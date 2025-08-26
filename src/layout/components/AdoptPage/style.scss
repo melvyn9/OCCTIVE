@@ -1,0 +1,102 @@
+/* Adopt OCCTIVE page styles */
+/* Match About page H2 size (24px) */
+.adopt-block h2 {
+  font-size: 1.5rem;   /* 24px */
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+}
+
+.adopt-section {
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 0 1rem;
+}
+
+/* Align list bullets with the section headings */
+.adopt-block ul {
+  list-style: disc inside; /* puts the • inside the box, flush with the text edge */
+  margin-bottom: 1rem;
+  margin-left: 0;          /* kill default left margin */
+  margin-top: 0.5rem;
+  padding-left: 0;         /* kill default left padding */
+}
+
+.adopt-block li {
+  margin: 0.35rem 0;       /* comfy spacing */
+}
+
+.adopt-block {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  /* links: underline always; color change on hover */
+  a {
+    color: #1a1a1a;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: #007acc;
+  }
+}
+
+.adopt-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.adopt-subtitle {
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 1rem 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.adopt-list {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+
+  li {
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+  }
+}
+
+.adopt-quote {
+  border-left: 4px solid rgba(0, 0, 0, 0.15);
+  color: #2c2c2c;
+  font-style: italic;
+  padding-left: 0.75rem;
+}
+
+/* Adopt page links */
+.adopt-link {
+  color: #1a1a1a;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.adopt-link:hover {
+  color: #007acc;
+}
+
+@media (max-width: 600px) {
+  .adopt-section { padding: 0 1rem; }
+  .adopt-block { padding: 1.25rem 1rem; }
+}

@@ -1,6 +1,42 @@
 @import '../../../styles/fonts';
 @import '../../../styles/vars';
 
+/* Delete LATER */
+/* Notice box */
+.home-page-notice {
+  background: #fff8d9;               /* soft warning yellow */
+  border: 1px solid #ffe08a;
+  border-radius: 10px;
+  margin: 0 0 0.75rem;               /* space below (above the H1) */
+  padding: 0.75rem 1rem;             /* default horizontal padding */
+}
+
+.home-page-notice-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.home-page-notice-link {
+  color: #1a1a1a;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.home-page-notice-link:hover {
+  color: #007acc;
+}
+
+/* Condense L/R padding on small devices */
+@media (max-width: $site-size-small) {
+  .home-page-notice {
+    border-radius: 8px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+/* Delete Later */
+
 /* Only targets HomePage */
 .home-page {
   &-hero {
