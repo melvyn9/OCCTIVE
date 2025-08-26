@@ -3,21 +3,21 @@ import React from 'react';
 
 import Header from '../components/Header';
 import PageLayout from './PageLayout';
-import AboutPage from '../components/AboutPage';
+import AdoptPage from '../components/AdoptPage';
 import Footer from '../components/Footer';
 
-const AboutPageContainer: React.FC = () => (
+const AdoptPageContainer: React.FC = () => (
   <>
     {/* no heroURL prop now */}
     <Header />
 
     <PageLayout>
       {/* <HomePage heroURL={header} /> prop removed inside HomePage */}
-      <AboutPage />
+      <AdoptPage />
     </PageLayout>
 
     <Footer />
   </>
 );
 
-export default AboutPageContainer;
+export default AdoptPageContainer;
