@@ -7,14 +7,14 @@
   background: #fff8d9;               /* soft warning yellow */
   border: 1px solid #ffe08a;
   border-radius: 10px;
-  padding: 0.75rem 1rem;             /* default horizontal padding */
   margin: 0 0 0.75rem;               /* space below (above the H1) */
+  padding: 0.75rem 1rem;             /* default horizontal padding */
 }
 
 .home-page-notice-text {
-  margin: 0;
   font-size: 0.95rem;
   line-height: 1.5;
+  margin: 0;
 }
 
 .home-page-notice-link {
@@ -22,6 +22,7 @@
   text-decoration: underline;
   transition: color 0.2s ease;
 }
+
 .home-page-notice-link:hover {
   color: #007acc;
 }
