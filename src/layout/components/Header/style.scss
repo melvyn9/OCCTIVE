@@ -24,9 +24,9 @@
 
   &-logo {
     margin-top: 0.5rem;
-    width: 5rem;
     /* transition for smooth scaling */
     transition: transform 0.2s ease-in-out;
+    width: 5rem;
 
     &:hover {
       transform: scale(1.05);
@@ -134,29 +134,29 @@
     justify-content: flex-start;
 
     left: 0;
-    right: 0;
-    position: fixed;
+
+    opacity: 0;
 
     /* give the bottom plenty of breathing room
        so the hover stays inside the panel */
     padding: 0.5rem 0.75rem 0.25rem;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
 
     /* animated open/close */
     top: calc(-12.5rem + 5.25rem);
+    transform: translateY(-10px);
     transition:
       top 0.5s ease,
       opacity 0.4s ease,
       transform 0.4s ease;
     z-index: -1;
 
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-
     &.open {
-      top: 3.5rem;
       opacity: 1;
       pointer-events: auto;
+      top: 3.5rem;
       transform: translateY(0);
     }
   }
