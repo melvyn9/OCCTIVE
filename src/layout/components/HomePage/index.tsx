@@ -42,8 +42,8 @@ const HomePage: React.FC = () => {
             {/* Remove Later */}
             <h1 className="home-page-title">Welcome to the OCCTIVE Library</h1>
             <p className="home-page-text">
-              An accessible intro to computer science, covering programming basics,
-              problem-solving, and real-world applications in Python and R.
+              An accessible intro to foundational computing concepts with applications
+              in the sciences, humanities, and beyond.
             </p>
             <div className="home-page-hero-buttons">
               <button

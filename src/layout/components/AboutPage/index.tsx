@@ -7,10 +7,10 @@ const AboutPage: React.FC = () => (
     <section className="home-page-hero">
       <div className="home-page-hero-content">
         <div className="home-page-hero-text">
-          <h1 className="home-page-title">About the Project</h1>
+          <h1 className="home-page-title">The OCCTIVE Project</h1>
           <p className="home-page-text">
-            This project brings together faculty from multiple institutions. Below you can
-            find the project overview and leadership team.
+            The OCCTIVE Project offers resources to introduce foundational computing concepts
+            with applications in the sciences, humanities, and beyond.
           </p>
         </div>
       </div>

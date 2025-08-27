@@ -42,8 +42,11 @@ const AdoptPage: React.FC = () => (
           have already been used in a range of courses at several institutions. One adopting
           faculty member said “I thought that they really were a great way for me to be able
           to efficiently get information across more effectively than if I tried to do it…
-          I thought that the videos were clean and watchable.” We&rsquo;re preparing to
-          welcome a new cohort of faculty adoptees. If you are interested in integrating
+          I thought that the videos were clean and watchable.”
+          <strong>
+            We&rsquo;re preparing to welcome a new cohort of faculty adoptees.
+          </strong>
+          If you are interested in integrating
           OCCTIVE into one or more of your courses and helping us collect data to evaluate
           the effectiveness of OCCTIVE, please complete{' '}
           <a
@@ -54,9 +57,17 @@ const AdoptPage: React.FC = () => (
           >
             this form
           </a>
-          . (NOTE: For planning purposes, we request that you complete the participation
-          form by September 16, 2025.) If you have questions, please{' '}
-          <a className="adopt-link" href="mailto:occtive@gmail.com">
+          . (
+          <strong>
+            NOTE: For planning purposes, we request that you complete the participation
+            form by September 16, 2025.
+          </strong>) If you have questions, please{' '}
+          <a
+            className="adopt-link"
+            href="mailto:occtive@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             reach out to the project team.
           </a>
         </p>

@@ -180,7 +180,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
             {/* heading text keeps emoji; link still targets cleaned anchor */}
             <Link
               smooth
-              to={`/units#${anchorId}`}
+              to={`/library#${anchorId}`}
               className="home-card-heading home-card-heading-link"
             >
               {displayName}
