@@ -10,7 +10,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 99;
 
   &-content {
     align-items: center;
@@ -112,16 +112,37 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    // height: 12.5rem;
     height: 3rem;
     justify-content: space-around;
     left: 0;
     padding: 0.25rem 0.5rem;
     position: fixed;
     right: 0;
+
+    /* closed position = slid up */
     top: calc(-12.5rem + 5.25rem);
-    transition: top 0.5s;
-    z-index: -1;
+
+    /* fade first, then slide */
+    opacity: 0;
+    transition:
+      top 0.5s ease 0.5s,   /* wait 250ms before moving when closing */
+      opacity 0.25s ease 0s; /* fade immediately */
+    pointer-events: none;     /* don’t block page when closed */
+    z-index: 98;              /* keep above during animation */
+    will-change: top, opacity;
+  }
+
+  /* open state */
+  &-mobile-links.open {
+    top: 3.5rem;
+    height: 8rem;
+    opacity: 1;
+    pointer-events: auto;
+
+    /* opening: slide right away, fade in shortly after */
+    transition:
+      top 0.5s ease 0s,
+      opacity 0.25s ease 0.15s;
   }
 
   @media (max-width: $site-size-small) {
@@ -164,7 +185,7 @@
       top: calc(-12.5rem + 3.5rem);
 
       &.open {
-        height: 8rem;
+        // height: 8rem;
         top: 3.5rem;
       }
     }
