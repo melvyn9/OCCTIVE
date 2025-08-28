@@ -2,6 +2,24 @@
 @import '../../../styles/vars';
 
 .major-page {
+  &-numbers-carousel { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  &-numbers-left-btn,
+  &-numbers-right-btn {
+    display: none;
+  }
+
+  &-nav-name-desktop {
+    display: inline;
+  }
+  &-nav-name-mobile {
+    display: none;
+  }
+
   &-back-to-main-menu {
     @include font-back-to-main-menu;
     align-items: center;
@@ -194,6 +212,48 @@
 
 @media (max-width: 1199px) {
   .major-page {
+    &-numbers-left-btn,
+    &-numbers-right-btn {       
+      color: #fff;                 
+      border: none;
+      border-radius: 50%;          
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 0 6px;
+    }
+
+    &-navbar-title {
+      display: block;
+      text-align: center; // centers the title
+      margin-bottom: 8px;
+    }
+    
+    &-numbers {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      gap: 12px;
+      overflow: hidden; 
+    }
+    
+    .major-page-link {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+
+    &-nav-name-desktop {
+      display: none;
+    }
+    &-nav-name-mobile {
+      display: inline;
+    }
+
     &-hero {
       margin: 2rem -2rem;
       padding: 3rem 2rem;
@@ -240,6 +300,33 @@
  
 @media (max-width: 499px) {
   .major-page {
+    &-numbers-left-btn,
+    &-numbers-right-btn {
+      color: #fff;                 
+      border: none;
+      border-radius: 50%;          
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 0 6px;
+    }
+
+    &-numbers {
+      gap: 8px;
+    }
+    
+    &-nav-name-desktop {
+      display: inline;
+    }
+    &-nav-name-mobile {
+      display: none;
+    }
+
     &-hero {
       margin: 1.5rem -1rem;
       padding: 2rem 1rem;

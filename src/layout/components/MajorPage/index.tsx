@@ -10,11 +10,21 @@ import './style.scss';
 
 const MajorPage: React.FC = () => {
   const [videoData, setVideoData] = useState<Videos[]>([]);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
   useEffect(() => {
     useData(DataTypes.Videos)
       .then((data) => setVideoData(data as Videos[]))
       .catch(() => setVideoData([]));
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileOrTablet(window.innerWidth <= 1199);
+    };
+    handleResize(); // run at mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   /** Strip everything before the first “Unit” (incl. emojis / blanks). */
@@ -26,6 +36,20 @@ const MajorPage: React.FC = () => {
   /** Convert the cleaned name to a safe ID: spaces→dashes, drop colons. */
   const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
+  const [startPage, setStartPage] = useState(0);
+  const visibleCount = 5;
+  const endPage = startPage + visibleCount;
+  const visiblePageNumbers = isMobileOrTablet
+    ? videoData.slice(startPage, endPage)
+    : videoData;
+
+  const handleLeftBtn = () => {
+    setStartPage((prev) => Math.max(prev - visibleCount, 0));
+  };
+  const handleRightBtn = () => {
+    setStartPage((prev) => Math.min(prev + visibleCount, videoData.length - visibleCount));
+  };
+
   return (
     <div className="major-page">
       <div className="major-page-content">
@@ -34,17 +58,41 @@ const MajorPage: React.FC = () => {
           <div className="major-page-sidebar-sticky">
             <div className="major-page-sidebar">
               <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
+              <div className="major-page-numbers-carousel">
+                <button
+                  type="button"
+                  className="major-page-numbers-left-btn"
+                  onClick={handleLeftBtn}
+                  disabled={startPage === 0}
+                >
+                  ◀
+                </button>
+                <div className="major-page-numbers">
+                  {visiblePageNumbers.map((unit, index) => {
+                    const cleanName = cleanUnitName(unit.name);
+                    const anchorId = toAnchorId(cleanName);
 
-              {videoData.map((unit, index) => {
-                const cleanName = cleanUnitName(unit.name);
-                const anchorId = toAnchorId(cleanName);
-
-                return (
-                  <div className="major-page-link" key={index}>
-                    <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
-                  </div>
-                );
-              })}
+                    return (
+                      <div className="major-page-link" key={index}>
+                        <Link smooth to={`#${anchorId}`}>
+                          {/* Desktop */}
+                          <span className="major-page-nav-name-desktop">{cleanName}</span>
+                          {/* Tablet/Phone */}
+                          <span className="major-page-nav-name-mobile">{startPage + index + 1}</span>
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+                <button
+                  type="button"
+                  className="major-page-numbers-right-btn"
+                  onClick={handleRightBtn}
+                  disabled={endPage >= videoData.length}
+                >
+                  ▶
+                </button>
+              </div>
             </div>
 
             {/* <div className="major-page-sidebuttons">
