@@ -11,12 +11,8 @@ export const CSV_GIDS = {
   DependencyGraph: '920052474',
 } as const;
 
-// Public base (works in CRA, Vite, GH Pages) //
-const BASE_URL = (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.BASE_URL)
-  // CRA
-  || (typeof process !== 'undefined' && (process as any)?.env?.PUBLIC_URL)
-  || '/';
-
+// Public base (CRA only, for static files in /public)
+const BASE_URL = process.env.PUBLIC_URL || '/';
 const prefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 
 // Local fallback paths (served from /public)
