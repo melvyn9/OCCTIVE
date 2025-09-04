@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.9d077051.css",
-    "main.js": "/static/js/main.d482e694.js",
-    "static/media/kefir-regular.otf": "/static/media/kefir-regular.3b3d57883fef1b86ff39.otf",
-    "static/media/SpaceGrotesk-SemiBold.otf": "/static/media/SpaceGrotesk-SemiBold.63d05cfd2eaac0be6085.otf",
-    "static/media/SpaceGrotesk-Regular.otf": "/static/media/SpaceGrotesk-Regular.107ef1bf316015682af9.otf",
-    "static/media/MBGrotesk-Regular.otf": "/static/media/MBGrotesk-Regular.2b180eb4e1fd29a043d8.otf",
-    "static/media/dependency_chart_btn_icon.svg": "/static/media/dependency_chart_btn_icon.7b9fe564d0fa02ec9657108bbbb7a983.svg",
-    "index.html": "/index.html",
-    "static/media/CopyIcon.svg": "/static/media/CopyIcon.065785500daab7d1e8a559b35d7f5e8a.svg",
-    "static/media/CopyIconWhite.svg": "/static/media/CopyIconWhite.ff10b9d781692353df1ed80fb4f2f93f.svg",
-    "static/media/HeaderMenu.svg": "/static/media/HeaderMenu.fbe584f8ebcba54603d9b2fde7609fb4.svg",
-    "static/media/LinkedArrow.svg": "/static/media/LinkedArrow.7ec96cdf34db1b7c6a6548e5514084e2.svg",
-    "main.9d077051.css.map": "/static/css/main.9d077051.css.map",
-    "main.d482e694.js.map": "/static/js/main.d482e694.js.map"
+    "main.css": "/OCCTIVE/static/css/main.16c3534c.css",
+    "main.js": "/OCCTIVE/static/js/main.18077e12.js",
+    "static/media/kefir-regular.otf": "/OCCTIVE/static/media/kefir-regular.3b3d57883fef1b86ff39.otf",
+    "static/media/SpaceGrotesk-SemiBold.otf": "/OCCTIVE/static/media/SpaceGrotesk-SemiBold.63d05cfd2eaac0be6085.otf",
+    "static/media/SpaceGrotesk-Regular.otf": "/OCCTIVE/static/media/SpaceGrotesk-Regular.107ef1bf316015682af9.otf",
+    "static/media/MBGrotesk-Regular.otf": "/OCCTIVE/static/media/MBGrotesk-Regular.2b180eb4e1fd29a043d8.otf",
+    "static/media/dependency_chart_btn_icon.svg": "/OCCTIVE/static/media/dependency_chart_btn_icon.7b9fe564d0fa02ec9657108bbbb7a983.svg",
+    "index.html": "/OCCTIVE/index.html",
+    "static/media/CopyIcon.svg": "/OCCTIVE/static/media/CopyIcon.065785500daab7d1e8a559b35d7f5e8a.svg",
+    "static/media/CopyIconWhite.svg": "/OCCTIVE/static/media/CopyIconWhite.ff10b9d781692353df1ed80fb4f2f93f.svg",
+    "static/media/HeaderMenu.svg": "/OCCTIVE/static/media/HeaderMenu.fbe584f8ebcba54603d9b2fde7609fb4.svg",
+    "static/media/LinkedArrow.svg": "/OCCTIVE/static/media/LinkedArrow.7ec96cdf34db1b7c6a6548e5514084e2.svg",
+    "main.16c3534c.css.map": "/OCCTIVE/static/css/main.16c3534c.css.map",
+    "main.18077e12.js.map": "/OCCTIVE/static/js/main.18077e12.js.map"
   },
   "entrypoints": [
-    "static/css/main.9d077051.css",
-    "static/js/main.d482e694.js"
+    "static/css/main.16c3534c.css",
+    "static/js/main.18077e12.js"
   ]
 }
