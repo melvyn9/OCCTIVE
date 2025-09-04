@@ -4,7 +4,7 @@ import React from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
 import 'reactflow/dist/style.css';
-import { useGraphFromSheet } from '../useGraphFromSheet';
+import { useGraphFromSheet } from '../../../useGraphFromSheet';
 
 /* ───────── colour palette ───────── */
 
