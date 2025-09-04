@@ -36,6 +36,14 @@ const AboutPage: React.FC = () => (
           >
             OCCTIVE Version 1
           </a>
+          , including the{' '}
+          <a
+            href="https://occtive.github.io/www/videos.html#Old_Videos_(from_original_project)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            archive of earlier videos
+          </a>
           ). The earlier project led to the initial development of{' '}
           <strong>
             OCCTIVE, the Online Computing-concepts Toolkit of Interdisciplinary

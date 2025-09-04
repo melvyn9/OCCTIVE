@@ -1,6 +1,5 @@
 import Papa from 'papaparse';
-
-const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSS6rL8L7-EZNE9qQHbA18j3gcUAvWLQ2B5TnloSPkxQR4iKvDMJxp-UFOdsFlGhjM0x47pUK4gcuC2/pub?output=csv';
+import { LOCAL_CSV_BY_GID, GSHEETS_BASE_CSV } from '../config/dataSources';
 
 export enum DataTypes {
   Videos = '2013487824',
@@ -38,6 +37,34 @@ export interface Videos {
 
 }
 
+/** Load from local backup (public/data/*.csv) and cache if present */
+function parseLocalAndCache(gid: DataTypes, onDone: (rows: any[]) => void, onFail: (e: any) =>
+  void) {
+  const localUrl = (LOCAL_CSV_BY_GID as Record<string, string>)[gid as unknown as string];
+  if (!localUrl) {
+    onFail(new Error(`No local CSV mapped for gid=${gid}`));
+    return;
+  }
+  Papa.parse<any>(localUrl, {
+    download: true,
+    header: true,
+    complete: ({ data }) => {
+      if (data.length !== 0) {
+        sessionStorage.setItem(gid, JSON.stringify(data));
+      }
+      // visibility for dev/testing
+      // eslint-disable-next-line no-console
+      console.warn(`[useData] Using local backup for gid=${gid} (${localUrl})`);
+      onDone(data);
+    },
+    error: onFail,
+  });
+}
+
+function hasRealData(rows: any[]): boolean {
+  return Array.isArray(rows) && rows.some((row) => row && Object.values(row).some((v) => v !== '' && v != null));
+}
+
 export const useData = (gid: DataTypes): Promise<Array<any>> => new Promise((resolve, reject) => {
   const cacheData = sessionStorage.getItem(gid);
 
@@ -49,38 +76,64 @@ export const useData = (gid: DataTypes): Promise<Array<any>> => new Promise((res
   const prefetch = () => {
     Object.keys(DataTypes).forEach((type) => {
       if (DataTypes[type] !== gid) {
-        Papa.parse<any>(`${SPREADSHEET_URL}&gid=${DataTypes[type]}`, {
+        Papa.parse<any>(`${GSHEETS_BASE_CSV}&gid=${DataTypes[type]}`, {
           download: true,
           header: true,
           complete: (results) => {
             const { data } = results;
             if (data.length !== 0) {
               sessionStorage.setItem(DataTypes[type], JSON.stringify(data));
+            } else {
+              // Empty remote → try local for this gid
+              parseLocalAndCache(DataTypes[type] as DataTypes, () => {}, () => {});
             }
           },
-          error: (error) => {
-            reject(error);
+          error: () => {
+            // Remote failed → try local; ignore errors here (prefetch is best-effort)
+            parseLocalAndCache(DataTypes[type] as DataTypes, () => {}, () => {});
           },
         });
       }
     });
   };
-
-  Papa.parse<any>(`${SPREADSHEET_URL}&gid=${gid}`, {
+  Papa.parse<any>(`${GSHEETS_BASE_CSV}&gid=${gid}`, {
     download: true,
     header: true,
     complete: (results) => {
       const { data } = results;
 
-      if (data.length !== 0) {
+      if (data.length !== 0 && hasRealData(data)) {
         sessionStorage.setItem(gid, JSON.stringify(data));
+        prefetch();
+        resolve(data);
+        return;
       }
-
-      prefetch();
-      resolve(data);
+      // Remote returned empty/blank rows → fall back to local
+      parseLocalAndCache(
+        gid,
+        (local) => {
+          prefetch();
+          resolve(local);
+        },
+        (err) => {
+          prefetch();
+          reject(err);
+        },
+      );
     },
-    error: (error) => {
-      reject(error);
+    error: () => {
+      // Remote failed → fall back to local
+      parseLocalAndCache(
+        gid,
+        (local) => {
+          prefetch();
+          resolve(local);
+        },
+        (err) => {
+          prefetch();
+          reject(err);
+        },
+      );
     },
   });
 });
