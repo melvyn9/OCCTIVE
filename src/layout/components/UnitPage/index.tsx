@@ -1,20 +1,44 @@
 // File: src/layout/components/UnitPage/index.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
 
 import UnitCard from '../UnitCard';
-import { useData, DataTypes, Videos } from '../../../utils/data';
+import { useData, DataTypes } from '../../../utils/data';
 
 import './style.scss';
 
+type UnitRow = {
+  unit_id: string;
+  name: string;
+  description: string;
+  note?: string;
+  order?: number | string;
+};
+
+type VideoRow = {
+  unit_id: string;
+  video_order?: number | string;
+  video_title: string;
+  video_url: string;
+  video_time?: string;
+  video_desc?: string;
+};
+
 const UnitPage: React.FC = () => {
-  const [videoData, setVideoData] = useState<Videos[]>([]);
+  const [units, setUnits] = useState<UnitRow[]>([]);
+  const [videos, setVideos] = useState<VideoRow[]>([]);
 
   useEffect(() => {
+    // Units tab
+    useData(DataTypes.Units)
+      .then((data) => setUnits((data || []) as UnitRow[]))
+      .catch(() => setUnits([]));
+
+    // Videos tab (long form)
     useData(DataTypes.Videos)
-      .then((data) => setVideoData(data as Videos[]))
-      .catch(() => setVideoData([]));
+      .then((data) => setVideos((data || []) as VideoRow[]))
+      .catch(() => setVideos([]));
   }, []);
 
   /** Strip everything before the first “Unit” (incl. emojis / blanks). */
@@ -26,6 +50,55 @@ const UnitPage: React.FC = () => {
   /** Convert the cleaned name to a safe ID: spaces→dashes, drop colons. */
   const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
+  // Group videos by unit_id and sort by video_order (array methods only)
+  const videosByUnit = useMemo(() => {
+    const toNum = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+
+    type Item = { t: string; u: string; tm: string; d: string; order: number };
+
+    const grouped = (videos || [])
+      .filter((row) => {
+        const unitId = (row.unit_id || '').trim();
+        const t = (row.video_title || '').trim();
+        const u = (row.video_url || '').trim();
+        return unitId && t && u;
+      })
+      .map((row) => ({
+        unitId: (row.unit_id || '').trim(),
+        item: {
+          t: (row.video_title || '').trim(),
+          u: (row.video_url || '').trim(),
+          tm: (row.video_time || '').trim(),
+          d: (row.video_desc || '').trim(),
+          order: toNum(row.video_order),
+        } as Item,
+      }))
+      .reduce<Record<string, Item[]>>((acc, { unitId, item }) => {
+        (acc[unitId] ||= []).push(item);
+        return acc;
+      }, {});
+
+    Object.keys(grouped).forEach((k) => {
+      grouped[k].sort((a, b) => a.order - b.order);
+    });
+
+    return grouped;
+  }, [videos]);
+
+  // Sort units by 'order' (fallback to name)
+  const sortedUnits = useMemo(() => {
+    const toNum = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+
+    return [...units]
+      .filter((u) => u && typeof u.name === 'string' && u.name.trim())
+      .sort((a, b) => {
+        const ao = toNum(a.order);
+        const bo = toNum(b.order);
+        if (ao !== bo) return ao - bo;
+        return (a.name || '').localeCompare(b.name || '');
+      });
+  }, [units]);
+
   return (
     <div className="unit-page">
       <div className="unit-page-content">
@@ -35,10 +108,9 @@ const UnitPage: React.FC = () => {
             <div className="unit-page-sidebar">
               <span className="unit-page-navbar-title">💻 OCCTIVE Library</span>
 
-              {videoData.map((unit, index) => {
+              {sortedUnits.map((unit, index) => {
                 const cleanName = cleanUnitName(unit.name);
                 const anchorId = toAnchorId(cleanName);
-
                 return (
                   <div className="unit-page-link" key={index}>
                     <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
@@ -51,9 +123,10 @@ const UnitPage: React.FC = () => {
 
         {/* ---------- Main Content ---------- */}
         <div className="unit-page-cards">
-          {videoData.map((unit, index) => {
+          {sortedUnits.map((unit, index) => {
             const cleanName = cleanUnitName(unit.name);
             const anchorId = toAnchorId(cleanName);
+            const list = videosByUnit[(unit.unit_id || '').trim()] || [];
 
             return (
               <div key={index}>
@@ -64,51 +137,12 @@ const UnitPage: React.FC = () => {
                   name={unit.name}
                   description={unit.description}
                   note={unit.note || ''}
-                  /* ---------- Sub-unit 1 ---------- */
-                  subunit1={unit['subunit 1']}
-                  subunit1Copy={unit['subunit 1 copy']}
-                  subunit1Video1={unit['subunit 1 video 1']}
-                  subunit1Video1Url={unit['subunit 1 video 1 url']}
-                  subunit1Video1Time={unit['subunit 1 video 1 time']}
-                  subunit1Video1Desc={unit['subunit 1 video 1 desc']}
-                  subunit1Video2={unit['subunit 1 video 2']}
-                  subunit1Video2Url={unit['subunit 1 video 2 url']}
-                  subunit1Video2Time={unit['subunit 1 video 2 time']}
-                  subunit1Video2Desc={unit['subunit 1 video 2 desc']}
-                  subunit1Video3={unit['subunit 1 video 3']}
-                  subunit1Video3Url={unit['subunit 1 video 3 url']}
-                  subunit1Video3Time={unit['subunit 1 video 3 time']}
-                  subunit1Video3Desc={unit['subunit 1 video 3 desc']}
-                  /* ---------- Sub-unit 2 ---------- */
-                  subunit2={unit['subunit 2']}
-                  subunit2Copy={unit['subunit 2 copy']}
-                  subunit2Video1={unit['subunit 2 video 1']}
-                  subunit2Video1Url={unit['subunit 2 video 1 url']}
-                  subunit2Video1Time={unit['subunit 2 video 1 time']}
-                  subunit2Video1Desc={unit['subunit 2 video 1 desc']}
-                  subunit2Video2={unit['subunit 2 video 2']}
-                  subunit2Video2Url={unit['subunit 2 video 2 url']}
-                  subunit2Video2Time={unit['subunit 2 video 2 time']}
-                  subunit2Video2Desc={unit['subunit 2 video 2 desc']}
-                  subunit2Video3={unit['subunit 2 video 3']}
-                  subunit2Video3Url={unit['subunit 2 video 3 url']}
-                  subunit2Video3Time={unit['subunit 2 video 3 time']}
-                  subunit2Video3Desc={unit['subunit 2 video 3 desc']}
-                  /* ---------- Sub-unit 3 ---------- */
-                  subunit3={unit['subunit 3']}
-                  subunit3Copy={unit['subunit 3 copy']}
-                  subunit3Video1={unit['subunit 3 video 1']}
-                  subunit3Video1Url={unit['subunit 3 video 1 url']}
-                  subunit3Video1Time={unit['subunit 3 video 1 time']}
-                  subunit3Video1Desc={unit['subunit 3 video 1 desc']}
-                  subunit3Video2={unit['subunit 3 video 2']}
-                  subunit3Video2Url={unit['subunit 3 video 2 url']}
-                  subunit3Video2Time={unit['subunit 3 video 2 time']}
-                  subunit3Video2Desc={unit['subunit 3 video 2 desc']}
-                  subunit3Video3={unit['subunit 3 video 3']}
-                  subunit3Video3Url={unit['subunit 3 video 3 url']}
-                  subunit3Video3Time={unit['subunit 3 video 3 time']}
-                  subunit3Video3Desc={unit['subunit 3 video 3 desc']}
+                  // Flat list of videos (no sub-units)
+                  videos={list.map(({
+                    t, u, tm, d,
+                  }) => ({
+                    t, u, tm, d,
+                  }))}
                 />
               </div>
             );
