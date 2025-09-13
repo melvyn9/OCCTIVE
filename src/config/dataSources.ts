@@ -18,6 +18,7 @@ const prefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 
 // Local fallback paths (served from /public)
 export const LOCAL_CSV_BY_GID: Record<string, string> = {
+  [CSV_GIDS.Units]: `${prefix}data/units.csv`,
   [CSV_GIDS.Videos]: `${prefix}data/videos.csv`,
   [CSV_GIDS.DependencyGraph]: `${prefix}data/dependency_graph.csv`,
 };
