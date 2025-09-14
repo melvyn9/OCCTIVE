@@ -1,22 +1,96 @@
 // File: src/layout/components/HomePage/index.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import HomeCard from '../HomeCard';
-import { useData, DataTypes, Videos } from '../../../utils/data';
+import { useData, DataTypes } from '../../../utils/data';
 
 import './style.scss';
 import DependencyGraph from '../DependencyGraph';
 
+/* eslint-disable camelcase */
+type UnitRow = {
+  unit_id: string;
+  name: string;
+  description: string;
+  note?: string;
+  order?: number | string;
+  'all_videos_copy'?: string;
+};
+
+type VideoRow = {
+  unit_id: string;
+  video_order?: number | string;
+  video_title: string;
+  video_url: string;
+  video_time?: string;
+  video_desc?: string;
+};
+/* eslint-enable camelcase */
+
 const HomePage: React.FC = () => {
   /* ---------- OCCTIVE video data ---------- */
-  const [videoData, setVideoData] = useState<Videos[]>([]);
+  const [units, setUnits] = useState<UnitRow[]>([]);
+  const [videos, setVideos] = useState<VideoRow[]>([]);
   const [showGraph, setShowGraph] = useState(false);
 
   useEffect(() => {
+    // fetch Units tab
+    useData(DataTypes.Units)
+      .then((d) => setUnits((d || []) as UnitRow[]))
+      .catch(() => setUnits([]));
+
+    // fetch Videos tab (long form)
     useData(DataTypes.Videos)
-      .then((d) => setVideoData(d as Videos[]))
-      .catch(() => setVideoData([]));
+      .then((d) => setVideos((d || []) as VideoRow[]))
+      .catch(() => setVideos([]));
   }, []);
+
+  // Group videos by unit_id and sort by video_order (no loops; array methods only)
+  const videosByUnit = useMemo(() => {
+    const asNumber = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+
+    type Item = { title: string; url: string; time?: string; desc?: string; order: number };
+
+    const grouped = (videos || [])
+      .filter((row) => {
+        const unitId = (row.unit_id || '').trim();
+        const title = (row.video_title || '').trim();
+        const url = (row.video_url || '').trim();
+        return unitId && title && url;
+      })
+      .map((row) => ({
+        unitId: (row.unit_id || '').trim(),
+        item: {
+          title: (row.video_title || '').trim(),
+          url: (row.video_url || '').trim(),
+          time: row.video_time || '',
+          desc: row.video_desc || '',
+          order: asNumber(row.video_order),
+        } as Item,
+      }))
+      .reduce<Record<string, Item[]>>((acc, { unitId, item }) => {
+        (acc[unitId] ||= []).push(item);
+        return acc;
+      }, {});
+
+    Object.keys(grouped).forEach((k) => {
+      grouped[k].sort((a, b) => a.order - b.order);
+    });
+
+    return grouped;
+  }, [videos]);
+
+  // Sort units by 'order' (fallback to name)
+  const sortedUnits = useMemo(() => {
+    const asNumber = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+
+    return [...units].sort((a, b) => {
+      const ao = asNumber(a.order);
+      const bo = asNumber(b.order);
+      if (ao !== bo) return ao - bo;
+      return (a.name || '').localeCompare(b.name || '');
+    });
+  }, [units]);
 
   /* ---------- render ---------- */
   return (
@@ -28,7 +102,7 @@ const HomePage: React.FC = () => {
             {/* Remove Later */}
             <div className="home-page-notice" role="note" aria-label="site notice">
               <p className="home-page-notice-text">
-                This is a new page under development. For the currently active site, please see:{' '}
+                This is a new page under development. For the currently active site, please see{' '}
                 <a
                   className="home-page-notice-link"
                   href="https://occtive.github.io/www/index.html"
@@ -71,39 +145,27 @@ const HomePage: React.FC = () => {
       {/* video cards */}
       <section className="home-page-content">
         <div className="home-page-cards">
-          {videoData.map((unit) => (
-            <HomeCard
-              key={unit.name}
-              name={unit.name}
-              description={unit.description}
-              note={unit.note || ''}
-              allVideosCopy={unit['all videos copy']}
-              subunit1={unit['subunit 1']}
-              subunit1Copy={unit['subunit 1 copy']}
-              subunit1Video1={unit['subunit 1 video 1']}
-              subunit1Video1Url={unit['subunit 1 video 1 url']}
-              subunit1Video2={unit['subunit 1 video 2']}
-              subunit1Video2Url={unit['subunit 1 video 2 url']}
-              subunit1Video3={unit['subunit 1 video 3']}
-              subunit1Video3Url={unit['subunit 1 video 3 url']}
-              subunit2={unit['subunit 2']}
-              subunit2Copy={unit['subunit 2 copy']}
-              subunit2Video1={unit['subunit 2 video 1']}
-              subunit2Video1Url={unit['subunit 2 video 1 url']}
-              subunit2Video2={unit['subunit 2 video 2']}
-              subunit2Video2Url={unit['subunit 2 video 2 url']}
-              subunit2Video3={unit['subunit 2 video 3']}
-              subunit2Video3Url={unit['subunit 2 video 3 url']}
-              subunit3={unit['subunit 3']}
-              subunit3Copy={unit['subunit 3 copy']}
-              subunit3Video1={unit['subunit 3 video 1']}
-              subunit3Video1Url={unit['subunit 3 video 1 url']}
-              subunit3Video2={unit['subunit 3 video 2']}
-              subunit3Video2Url={unit['subunit 3 video 2 url']}
-              subunit3Video3={unit['subunit 3 video 3']}
-              subunit3Video3Url={unit['subunit 3 video 3 url']}
-            />
-          ))}
+          {sortedUnits.map((u) => {
+            const unitId = (u.unit_id || '').trim();
+            const list = videosByUnit[unitId] || [];
+            return (
+              <HomeCard
+                key={unitId || u.name}
+                name={u.name}
+                description={u.description}
+                note={u.note || ''}
+                allVideosCopy={u.all_videos_copy || ''}
+                videos={list.map(({
+                  title, url, time, desc,
+                }) => ({
+                  title,
+                  url,
+                  time,
+                  desc,
+                }))}
+              />
+            );
+          })}
         </div>
       </section>
     </main>

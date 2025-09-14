@@ -1,30 +1,29 @@
 id,title,parentIds,generation
-A0,What's the Importance of Computing?,,O.1
+A0,Importance of Computing,,O.1
 A1,Benefits of Understanding Foundational Computing Concepts,A0,O.1
 ,,,
-B0,File System,,O.2
+B0,The Programming Process,,O.2
+B1,File System,,O.2
 ,,,
-C0,The Programming Process,,O.2
+C0,Variables,B0,O.2
+C1,Data Types,C0,O.2
+C2,Assignment and Calculations,C1,O.2
+C3,Writing and Running R,C2,O.2
+C4,Writing and Running Python,C2,O.2
+C5,Data Types and Calculations in Python,C4,O.1
+C6,Output,C2,O.2
 ,,,
-D0,Variables,C0,O.2
-D1,Data types,D0,O.2
-D2,Assignment and Calculation,D1,O.2
-D3,Writing and Running R,D2,O.2
-D4,Writing and Running Python,D2,O.2
-D5,Data Types and Calculations in Python,D4,O.1
-D6,Output,D2,O.2
+D0,Using Functions,C2,O.2
+D1,Calling Functions in Python,D0,O.1
+D2,Calling Functions in R,D0,O.1
+D3,Defining Functions,C2,O.1
+D4,Defining Functions in Python,"D1, D3",O.1
+D5,Defining Functions in R,"D2, D3",O.1
 ,,,
-E0,Using functions,D2,O.2
-E1,Calling Functions in Python,E0,O.1
-E2,Calling Functions in R,E0,O.1
-E3,Defining Functions,D2,O.1
-E4,Defining Your Own Functions - Python,"E1, E3",O.1
-E5,Defining Your Own Functions - R,"E2, E3",O.1
+E0,Sequences,D0,O.2
+E1,Data Frames,D0,O.1
+E2,Working with Data Frames,E1,O.1
+E3,Conditional selection of rows from Data Frames,E2,O.1
 ,,,
-E0,Memory Models for Sequences,E0,O.2
-E1,Memory Models for Dataframes,E0,O.1
-E2,Working With Dataframes,E1,O.1
-E3,Conditional selection of rows from dataframes,E2,O.1
-,,,
-F0,Reading documentation,E0,O.1
-F1,Errors,D2,O.2
+F0,Reading Documentation,D0,O.1
+F1,Errors,C2,O.2

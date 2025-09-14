@@ -7,7 +7,8 @@ export const GSHEETS_BASE_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-
 
 // GIDs for each sheet/tab
 export const CSV_GIDS = {
-  Videos: '2013487824',
+  Videos: '1238287991',
+  Units: '2013487824',
   DependencyGraph: '920052474',
 } as const;
 
@@ -17,6 +18,7 @@ const prefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 
 // Local fallback paths (served from /public)
 export const LOCAL_CSV_BY_GID: Record<string, string> = {
+  [CSV_GIDS.Units]: `${prefix}data/units.csv`,
   [CSV_GIDS.Videos]: `${prefix}data/videos.csv`,
   [CSV_GIDS.DependencyGraph]: `${prefix}data/dependency_graph.csv`,
 };
