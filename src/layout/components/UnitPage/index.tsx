@@ -8,6 +8,7 @@ import { useData, DataTypes } from '../../../utils/data';
 
 import './style.scss';
 
+/* eslint-disable camelcase */
 type UnitRow = {
   unit_id: string;
   name: string;
@@ -24,6 +25,7 @@ type VideoRow = {
   video_time?: string;
   video_desc?: string;
 };
+/* eslint-enable camelcase */
 
 const UnitPage: React.FC = () => {
   const [units, setUnits] = useState<UnitRow[]>([]);
