@@ -33,7 +33,7 @@ const MajorPage: React.FC = () => {
         <div className="major-page-side-items">
           <div className="major-page-sidebar-sticky">
             <div className="major-page-sidebar">
-              <span className="major-page-navbar-title">💻 OCCTIVE Library</span>
+              <span className="major-page-navbar-title">OCCTIVE Library</span>
 
               {videoData.map((unit, index) => {
                 const cleanName = cleanUnitName(unit.name);
