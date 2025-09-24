@@ -18,6 +18,25 @@ interface HomeCardProps {
   note: string;
   videos: VideoItem[];
   allVideosCopy: string;
+  group?: string; // optional, but no longer required
+}
+
+/* ───────────────────────── palette + helper ───────────────────────── */
+
+const palette = [
+  '#FF69B4', '#F5FF66', '#00AEEF', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
+  '#8A2BE2', '#20B2AA', '#FF7034', '#4B0082', '#BA55D3', '#6A5ACD', '#DAA520',
+  '#48D1CC', '#FF6347', '#4682B4',
+];
+
+const colourOf = new Map<string, string>();
+
+function getColorForGroup(key: string): string {
+  if (!colourOf.has(key)) {
+    const next = colourOf.size % palette.length;
+    colourOf.set(key, palette[next]);
+  }
+  return colourOf.get(key)!;
 }
 
 /* ───────────────────────── helpers ───────────────────────── */
@@ -38,6 +57,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
   note,
   videos,
   allVideosCopy,
+  group,
 }) => {
   /* ─────────────── notification toast ─────────────── */
   const [toast, setToast] = useState<string | null>(null);
@@ -105,9 +125,15 @@ const HomeCard: React.FC<HomeCardProps> = ({
   const anchorId = toAnchorId(cleanedName); // for anchor only
   const displayName = name.trim(); // keeps emoji in heading
 
+  // Use group if provided, otherwise fall back to cleanedName for consistent coloring
+  const borderColor = getColorForGroup(group || cleanedName);
+
   return (
     <>
-      <div className="home-card">
+      <div
+        className="home-card"
+        style={{ border: `2px solid ${borderColor}` }}
+      >
         {/* ---------- TOP SECTION ---------- */}
         <div className="home-card-top">
           <div className="home-card-heading-container">
