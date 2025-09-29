@@ -9,7 +9,7 @@ import { useGraphFromSheet } from '../../../useGraphFromSheet';
 /* ───────── colour palette ───────── */
 
 const palette = [
-  '#00AEEF', '#F5FF66', '#FF69B4', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
+  '#FF69B4', '#F5FF66', '#00AEEF', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
   '#8A2BE2', '#20B2AA', '#FF7034', '#4B0082', '#BA55D3', '#6A5ACD', '#DAA520',
   '#48D1CC', '#FF6347', '#4682B4',
 ];
@@ -136,7 +136,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
 
   return (
     <ReactFlowProvider>
-      <div style={{ height: 520, border: '1px solid #d1d5db' }}>
+      <div style={{ height: 750, border: '1px solid #d1d5db' }}>
         <ReactFlow id={id} nodes={graphNodes} edges={edges} fitView>
           <Background />
         </ReactFlow>
