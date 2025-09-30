@@ -87,13 +87,14 @@
 
 /* Adopt page links */
 .adopt-link {
-  color: #1a1a1a;
+  color: #007acc;
   text-decoration: underline;
   transition: color 0.2s ease;
 }
 
 .adopt-link:hover {
-  color: #007acc;
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
 @media (max-width: 600px) {

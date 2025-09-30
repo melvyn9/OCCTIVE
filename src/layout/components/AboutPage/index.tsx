@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 
 const AboutPage: React.FC = () => (
-  <main className="home-page">
+  <main className="about-page">
     {/* OCCTIVE hero */}
     <section className="home-page-hero">
       <div className="home-page-hero-content">
@@ -46,7 +46,7 @@ const AboutPage: React.FC = () => (
           </a>
           ). The earlier project led to the initial development of{' '}
           <strong>
-            OCCTIVE, the Online Computing-concepts Toolkit of Interdisciplinary
+            OCCTIVE, the Online Computing-Concepts Toolkit of Interdisciplinary
             Videos for Education.
           </strong>{' '}
           This video library is intended primarily for use in non-CS courses that use
