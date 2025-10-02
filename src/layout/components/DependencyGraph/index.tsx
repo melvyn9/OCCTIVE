@@ -8,10 +8,23 @@ import { useGraphFromSheet } from '../useGraphFromSheet';
 
 /* ───────── colour palette ───────── */
 
-const palette = [
+/* const palette = [
   '#00AEEF', '#F5FF66', '#FF69B4', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
   '#8A2BE2', '#20B2AA', '#FF7034', '#4B0082', '#BA55D3', '#6A5ACD', '#DAA520',
   '#48D1CC', '#FF6347', '#4682B4',
+]; */
+
+/* const darkPalette = [
+  '#007499', '#B5BF30', '#C71585', '#CC5533', '#B8860B', '#1E90FF', '#228B22',
+  '#4B0082', '#008B8B', '#CC3300', '#2E004F', '#800080', '#483D8B', '#8B6914',
+  '#008080', '#B22222', '#2F4F4F',
+]; */
+
+const palette = [
+  '#FF0000', '#0000FF',
+];
+const darkPalette = [
+  '#000000', '#FFFFFF',
 ];
 
 /* ───────── helpers ───────── */
@@ -52,14 +65,22 @@ function layout(rawNodes: any[], edges: any[]) {
 
   /* colour lookup */
   const colourOf = new Map<string, string>();
-  let next = 0;
-  positioned.forEach(({ data: { group } }) => {
-    if (!colourOf.has(group)) {
-      colourOf.set(group, palette[next % palette.length]);
-      next += 1;
+  let nextPalette = 0;
+  let nextDarkPalette = 0;
+
+  positioned.forEach((gen) => {
+    const { generation } = gen.data;
+
+    if (!colourOf.has(generation)) {
+      if (generation === 'O.1') {
+        colourOf.set(generation, palette[nextPalette % palette.length]);
+        nextPalette += 1;
+      } else if (generation === 'O.2') {
+        colourOf.set(generation, darkPalette[nextDarkPalette % darkPalette.length]);
+        nextDarkPalette += 1;
+      }
     }
   });
-
   return { positioned, edges, colourOf };
 }
 

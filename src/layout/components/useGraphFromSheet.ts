@@ -7,6 +7,7 @@ interface Row {
   id: string;
   title: string;
   parentIds: string;
+  generation: string;
 }
 
 export function useGraphFromSheet() {
@@ -31,7 +32,7 @@ export function useGraphFromSheet() {
 
             n.push({
               id: r.id,
-              data: { label: r.title, group },
+              data: { label: r.title, group, generation: r.generation },
             });
 
             r.parentIds
