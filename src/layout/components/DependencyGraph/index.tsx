@@ -29,7 +29,7 @@ function layout(rawNodes: any[], edges: any[]) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
   // CHANGE GENERAL STYLINGS OF GRAPH LAYOUT HERE
   g.setGraph({
-    rankdir: 'TB', // top‑to‑bottom
+    rankdir: 'TB', // top-to-bottom
     ranksep: 100, // vertical space between layers (default 50)
     nodesep: 100, // horizontal space between nodes (default 50)
     marginx: 20, // extra canvas padding left/right
@@ -78,6 +78,55 @@ export interface DependencyGraphProps {
 /*                              COMPONENT                             */
 /* ------------------------------------------------------------------ */
 
+/* tiny legend component */
+const Legend: React.FC = () => (
+  <div
+    aria-label="Legend"
+    style={{
+      position: 'absolute',
+      top: 8,
+      left: 8,
+      background: '#ffffff',
+      border: '1px solid #e5e7eb',
+      borderRadius: 8,
+      padding: '10px 12px',
+      fontSize: 16,
+      lineHeight: 1.35,
+      boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
+      zIndex: 10,
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+      <span
+        aria-hidden
+        style={{
+          display: 'inline-block',
+          width: 28,
+          height: 20,
+          borderRadius: 6,
+          border: '4px dotted #111827', // dotted sample for O.1
+          background: '#ffffff',
+        }}
+      />
+      <span><strong>O.1 Generation</strong></span>
+    </div>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      <span
+        aria-hidden
+        style={{
+          display: 'inline-block',
+          width: 28,
+          height: 20,
+          borderRadius: 6,
+          border: '4px solid #111827', // solid sample for O.2
+          background: '#ffffff',
+        }}
+      />
+      <span><strong>O.2 Generation</strong></span>
+    </div>
+  </div>
+);
+
 const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }) => {
   const { nodes: rawNodes, edges: rawEdges } = useGraphFromSheet();
 
@@ -99,6 +148,14 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
         || n.data.label.toLowerCase() === target,
     );
 
+  // Small normaliser so we accept "O.1", "Q.1", "0.1", etc.
+  const normaliseGeneration = (value: unknown): 'old' | 'new' | 'unknown' => {
+    const s = (value ?? '').toString().trim().toLowerCase();
+    if (s.startsWith('o.1') || s.startsWith('q.1') || s === '0.1' || s === '1') return 'old';
+    if (s.startsWith('o.2') || s.startsWith('q.2') || s === '0.2' || s === '2') return 'new';
+    return 'unknown';
+  };
+
   // Build the styled nodes
   const graphNodes = positioned.map((n) => {
     const isTarget =      hasTarget
@@ -107,14 +164,21 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
         || n.data.label.toLowerCase() === target
       );
 
+    // Dashed (Q.1 / O.1) vs Solid (Q.2 / O.2) border style
+    const genStatus = normaliseGeneration(n.data?.generation);
+    const borderStyle = genStatus === 'old' ? 'dashed' : 'solid';
+    const borderWidth = 5;
+    const borderColor = colourOf.get(n.data.group);
+
     // Background switches to grey *only* when a match exists
     const base = {
       background: hasTarget ? '#d3d3d3' : '#ffffff',
       borderRadius: 6,
       padding: 12,
       fontSize: 16,
-      border: `5px solid ${colourOf.get(n.data.group)}`,
-    };
+      // apply computed border style (dashed for Q.1/O.1, solid for Q.2/O.2)
+      border: `${borderWidth}px ${borderStyle} ${borderColor}`,
+    } as React.CSSProperties;
 
     return isTarget
       ? {
@@ -136,7 +200,10 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
 
   return (
     <ReactFlowProvider>
-      <div style={{ height: 750, border: '1px solid #d1d5db' }}>
+      {/* position: relative so the legend can sit on top-left */}
+      <div style={{ position: 'relative', height: 750, border: '1px solid #d1d5db' }}>
+        {/* Legend overlay */}
+        <Legend />
         <ReactFlow id={id} nodes={graphNodes} edges={edges} fitView>
           <Background />
         </ReactFlow>

@@ -9,6 +9,7 @@ interface Row {
   id: string;
   title: string;
   parentIds: string;
+  generation?: string;
 }
 
 export function useGraphFromSheet() {
@@ -29,9 +30,11 @@ export function useGraphFromSheet() {
           /** prefix before the first digit, eg "A", "B", "C" */
           const group = (r.id.match(/^[A-Za-z]+/) ?? [''])[0];
 
+          // normalise generation (e.g., "O.1" | "O.2")
+          const generation = (r.generation ?? '').trim().toUpperCase();
           n.push({
             id: r.id,
-            data: { label: r.title, group },
+            data: { label: r.title, group, generation },
           });
 
           r.parentIds
@@ -42,6 +45,9 @@ export function useGraphFromSheet() {
 
         setNodes(n);
         setEdges(e);
+
+        // eslint-disable-next-line no-console
+        console.debug('[useGraphFromSheet] generations seen:', Array.from(new Set(n.map((x) => x.data.generation))));
       },
     });
 
