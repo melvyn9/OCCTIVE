@@ -1,11 +1,6 @@
 @import '../../../styles';
 
 .header {
-  /* reuse the same blue everywhere */
-  --link-blue: #007acc;
-  /* optional: recolor <img> SVGs inside links on hover */
-  --link-blue-filter: invert(20%) sepia(88%) saturate(2321%)
-    hue-rotate(191deg) brightness(92%) contrast(101%);
   left: 0;
   position: fixed;
   right: 0;
@@ -14,109 +9,75 @@
 
   &-content {
     align-items: center;
-    background-color: #b0c2c9;
-    border-bottom: 1px solid #b0c2c9;
+    background-color: #cbd7d9;     // lighter, matches desired
+    border-bottom: 1px solid transparent;
     display: flex;
     flex: 0 0 auto;
-    height: 5.25rem;
-    padding: 0 7rem;
+    height: 4.75rem;               // slightly shorter
+    padding: 0 2.5rem;             // smaller side padding
+    position: relative;            // <- needed so links can be absolutely centered
   }
 
   &-logo {
-    margin-top: 0.5rem;
-    /* transition for smooth scaling */
+    margin-top: 0.25rem;
     transition: transform 0.2s ease-in-out;
-    width: 5rem;
-
-    &:hover {
-      transform: scale(1.1);
-    }
+    width: 56px;                   // match desired size
+    z-index: 2;                    // keep it above centered links if they overlap
   }
-
-  &-mobile-icon {
-    transition: transform 0.2s ease-in-out;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.2);
-    }
-  }
-  
 
   &-links {
+    /* keep links in normal flex flow and push them to the right */
+    position: static;
+    margin-left: auto;             // pushes links to the right of the header
     display: flex;
-    flex-grow: 1;
-    flex-shrink: 0;
-    justify-content: space-around;
-    margin-left: 9rem;
+    gap: 5.5rem;                   // spacing between links, tweak as needed
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 1;
   }
 
-  /* =========================
-     NAV LINK (chip on hover)
-     - No underline in any state
-     - Hover: rounded light square + subtle outline
-     - Focus-visible: clear ring for a11y
-     ========================= */
   &-link {
     @include font-nav-bar-text;
-    align-items: center;
-
-    background-color: transparent;
+    color: #111;                   // black / dark text by default
+    background: transparent;
+    text-decoration: none;         // remove underline
+    text-underline-offset: 0;      // ensure no browsers add underline offset
+    -webkit-text-decoration-skip: none;
+    padding: 0.4rem 0.8rem;
     border-radius: 10px;
-    box-shadow: none;
-    color: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+
+    /* match HomePage buttons' animation */
+    transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease;
+    transform-origin: center;
     display: inline-flex;
-    gap: 0.375rem;
-    outline: 2px solid transparent; /* outline avoids layout shift */
-    outline-offset: 2px;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, background-color, filter;
 
-    /* room for the chip background */
-    padding: 0.35rem 0.6rem;
-
-    transition:
-      background-color 0.18s ease,
-      box-shadow 0.18s ease,
-      outline-color 0.18s ease,
-      color 0.18s ease;
-
-    /* remove underline everywhere (beats global a{} rules) */
-    &,
-    &:link,
-    &:visited,
-    &:hover,
-    &:active {
+    &:hover {
+      background-color: rgba(0,0,0,0.04); /* subtle pill like before */
+      color: #000;
       text-decoration: none;
+      filter: brightness(1.05);
+      transform: scale(1.02);
     }
 
-    /* if the link contains an icon image, let it tint on hover/focus */
-    img {
-      transition: filter 0.18s ease;
+    &.active {                      // NavLink active state
+      background-color: rgba(0,0,0,0.08);
+      box-shadow: none;
+      color: #000;
+      font-weight: 600;             // slightly stronger for active
     }
-  }
 
-  /* hover → chip + blue text (same as copy icon) */
-  &-link:hover {
-    background-color: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
-    color: var(--link-blue);            /* <-- key change */
-    /* remove any old opacity fades */
-    opacity: 1;
-  }
+    /* keep focus visible but subtle */
+    &:focus-visible {
+      outline: 3px solid rgba(0,0,0,0.08);
+      outline-offset: 3px;
+    }
 
-  &-link:hover img {
-    filter: var(--link-blue-filter);    /* optional icon tint */
-  }
-
-  /* keyboard focus: keep chip + blue and show a clearer ring */
-  &-link:focus-visible {
-    background-color: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
-    color: var(--link-blue);
-    outline-color: var(--link-blue);
-  }
-
-  &-link:focus-visible img {
-    filter: var(--link-blue-filter);
+    img { transition: filter 0.18s ease; }
   }
 
   &-mobile {
@@ -166,45 +127,15 @@
   @media (max-width: 1000px) {
     &-content {
       height: 3.5rem;
-      justify-content: space-between;
       padding: 0 1.5rem;
     }
 
-    &-logo {
-      margin-top: 0.5rem;
-      width: 3rem;
-    }
-
+    /* on small screens revert to normal flow (logo + stacked links) */
     &-links {
-      display: none;
-    }
-
-    &-link {
-      padding: 0.25rem 0.5rem; /* slightly tighter on mobile */
-    }
-
-    &-mobile {
-      display: block;
-
-      &-button {
-        background: none;
-        border: 0;
-        margin: 0;
-        padding: 0;
-      }
-
-      &-icon {
-        height: 100%;
-        width: 100%;
-      }
-    }
-
-    &-mobile-links {
-      top: calc(-12.5rem + 3.5rem);
-
-      &.open {
-        top: 3.5rem;
-      }
+      position: static;
+      transform: none;
+      gap: 1rem;
+      margin-left: 0;
     }
   }
 }
@@ -226,4 +157,9 @@
   @media (max-width: $site-size-small) {
     height: 3rem;
   }
+}
+
+.header-link,
+.header-link a {
+  text-decoration: none !important;
 }

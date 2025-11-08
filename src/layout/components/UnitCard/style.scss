@@ -109,7 +109,7 @@
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* more even spacing between cards */
   width: 100%;
 
   &:first-child {
@@ -317,10 +317,10 @@
 }
 
 .frame-card-video-block {
-  background-color: #3d555e;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  color: #000;
+  padding: 24px; /* consistent inner padding */
 }
 
 .video-card.info {
@@ -346,26 +346,37 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   display: flex;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
+  gap: 1.5rem;              /* slightly smaller gap so spacing is even */
+  margin-bottom: 1.25rem;   /* even spacing between rows */
   overflow: hidden;
   width: 100%;
+  align-items: stretch; /* ensure both columns are same height */
 
   @media (max-width: $site-size-small) {
     flex-direction: column;
+    gap: 1rem;
   }
 }
 
 .video-entry-left {
-  flex: 0 0 40%;
+  /* left column becomes a centered container so iframe 'floats' inside */
+  flex: 0 0 48%;
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
+  padding: 1rem;           /* whitespace inside left column */
+  min-height: 0;           /* allow height to be determined by sibling column */
+  background: transparent;
 
   iframe {
-    height: auto;
-    margin-bottom: 31px;
-    margin-left: 24px;
-    margin-top: 31px;
-    max-height: 210px;
+    border: 0;
+    display: block;
     width: 100%;
+    max-width: 520px;      /* shrink iframe so it doesn't fill the whole column */
+    height: auto;          /* let aspect-ratio control height */
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* subtle elevation so it floats */
   }
 }
 
@@ -374,7 +385,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 1.25rem;
+  padding: 1rem 1.25rem; /* a little more right-side padding for balance */
 
   .frame-card-video-title {
     @include font-video-title;
@@ -448,18 +459,26 @@
   .video-entry-card {
     flex-direction: column;
     gap: 1rem;
-  
-    .video-entry-left iframe {
-      margin: 1rem;
-      max-height: 240px;
+
+    .video-entry-left {
+      flex: 0 0 auto;
+      padding: 0.75rem;
+      min-height: 300px;
     }
-  
+
+    .video-entry-left iframe {
+      width: 100%;
+      max-width: none;
+      min-height: 300px;
+      aspect-ratio: 16 / 9;
+    }
+
     .video-entry-right {
       padding: 1rem;
     }
   }
 }
-  
+
 @media (max-width: 499px) {
   .frame-card {
     &-top {
@@ -497,17 +516,23 @@
   .video-entry-card {
     flex-direction: column;
     gap: 0.75rem;
-  
-    .video-entry-left iframe {
-      margin: 1rem 0;
-      max-height: 180px;
-      width: 100%;
+
+    .video-entry-left {
+      padding: 0.5rem;
+      min-height: 220px;
     }
-  
+
+    .video-entry-left iframe {
+      width: 100%;
+      max-width: none;
+      min-height: 220px;
+      aspect-ratio: 16 / 9;
+    }
+
     .video-entry-right {
       padding: 1rem;
     }
-  
+
     .btn-lightblue,
     .btn-dependencies {
       font-size: 0.85rem;
@@ -529,4 +554,4 @@
     margin-bottom: 1rem;
   }
 }
-  
+
