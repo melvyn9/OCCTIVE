@@ -83,17 +83,18 @@
     display: flex;
     gap: 2rem;
     margin: 3rem -7rem -3rem;
-    padding: 3rem 7rem;
+    padding: 3rem 150px 3rem 75px;
   }
 
   &-side-items {
     flex-shrink: 0;
     margin-right: 27px;
+    margin-top: 40px;
     width: 280px;
   }
 
   &-sidebar {
-    @include font-nav-bar-text;
+    @include font-side-bar-text;
     background-color: #3d555e;
     border-radius: 12px;
     padding: 1.5rem 0;
@@ -118,16 +119,16 @@
     padding: 0 20px;
 
     a {
-      color: #fff !important;
+      color: #f3f8f9 !important;
       font-weight: 400 !important;
       line-height: 1.8 !important;
-      text-decoration: underline !important;
+      text-decoration: none !important;
       transition: all 0.2s ease;
 
       &:hover,
       &:focus {
-        color: #77c5e7 !important;
-        text-decoration: underline;
+        color: #71bfde !important;
+        text-decoration: none;
       }
     }
   }

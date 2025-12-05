@@ -97,7 +97,7 @@
 
   th,
   td {
-    border: 1px solid #ddd;
+    border: 1px solid #f3f8f9;
     overflow-wrap: anywhere;   /* modern */
     padding: 0.75rem;
     text-align: left;
@@ -108,12 +108,12 @@
   }
 
   th {
-    background-color: #f5f5f5;
+    background-color: #f3f8f9;
     font-weight: 600;
   }
 
   tbody tr:nth-child(even) {
-    background-color: #fafafa;
+    background-color: #f3f8f9;
   }
 }
 

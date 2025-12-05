@@ -9,75 +9,71 @@
 
   &-content {
     align-items: center;
-    background-color: #cbd7d9;     // lighter, matches desired
+    background-color: #38545b;     // updated: filled header blue
     border-bottom: 1px solid transparent;
     display: flex;
     flex: 0 0 auto;
-    height: 4.75rem;               // slightly shorter
+    height: 4.25rem;               // slightly shorter (reduced by 0.5rem)
     padding: 0 2.5rem;             // smaller side padding
     position: relative;            // <- needed so links can be absolutely centered
   }
 
   &-logo {
     margin-top: 0.25rem;
+    transform-origin: center; // moved to correct order
     transition: transform 0.2s ease-in-out;
-    width: 56px;                   // match desired size
-    z-index: 2;                    // keep it above centered links if they overlap
+    width: 56px;
+
+    z-index: 2;                    
   }
 
   &-links {
-    /* keep links in normal flex flow and push them to the right */
-    position: static;
-    margin-left: auto;             // pushes links to the right of the header
-    display: flex;
-    gap: 5.5rem;                   // spacing between links, tweak as needed
     align-items: center;
+    display: flex;
+    gap: 1.5rem;                   // reduced spacing so pills sit closer together
     justify-content: flex-end;
+    margin-left: auto;             // pushes links to the right of the header
+    position: static;
     z-index: 1;
   }
 
   &-link {
     @include font-nav-bar-text;
-    color: #111;                   // black / dark text by default
-    background: transparent;
-    text-decoration: none;         // remove underline
-    text-underline-offset: 0;      // ensure no browsers add underline offset
-    -webkit-text-decoration-skip: none;
-    padding: 0.4rem 0.8rem;
+    background: transparent;       // ensure no pill background for inactive links
     border-radius: 10px;
+    color: #f3f8f9 !important;     // force inactive text to be white
+    display: inline-flex;
     font-size: 1rem;
     font-weight: 400;
-
-    /* match HomePage buttons' animation */
-    transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease;
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;         // remove underline
+    text-underline-offset: 0;      // ensure no browsers add underline offset
     transform-origin: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease;
     will-change: transform, background-color, filter;
 
     &:hover {
-      background-color: rgba(0,0,0,0.04); /* subtle pill like before */
-      color: #000;
-      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.04); /* subtle pill like before */
+      color: #f3f8f9; /* keep hovered text white for contrast */
       filter: brightness(1.05);
       transform: scale(1.02);
     }
 
-    &.active {                      // NavLink active state
-      background-color: rgba(0,0,0,0.08);
+    &.active {
+      background-color: #cdf1ff;   // updated: active pill background
       box-shadow: none;
-      color: #000;
+      color: #3d555e !important;// updated: active pill text color
       font-weight: 600;             // slightly stronger for active
     }
 
-    /* keep focus visible but subtle */
     &:focus-visible {
-      outline: 3px solid rgba(0,0,0,0.08);
+      outline: 3px solid rgba(0, 0, 0, 0.08);
       outline-offset: 3px;
     }
 
-    img { transition: filter 0.18s ease; }
+    img {
+      transition: filter 0.18s ease;
+    }
   }
 
   &-mobile {
@@ -104,7 +100,7 @@
     right: 0;
 
     /* animated open/close */
-    top: calc(-12.5rem + 5.25rem);
+    top: calc(-12.5rem + 4.75rem);
     transform: translateY(-10px);
     transition:
       top 0.5s ease,
@@ -115,7 +111,7 @@
     &.open {
       opacity: 1;
       pointer-events: auto;
-      top: 3.5rem;
+      top: 3rem; // removed trailing zero
       transform: translateY(0);
     }
   }
@@ -126,25 +122,25 @@
 
   @media (max-width: 1000px) {
     &-content {
-      height: 3.5rem;
+      height: 3rem; // removed trailing zero
       padding: 0 1.5rem;
     }
 
     /* on small screens revert to normal flow (logo + stacked links) */
     &-links {
+      gap: 1rem; // moved to correct order
+      margin-left: 0;
       position: static;
       transform: none;
-      gap: 1rem;
-      margin-left: 0;
     }
   }
 }
 
 .spacer {
-  min-height: 5.25rem;
+  min-height: 4.75rem;
 
   @media (max-width: $site-size-small) {
-    min-height: 3.5rem;
+    min-height: 3rem;
   }
 }
 
@@ -162,4 +158,15 @@
 .header-link,
 .header-link a {
   text-decoration: none !important;
+}
+
+/* mobile links should use same color rules inside the blue header */
+.header-mobile-links .header-link,
+.header-mobile .header-link {
+  color: #f3f8f9; // shortened hex color
+}
+
+.header-mobile-links .header-link.active {
+  background-color: #809da9;
+  color: #3d555e;
 }

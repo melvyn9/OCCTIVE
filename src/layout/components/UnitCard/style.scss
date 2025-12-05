@@ -3,13 +3,13 @@
 
 /* Unified link style for all links inside cards */
 .frame-card a {
-  color: #1a1a1a;              /* default link color */
-  text-decoration: underline;  /* underline always */
-  transition: color 0.2s ease; /* smooth hover */
+  color: #30383c;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .frame-card a:hover {
-  color: #007acc;              /* hover color */
+  color: #007acc;
 }
 
 .video-card-container {
@@ -20,11 +20,11 @@
 .frame-hyperlink {
   display: block;
   position: relative;
-  top: calc(-5.25rem - 2.25rem);
+  top: calc(-4.75rem - 2.25rem);
   visibility: hidden;
 
   @media (max-width: $site-size-small) {
-    top: calc(-3.5rem - 1rem);
+    top: calc(-3rem - 1rem);
   }
 }
 
@@ -56,7 +56,7 @@
   animation: fadeOut 0.4s ease-in-out 2s forwards;
   background-color: #70c57f;
   border-radius: 6px;
-  color: #fff;
+  color: #f3f8f9;
   display: flex;
   font-size: 0.9rem;
   font-weight: 500;
@@ -109,7 +109,7 @@
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem; /* more even spacing between cards */
+  margin-bottom: 1.5rem;
   width: 100%;
 
   &:first-child {
@@ -126,38 +126,39 @@
 
   &-video-title {
     @include font-video-title;
-    color: #000;
+    color: #30383c;
     margin-bottom: 14px;
   }
 
   &-time {
     @include font-time;
-    color: #000;
+    color: #30383c;
     margin-bottom: 12px;
   }
 
   &-desc {
     @include font-desc;
-    color: #000;
-    margin-bottom: 18px;
+    color: #30383c;
+    margin-bottom: 15px;
     width: 100%;
   }
 
   &-video-cards {
-    background-color: #fff;
+    background-color: #f3f8f9;
     border-radius: 8px;
-    color: #000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    color: #30383c;
     padding: 31px 31px 31px 24px;
   }
 
   &-resources {
     @include font-resources;
-    color: #fff;
+    color: #f3f8f9;
   }
 
   &-practice-questions {
     @include font-practice;
-    color: #fff;
+    color: #f3f8f9;
     margin-bottom: 19px;
   }
 
@@ -304,7 +305,7 @@
     @include font-button;
     background-color: #71bfde;
     border-radius: 8px;
-    color: #fff;
+    color: #f3f8f9;
     height: 35px;
     padding: 8px;
     width: 145px;
@@ -316,166 +317,173 @@
   }
 }
 
+/* Navy container for videos */
 .frame-card-video-block {
-  background-color: #fff;
-  border-radius: 8px;
-  color: #000;
-  padding: 24px; /* consistent inner padding */
-}
-
-.video-card.info {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.video-frame-container {
-  aspect-ratio: 16 / 9;
-  flex: 1;
-  margin: 31px 0;
-
-  iframe {
-    border: 0;
-  }
-}
-
-/* NEW LAYOUT FOR VIDEO ENTRIES */
-.video-entry-card {
-  background-color: #fff;
+  background-color: #3d555e;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  display: flex;
-  gap: 1.5rem;              /* slightly smaller gap so spacing is even */
-  margin-bottom: 1.25rem;   /* even spacing between rows */
-  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(13, 40, 60, 0.12);
+  color: $color-tag-white;
+  display: flex;         /* reordered */
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1rem;
+  padding: 24px 32px;
   width: 100%;
-  align-items: stretch; /* ensure both columns are same height */
 
-  @media (max-width: $site-size-small) {
-    flex-direction: column;
-    gap: 1rem;
+  .video-entry-card {
+    align-items: center; /* moved before display */
+    background-color: #f3f8f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    width: 100%;
   }
 }
 
+/* Left column: video */
 .video-entry-left {
-  /* left column becomes a centered container so iframe 'floats' inside */
-  flex: 0 0 48%;
+  align-items: center;   /* moved before display */
   display: flex;
-  align-items: center;     /* vertical center */
-  justify-content: center; /* horizontal center */
-  padding: 1rem;           /* whitespace inside left column */
-  min-height: 0;           /* allow height to be determined by sibling column */
-  background: transparent;
+  flex: 0 0 50%;
+  justify-content: center;
 
   iframe {
-    border: 0;
-    display: block;
-    width: 100%;
-    max-width: 520px;      /* shrink iframe so it doesn't fill the whole column */
-    height: auto;          /* let aspect-ratio control height */
     aspect-ratio: 16 / 9;
+    border: 0;
     border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* subtle elevation so it floats */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    height: auto;       /* moved before max-width */
+    max-width: 520px;
+    width: 100%;
+  }
+}
+
+/* SECOND .frame-card-video-block (kept per Option A) */
+.frame-card-video-block {
+  background-color: #3d555e;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(13, 40, 60, 0.12);
+  display: flex; /* reordered */
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 32px; /* reordered and fixed spacing */
+  padding-right: 42px;
+  padding-top: 32px;
+  width: 100%;
+
+  .video-entry-card {
+    align-items: center; /* moved before display */
+    background-color: #f3f8f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    gap: 1.75rem;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 1.5rem 1.75rem;
+    width: 96%;
+  }
+}
+
+/* SECOND .video-entry-left */
+.video-entry-left {
+  align-items: center; /* moved before display */
+  display: flex;
+  flex: 0 0 48%;
+  justify-content: center;
+  padding: 0;
+
+  iframe {
+    aspect-ratio: 16 / 9; /* moved before max-width */
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    height: auto;     /* reordered */
+    max-width: 520px;
+    width: 100%;
   }
 }
 
 .video-entry-right {
+  align-items: flex-start; /* added to satisfy order */
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 1rem 1.25rem; /* a little more right-side padding for balance */
+  padding: 0;
+  text-align: left;
 
   .frame-card-video-title {
     @include font-video-title;
-    margin-bottom: 10px;
+    margin-bottom: 0.4rem;
   }
 
   .frame-card-time {
     @include font-time;
-    color: #000;
-    margin-bottom: 10px;
+    color: #30383c;
+    margin-bottom: 0.4rem;
   }
 
   .frame-card-desc {
-    @include font-desc;
-    color: #000;
-    margin-bottom: 14px;
+    color: #30383c;          /* moved before font-size */
+    font-size: 15px;
+    line-height: 1.5;        /* moved before margin-bottom */
+    margin-bottom: 1rem;
   }
 
-  .btn-lightblue {
-    @include font-button;
+  .btn-lightblue,
+  .btn-dependencies {
+    align-items: center;  /* moved before background */
+    align-self: flex-start; /* moved before transition */
     background-color: #71bfde;
+    border: none;
     border-radius: 8px;
-    color: #fff;
-    padding: 8px;
-    transition: 0.2s ease;
-    width: fit-content;
+    color: #f3f8f9;
+    display: inline-flex;
+    font-size: 0.9rem;    /* moved before font-weight */
+    font-weight: 400;
+    gap: 0.4rem;
+    margin-left: 0;
+    padding: 0.4rem 1rem;
+    transition: all 0.2s ease;
 
     &:hover {
       filter: brightness(1.05);
       transform: scale(1.02);
     }
-  }
 
-  .btn-dependencies {
-    align-items: center;
-    display: inline-flex;
-    font-size: 1rem;
-    font-weight: 500;
-    gap: 0.5rem;
-    height: auto;
-    line-height: 1;
-    padding: 0.5rem 1rem;
-    // width: auto;
-
-    .dependency-icon {
-      height: 1.25rem;
-      width: 1.25rem;
+    img {
+      height: 18px; /* moved before width */
+      width: 18px;
     }
   }
 }
 
+.btn-dependencies {
+  background: #71bfde;    /* moved before color */
+  border: 0;              /* moved before border-radius */
+  border-radius: 8px;
+  color: #f3f8f9;
+  padding: 0.45rem 0.9rem;
+}
+
+/* Responsive */
 @media (max-width: 1199px) {
-  .frame-card {
-    &-video-cards {
-      padding: 2rem;
-    }
-  
-    &-bottom {
-      padding: 2rem 1.5rem;
-    }
-  
-    &-desc {
-      width: 100%;
-    }
-  
-    &-note {
-      padding: 1rem 1.5rem;
-    }
+  .frame-card-video-block {
+    padding: 20px;
   }
-  
-  .video-entry-card {
+
+  .frame-card-video-block .video-entry-card {
     flex-direction: column;
-    gap: 1rem;
+    padding: 14px;
+  }
 
-    .video-entry-left {
-      flex: 0 0 auto;
-      padding: 0.75rem;
-      min-height: 300px;
-    }
-
-    .video-entry-left iframe {
-      width: 100%;
-      max-width: none;
-      min-height: 300px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .video-entry-right {
-      padding: 1rem;
-    }
+  .frame-card-video-block .video-entry-left {
+    min-height: 300px;
+    padding: 0.5rem;
   }
 }
 
@@ -485,73 +493,64 @@
       flex-direction: column;
       padding: 1rem;
     }
-  
+
     &-bottom {
       padding: 1.5rem 1rem;
     }
-  
+
     &-desc,
     &-description {
       margin-bottom: 1rem;
       width: 100%;
     }
-  
+
     &-note {
       padding: 0.75rem 1rem;
     }
-  
+
     &-video-title,
     &-time,
     &-desc {
       font-size: 0.9rem;
     }
-  
+
     .btn-lightblue {
       font-size: 0.9rem;
       padding: 0.5rem 1rem;
       width: 100%;
     }
   }
-  
+
   .video-entry-card {
     flex-direction: column;
     gap: 0.75rem;
 
     .video-entry-left {
+      min-height: 220px;
       padding: 0.5rem;
-      min-height: 220px;
-    }
 
-    .video-entry-left iframe {
-      width: 100%;
-      max-width: none;
-      min-height: 220px;
-      aspect-ratio: 16 / 9;
+      iframe {
+        aspect-ratio: 16 / 9;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        height: auto;
+        max-width: none;
+        width: 100%;
+      }
     }
-
-    .video-entry-right {
-      padding: 1rem;
-    }
-
-    .btn-lightblue,
-    .btn-dependencies {
-      font-size: 0.85rem;
-      justify-content: center;
-      padding: 0.5rem 1rem;
-      width: 100%;
-    }
-  }
-  
-  .copy-toast {
-    font-size: 0.8rem;
-    padding: 0.5rem 1rem;
-    right: 0.5rem;
-    top: 0.5rem;
-  }
-  
-  .frame-card-heading {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
   }
 }
 
+.copy-toast {
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+.frame-card-heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}

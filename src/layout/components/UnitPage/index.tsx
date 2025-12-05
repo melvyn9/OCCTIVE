@@ -108,7 +108,7 @@ const UnitPage: React.FC = () => {
         <div className="unit-page-side-items">
           <div className="unit-page-sidebar-sticky">
             <div className="unit-page-sidebar">
-              <span className="unit-page-navbar-title">💻 OCCTIVE Library</span>
+              <span className="unit-page-navbar-title">Units</span>
 
               {sortedUnits.map((unit, index) => {
                 const cleanName = cleanUnitName(unit.name);

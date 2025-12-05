@@ -3,9 +3,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
+import DependencyGraph from '../DependencyGraph';
 
 import './style.scss';
-import DependencyGraph from '../DependencyGraph';
 
 /* eslint-disable camelcase */
 type UnitRow = {
@@ -28,28 +28,37 @@ type VideoRow = {
 /* eslint-enable camelcase */
 
 const HomePage: React.FC = () => {
-  /* ---------- OCCTIVE video data ---------- */
   const [units, setUnits] = useState<UnitRow[]>([]);
   const [videos, setVideos] = useState<VideoRow[]>([]);
   const [showGraph, setShowGraph] = useState(false);
 
+  /* ---------- Fetch data ---------- */
   useEffect(() => {
-    // fetch Units tab
     useData(DataTypes.Units)
       .then((d) => setUnits((d || []) as UnitRow[]))
       .catch(() => setUnits([]));
 
-    // fetch Videos tab (long form)
     useData(DataTypes.Videos)
       .then((d) => setVideos((d || []) as VideoRow[]))
       .catch(() => setVideos([]));
   }, []);
 
-  // Group videos by unit_id and sort by video_order (no loops; array methods only)
+  /* ---------- Group videos ---------- */
   const videosByUnit = useMemo(() => {
-    const asNumber = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+    const asNumber = (v: number | string | undefined) => {
+      if (typeof v === 'string') {
+        return parseFloat(v) || 0;
+      }
+      return v ?? 0;
+    };
 
-    type Item = { title: string; url: string; time?: string; desc?: string; order: number };
+    type Item = {
+      title: string;
+      url: string;
+      time?: string;
+      desc?: string;
+      order: number;
+    };
 
     const grouped = (videos || [])
       .filter((row) => {
@@ -66,10 +75,13 @@ const HomePage: React.FC = () => {
           time: row.video_time || '',
           desc: row.video_desc || '',
           order: asNumber(row.video_order),
-        } as Item,
+        },
       }))
       .reduce<Record<string, Item[]>>((acc, { unitId, item }) => {
-        (acc[unitId] ||= []).push(item);
+        if (!acc[unitId]) {
+          acc[unitId] = [];
+        }
+        acc[unitId].push(item);
         return acc;
       }, {});
 
@@ -80,74 +92,73 @@ const HomePage: React.FC = () => {
     return grouped;
   }, [videos]);
 
-  // Sort units by 'order' (fallback to name)
+  /* ---------- Sort units ---------- */
   const sortedUnits = useMemo(() => {
-    const asNumber = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
+    const asNumber = (v: number | string | undefined) => {
+      if (typeof v === 'string') {
+        return parseFloat(v) || 0;
+      }
+      return v ?? 0;
+    };
 
     return [...units].sort((a, b) => {
       const ao = asNumber(a.order);
       const bo = asNumber(b.order);
-      if (ao !== bo) return ao - bo;
+      if (ao !== bo) {
+        return ao - bo;
+      }
       return (a.name || '').localeCompare(b.name || '');
     });
   }, [units]);
 
-  /* ---------- render ---------- */
+  /* ---------- Render ---------- */
   return (
     <main className="home-page">
-      {/* OCCTIVE hero */}
+      {/* Hero Section */}
       <section className="home-page-hero">
         <div className="home-page-hero-content">
           <div className="home-page-hero-text">
-            {/* Remove Later */}
-            <div className="home-page-notice" role="note" aria-label="site notice">
-              <p className="home-page-notice-text">
-                This is a new page under development. For the currently active site, please see{' '}
-                <a
-                  className="home-page-notice-link"
-                  href="https://occtive.github.io/www/index.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  https://occtive.github.io/www/index.html
-                </a>
-              </p>
-            </div>
-            {/* Remove Later */}
-            <h1 className="home-page-title">Welcome to the OCCTIVE Library</h1>
+            <h1 className="home-page-title">
+              Discover Computer Science, One Concept at a Time
+            </h1>
             <p className="home-page-text">
-              An accessible intro to foundational computing concepts with applications
-              in the sciences, humanities, and beyond.
+              A library of computer science videos, covering programming basics,
+              problem-solving, and real-world applications.
             </p>
             <div className="home-page-hero-buttons">
               <button
                 type="button"
-                className="btn-orange"
+                className="btn-primary"
                 onClick={() => setShowGraph((v) => !v)}
               >
-                {showGraph ? 'Hide Dependency Graph' : 'Show Dependency Graph'}
+                <b>View Dependencies</b>
               </button>
-              {/* <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdy5MtrwNQZ9VHM32Tjm6UL3MTuc9vu-oQ9vknjkVrviUYC0g/viewform"
-                className="btn-blue"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Provide Feedback
-              </a> */}
+              <a href="/about#/about" className="btn-secondary">
+                <b>About the Project</b>
+              </a>
             </div>
+          </div>
+
+          <div className="home-page-hero-graphic" aria-hidden={false}>
+            <img
+              src="/img/header_graphic.png"
+              alt="Illustration of a laptop with code windows and an octopus mascot"
+              className="home-page-hero-graphic-img"
+            />
           </div>
         </div>
       </section>
 
+      {/* Optional dependency graph toggle */}
       {showGraph && <DependencyGraph />}
 
-      {/* video cards */}
+      {/* Video Cards Section */}
       <section className="home-page-content">
         <div className="home-page-cards">
           {sortedUnits.map((u) => {
             const unitId = (u.unit_id || '').trim();
             const list = videosByUnit[unitId] || [];
+
             return (
               <HomeCard
                 key={unitId || u.name}
@@ -156,16 +167,38 @@ const HomePage: React.FC = () => {
                 note={u.note || ''}
                 allVideosCopy={u.all_videos_copy || ''}
                 videos={list.map(({
-                  title, url, time, desc,
-                }) => ({
                   title,
                   url,
                   time,
                   desc,
-                }))}
+                }) => (
+                  {
+                    title,
+                    url,
+                    time,
+                    desc,
+                  }
+                ))}
               />
             );
           })}
+        </div>
+      </section>
+
+      {/* New Adoption Card Section */}
+      <section className="home-page-adoption-card">
+        <h2 className="home-page-adoption-title">
+          We are currently seeking non-CS faculty who are interested in adopting OCCTIVE
+          for their courses.
+        </h2>
+        <p className="home-page-adoption-text">
+          Click below for more information about the project in general or to explore
+          OCCTIVE adoption.
+        </p>
+        <div className="home-page-adoption-buttons">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScpxuvjaV3tUhRpPG2LDSxJmaam1A_OFaC7wKUDmOigIzveUQ/viewform" className="btn-primary">
+            <b>Fill Out Our Interest Form</b>
+          </a>
         </div>
       </section>
     </main>
