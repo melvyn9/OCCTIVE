@@ -50,7 +50,6 @@
   margin-top: 1.25rem;
   overflow-wrap: anywhere;
   text-decoration-line: underline;
-  /* make sure it wraps instead of squeezing super narrow */
   white-space: normal;
   word-wrap: break-word;
 }
@@ -58,17 +57,18 @@
 .footer-grant {
 
   /* key changes */
-  align-self: start;         /* was: stretch — now height = content + padding */
+  align-self: start;
+         
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 10px;
 
   box-sizing: border-box;
   grid-column: 3;
-  justify-self: stretch;     /* still fill the column width */
+  justify-self: stretch;
   margin-bottom: 1rem;
   max-width: none;
-  padding: 1rem 1.25rem;     /* bottom padding = 1rem from text */
+  padding: 1rem 1.25rem;   
 }
 
 /* NSF grant: logo + text side-by-side */

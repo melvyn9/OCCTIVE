@@ -74,7 +74,7 @@ $font-family: 'Space Grotesk', sans-serif;
 }
 
 @mixin font-frame2-unit-description {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 @mixin font-heading-1 {
@@ -157,6 +157,11 @@ $font-family: 'Space Grotesk', sans-serif;
 
 @mixin font-resources {
   font-size: 16px;
+  font-weight: bold;
+}
+
+@mixin font-side-bar-text {
+  font-size: 15px;
   font-weight: bold;
 }
 

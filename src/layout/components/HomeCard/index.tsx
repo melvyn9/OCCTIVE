@@ -15,7 +15,7 @@ interface VideoItem {
 interface HomeCardProps {
   name: string;
   description: string;
-  note: string;
+  note?: string;
   videos: VideoItem[];
   allVideosCopy: string;
   group?: string; // optional, but no longer required
@@ -24,9 +24,23 @@ interface HomeCardProps {
 /* ───────────────────────── palette + helper ───────────────────────── */
 
 const palette = [
-  '#FF69B4', '#F5FF66', '#00AEEF', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
-  '#8A2BE2', '#20B2AA', '#FF7034', '#4B0082', '#BA55D3', '#6A5ACD', '#DAA520',
-  '#48D1CC', '#FF6347', '#4682B4',
+  '#3E92B4', // softened pink (was FF69B4)
+  '#8a6fb9ff', // muted yellow (was F5FF66)
+  '#E18461', // softer cyan (was 00AEEF)
+  '#D9B337', // muted orange-red (was FF8866)
+  '#5d8952ff', // less saturated gold (was FFD966)
+  '#d86faeff', // gentler sky blue (was 7FDBFF)
+  '#3AA6A6', // softer lime green (was 32CD32)
+  '#9D7AD9', // less neon violet (was 8A2BE2)
+  '#3AA6A6', // muted teal (was 20B2AA)
+  '#F2874E', // warm coral (was FF7034)
+  '#5F3BAE', // subdued indigo (was 4B0082)
+  '#A870C6', // calmer lavender (was BA55D3)
+  '#7A6CD6', // softened slate purple (was 6A5ACD)
+  '#C9A542', // desaturated goldenrod (was DAA520)
+  '#51BFC0', // softer turquoise (was 48D1CC)
+  '#E3624D', // muted tomato red (was FF6347)
+  '#5C83B9', // gentler steel blue (was 4682B4)
 ];
 
 const colourOf = new Map<string, string>();
@@ -53,7 +67,6 @@ const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '')
 const HomeCard: React.FC<HomeCardProps> = ({
   name,
   description,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   note,
   videos,
   allVideosCopy,
@@ -126,14 +139,11 @@ const HomeCard: React.FC<HomeCardProps> = ({
   const displayName = name.trim(); // keeps emoji in heading
 
   // Use group if provided, otherwise fall back to cleanedName for consistent coloring
-  const borderColor = getColorForGroup(group || cleanedName);
+  const headerColor = getColorForGroup(group || cleanedName);
 
   return (
     <>
-      <div
-        className="home-card"
-        style={{ border: `2px solid ${borderColor}` }}
-      >
+      <div className="home-card">
         {/* ---------- TOP SECTION ---------- */}
         <div className="home-card-top">
           <div className="home-card-heading-container">
@@ -142,6 +152,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
               smooth
               to={`/library#${anchorId}`}
               className="home-card-heading home-card-heading-link"
+              style={{ color: headerColor }}
             >
               {displayName}
             </Link>
@@ -171,6 +182,13 @@ const HomeCard: React.FC<HomeCardProps> = ({
 
             {/* ---------- Videos ---------- */}
             {renderVideos(videos)}
+
+            {/* ---------- Note (optional) ---------- */}
+            {note && (
+              <div className="home-card-note">
+                <p className="home-card-note-text">{note}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

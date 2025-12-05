@@ -5,7 +5,7 @@
 // mobile views, and an optional hero image.
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import HeaderMenu from '../../../assets/HeaderMenu.svg';
 import { pages } from '../../../vars';
@@ -25,14 +25,28 @@ const Header: React.FC = () => {
             <img className="header-logo" src={`${process.env.PUBLIC_URL}/img/occtive_dark.png`} alt="OCCTIVE Logo" />
           </Link>
           <div className="header-links">
-            {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link" key={index}>{page.title}</p></Link>))}
+            {pages.map((page, index) => (
+              <NavLink
+                key={index}
+                to={page.link}
+                exact={page.link === '/'}
+                className="header-link"
+                activeClassName="active"
+              >
+                {page.title}
+              </NavLink>
+            ))}
           </div>
           <div className="header-mobile">
             <button className="header-mobile-button" type="button" onClick={() => setMenu(!menu)}><img className="header-mobile-icon" src={HeaderMenu} alt="Mobile Menu" /></button>
           </div>
         </div>
         <div className={`header-mobile-links${menu ? ' open' : ''}`}>
-          {pages.map((page, index) => (<Link to={page.link} key={index}><p className="header-link">{page.title}</p></Link>))}
+          {pages.map((page, index) => (
+            <NavLink key={index} to={page.link} className="header-link" activeClassName="active">
+              {page.title}
+            </NavLink>
+          ))}
         </div>
       </div>
     </>

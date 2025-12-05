@@ -4,20 +4,25 @@
 .home-card {
   --link-blue-filter: invert(20%) sepia(88%) saturate(2321%)
     hue-rotate(191deg) brightness(92%) contrast(101%);
+  --hover-duration: 0.2s;
+  --hover-ease: ease-in-out;
+  --hover-brightness: 0.85;
 }
 
-/* ───────────── Links ───────────── */
+/* ───────────── Global Link Styling ───────────── */
 .home-card a {
-  color: #1a1a1a;              /* default link color */
-  text-decoration: underline;  /* underline always */
-  transition: color 0.2s ease; /* smooth hover */
+  color: #1a1a1a;
+  text-decoration: none !important;
+  transition: color var(--hover-duration) var(--hover-ease),
+    filter var(--hover-duration) var(--hover-ease);
 }
 
 .home-card a:hover {
-  color: #007acc;              /* hover color */
+  color: #4a8ebc;
+  filter: brightness(var(--hover-brightness));
 }
 
-/* ───────────── Subheading container (used inside info) ───────────── */
+/* ───────────── Subheadings ───────────── */
 .home-card-subheading-container {
   align-items: center;
   display: flex;
@@ -30,7 +35,12 @@
   color: inherit;
   display: flex;
   gap: 4px;
-  text-decoration: none;
+  text-decoration: none !important;
+  transition: color var(--hover-duration) var(--hover-ease);
+
+  &:hover {
+    filter: brightness(var(--hover-brightness));
+  }
 }
 
 .home-card-subheading {
@@ -58,11 +68,6 @@
   z-index: 9999;
 }
 
-.toast-check {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
 @keyframes fadeOut {
   to {
     opacity: 0;
@@ -71,35 +76,32 @@
 }
 
 /* ───────────── Copy Icon Styling ───────────── */
-/* For the copy-all icon in card heading */
 .home-card-heading-container {
   align-items: center;
   display: inline-flex;
 }
 
-/* For each copy icon next to video links */
 .home-card-video-item {
   align-items: center;
   display: flex;
   gap: 0.5rem;
 }
 
-.home-card-video-link {
-  align-items: center;
-  display: inline-flex;
-  gap: 0.25rem;
-}
-
 .home-card-video-link,
 .home-card-heading-link {
+  align-items: center;
   color: #1a1a1a;
-  text-decoration: underline;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  gap: 0.25rem;
+  text-decoration: none !important;
+  transition: color var(--hover-duration) var(--hover-ease),
+    filter var(--hover-duration) var(--hover-ease);
 }
 
 .home-card-video-link:hover,
 .home-card-heading-link:hover {
-  color: #007acc;
+  color: #4a8ebc;
+  filter: brightness(var(--hover-brightness));
 }
 
 .copy-icon-button {
@@ -110,24 +112,28 @@
   display: flex;
   margin: 0;
   padding: 0;
+  transition: transform var(--hover-duration) var(--hover-ease);
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .copy-icon,
 .home-card-link-arrow {
-  border-radius: 4px;      /* soft corners on hover outline */
+  border-radius: 4px;
   height: 18px;
   outline: 2px solid transparent;
   outline-offset: 2px;
-  transition:
-    filter 0.2s ease,
-    outline-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: box-shadow var(--hover-duration) var(--hover-ease),
+    filter var(--hover-duration) var(--hover-ease),
+    outline-color var(--hover-duration) var(--hover-ease);
   width: 18px;
 }
 
 .copy-icon-button:hover .copy-icon,
 .home-card-video-link:hover .home-card-link-arrow {
-  box-shadow: 0 0 0 1px rgba(0, 122, 204, 0.18);
+  box-shadow: 0 0 0 1px rgba(74, 142, 188, 0.18);
   filter: var(--link-blue-filter);
   outline-color: rgba(0, 122, 204, 0.35);
 }
@@ -135,22 +141,22 @@
 /* ───────────── Card Layout ───────────── */
 .home-card {
   @include font-text;
-
   background-color: $color-neutrals-white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  break-inside: avoid;       /* keep intact in column layouts */
+  break-inside: avoid;
   color: $color-neutrals-black;
   display: inline-block;
   margin: 0 0 1.5rem;
   page-break-inside: avoid;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow var(--hover-duration) var(--hover-ease),
+    transform var(--hover-duration) var(--hover-ease);
   width: 100%;
 
   &:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    transform: scale(1.02);
   }
 
   &:first-child {
@@ -237,6 +243,7 @@
     &:hover,
     &:active {
       @include font-linked-text;
+      transition: color var(--hover-duration) var(--hover-ease);
     }
 
     &-arrow {
@@ -260,6 +267,11 @@
     border: 2px solid $color-primary-dark-yellow;
     margin-top: 1.5rem;
     padding: 1rem 2.5rem;
+    transition: transform var(--hover-duration) var(--hover-ease);
+
+    &:hover {
+      transform: scale(1.01);
+    }
 
     &-text {
       @include font-text;
@@ -267,20 +279,22 @@
   }
 
   &-dependency-btn {
-    background-color: #77c5e7;
+    background-color: #cdf1ff;
     border: 0;
     border-radius: 6px;
-    color: $color-neutrals-white;
+    color: $color-neutrals-black;
     cursor: pointer;
     display: inline-block;
     font-size: 1rem;
     margin-top: 0.5rem;
     padding: 0.5rem 1rem;
     text-align: center;
-    transition: background 0.2s;
+    transition: background var(--hover-duration) var(--hover-ease),
+      transform var(--hover-duration) var(--hover-ease);
 
     &:hover {
-      background-color: #5bb0d6;
+      background-color: #b1dbec;
+      transform: scale(1.03);
     }
   }
 
@@ -292,7 +306,7 @@
     &-top {
       padding: 1.25rem 1.5rem 0.5rem;
     }
-    
+
     &-bottom {
       padding: 0.5rem 1.5rem 1.5rem;
     }
