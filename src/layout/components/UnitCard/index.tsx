@@ -65,7 +65,12 @@ const UnitCard: React.FC<UnitCardProps> = (props) => {
 
         {open && (
           <div className="video-entry-graph-wrapper">
-            <DependencyGraph flowId={`${baseId}-v${idx}`} highlightId={video.t} />
+            <DependencyGraph
+              isOpen={open}
+              onClose={() => setOpen(false)}
+              flowId={`${baseId}-v${idx}`}
+              highlightId={video.t}
+            />
           </div>
         )}
       </>

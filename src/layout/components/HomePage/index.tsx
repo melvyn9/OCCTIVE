@@ -129,7 +129,7 @@ const HomePage: React.FC = () => {
               <button
                 type="button"
                 className="btn-primary"
-                onClick={() => setShowGraph((v) => !v)}
+                onClick={() => setShowGraph(true)}
               >
                 <b>View Dependencies</b>
               </button>
@@ -150,7 +150,10 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Optional dependency graph toggle */}
-      {showGraph && <DependencyGraph />}
+      <DependencyGraph
+        isOpen={showGraph}
+        onClose={() => setShowGraph(false)}
+      />
 
       {/* Video Cards Section */}
       <section className="home-page-content">

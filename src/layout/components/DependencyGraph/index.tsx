@@ -1,6 +1,7 @@
 /* eslint-disable max-len, object-curly-newline, react/jsx-max-props-per-line,
    implicit-arrow-linebreak, no-multi-spaces */
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
 import 'reactflow/dist/style.css';
@@ -27,22 +28,23 @@ function uniqById(list: any[]) {
 
 function layout(rawNodes: any[], edges: any[]) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
-  // CHANGE GENERAL STYLINGS OF GRAPH LAYOUT HERE
+
   g.setGraph({
-    rankdir: 'TB', // top-to-bottom
-    ranksep: 100, // vertical space between layers (default 50)
-    nodesep: 100, // horizontal space between nodes (default 50)
-    marginx: 20, // extra canvas padding left/right
-    marginy: 20, // extra canvas padding top/bottom
+    rankdir: 'TB',
+    ranksep: 100,
+    nodesep: 100,
+    marginx: 20,
+    marginy: 20,
   });
+
   g.setDefaultEdgeLabel(() => ({}));
 
   rawNodes.forEach((n) => {
-    /* supply true size so Dagre knows how big each block is */
-    g.setNode(n.id, { width: 200, height: 80 }); // or compute from text
+    g.setNode(n.id, { width: 200, height: 80 });
   });
 
   edges.forEach((e) => g.setEdge(e.source, e.target, {}, e.id));
+
   dagre.layout(g);
 
   const positioned = rawNodes.map((n) => {
@@ -50,9 +52,9 @@ function layout(rawNodes: any[], edges: any[]) {
     return { ...n, position: { x: p.x, y: p.y } };
   });
 
-  /* colour lookup */
   const colourOf = new Map<string, string>();
   let next = 0;
+
   positioned.forEach(({ data: { group } }) => {
     if (!colourOf.has(group)) {
       colourOf.set(group, palette[next % palette.length]);
@@ -68,20 +70,19 @@ function layout(rawNodes: any[], edges: any[]) {
 /* ------------------------------------------------------------------ */
 
 export interface DependencyGraphProps {
-  /** Optional id so multiple graphs do not collide */
   flowId?: string;
-  /** Node id to highlight with a ⭐ */
   highlightId?: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 /* ------------------------------------------------------------------ */
-/*                              COMPONENT                             */
+/*                          LEGEND COMPONENT                          */
 /* ------------------------------------------------------------------ */
 
-/* tiny legend component */
 const Legend: React.FC = () => (
   <div
-    aria-label="Legend"
+    aria-hidden="false"
     style={{
       position: 'absolute',
       top: 8,
@@ -98,13 +99,12 @@ const Legend: React.FC = () => (
   >
     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
       <span
-        aria-hidden
         style={{
           display: 'inline-block',
           width: 28,
           height: 20,
           borderRadius: 6,
-          border: '4px dotted #111827', // dotted sample for O.1
+          border: '4px dotted #111827',
           background: '#ffffff',
         }}
       />
@@ -112,13 +112,12 @@ const Legend: React.FC = () => (
     </div>
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
       <span
-        aria-hidden
         style={{
           display: 'inline-block',
           width: 28,
           height: 20,
           borderRadius: 6,
-          border: '4px solid #111827', // solid sample for O.2
+          border: '4px solid #111827',
           background: '#ffffff',
         }}
       />
@@ -127,7 +126,37 @@ const Legend: React.FC = () => (
   </div>
 );
 
-const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }) => {
+/* ------------------------------------------------------------------ */
+/*                              COMPONENT                             */
+/* ------------------------------------------------------------------ */
+
+const DependencyGraph: React.FC<DependencyGraphProps> = ({
+  flowId,
+  highlightId,
+  isOpen,
+  onClose,
+}) => {
+  /* Block scroll when modal is open */
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  /* ESC key closes modal */
+  useEffect(() => {
+    function handleEsc(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose();
+    }
+    if (isOpen) window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isOpen, onClose]);
+
   const { nodes: rawNodes, edges: rawEdges } = useGraphFromSheet();
 
   const nodes = uniqById(rawNodes);
@@ -136,11 +165,10 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
 
   const { positioned, colourOf } = layout(nodes, edges);
 
-  /* CHANGE STYLINGS OF NODES IN GRAPH */
-  // Normalise the search term
+  /* ------------------------- TARGET HIGHLIGHTING ------------------------- */
+
   const target = highlightId?.trim().toLowerCase() || '';
 
-  // Decide whether *any* node matches that term
   const hasTarget =    target !== ''
     && positioned.some(
       (n) =>
@@ -148,7 +176,6 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
         || n.data.label.toLowerCase() === target,
     );
 
-  // Small normaliser so we accept "O.1", "Q.1", "0.1", etc.
   const normaliseGeneration = (value: unknown): 'old' | 'new' | 'unknown' => {
     const s = (value ?? '').toString().trim().toLowerCase();
     if (s.startsWith('o.1') || s.startsWith('q.1') || s === '0.1' || s === '1') return 'old';
@@ -156,27 +183,21 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
     return 'unknown';
   };
 
-  // Build the styled nodes
   const graphNodes = positioned.map((n) => {
     const isTarget =      hasTarget
-      && (
-        n.id.toLowerCase() === target
-        || n.data.label.toLowerCase() === target
-      );
+      && (n.id.toLowerCase() === target
+        || n.data.label.toLowerCase() === target);
 
-    // Dashed (Q.1 / O.1) vs Solid (Q.2 / O.2) border style
     const genStatus = normaliseGeneration(n.data?.generation);
     const borderStyle = genStatus === 'old' ? 'dashed' : 'solid';
     const borderWidth = 5;
     const borderColor = colourOf.get(n.data.group);
 
-    // Background switches to grey *only* when a match exists
     const base = {
       background: hasTarget ? '#d3d3d3' : '#ffffff',
       borderRadius: 6,
       padding: 12,
       fontSize: 16,
-      // apply computed border style (dashed for Q.1/O.1, solid for Q.2/O.2)
       border: `${borderWidth}px ${borderStyle} ${borderColor}`,
     } as React.CSSProperties;
 
@@ -187,7 +208,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
         style: {
           ...base,
           border: '4px solid #a855f7',
-          background: '#ffffff', // target node stays white
+          background: '#ffffff',
         },
       }
       : { ...n, style: base };
@@ -198,17 +219,75 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({ flowId, highlightId }
     [flowId],
   );
 
+  if (!isOpen) return null;
+
+  /* ------------------------------- RENDER ------------------------------- */
+
   return (
-    <ReactFlowProvider>
-      {/* position: relative so the legend can sit on top-left */}
-      <div style={{ position: 'relative', height: 750, border: '1px solid #d1d5db' }}>
-        {/* Legend overlay */}
-        <Legend />
-        <ReactFlow id={id} nodes={graphNodes} edges={edges} fitView>
-          <Background />
-        </ReactFlow>
+    <>
+      {/* Screen overlay */}
+      <div
+        onClick={onClose}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.55)',
+          backdropFilter: 'blur(1px)',
+          zIndex: 2000,
+          animation: 'fadeIn 0.15s ease-out',
+        }}
+      />
+
+      {/* Modal container */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '90%',
+          maxWidth: 1200,
+          height: '80%',
+          background: '#fff',
+          borderRadius: 12,
+          padding: 20,
+          overflow: 'hidden',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+          zIndex: 2001,
+          animation: 'fadeIn 0.15s ease-out',
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          type="button"
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 14,
+            fontSize: 26,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            zIndex: 4000,
+          }}
+        >
+          ✕
+        </button>
+
+        {/* Graph */}
+        <ReactFlowProvider>
+          <div style={{ position: 'relative', height: '100%' }}>
+            <Legend />
+            <ReactFlow id={id} nodes={graphNodes} edges={edges} fitView>
+              <Background />
+            </ReactFlow>
+          </div>
+        </ReactFlowProvider>
       </div>
-    </ReactFlowProvider>
+    </>
   );
 };
 

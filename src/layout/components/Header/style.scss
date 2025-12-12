@@ -62,8 +62,8 @@
     &.active {
       background-color: #cdf1ff;   // updated: active pill background
       box-shadow: none;
-      color: #3d555e !important;// updated: active pill text color
-      font-weight: 600;             // slightly stronger for active
+      color: #3d555e !important;
+      font-weight: 600;             // slightly stronger for active// updated: active pill text color
     }
 
     &:focus-visible {
