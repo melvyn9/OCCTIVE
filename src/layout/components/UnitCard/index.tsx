@@ -1,6 +1,3 @@
-/* eslint-disable react/destructuring-assignment, max-len,
-   object-curly-newline, react/jsx-max-props-per-line,
-   implicit-arrow-linebreak */
 import React, { useState } from 'react';
 import DependencyChartBtnIcon from '../../../assets/dependency_chart_btn_icon.svg';
 import DependencyGraph from '../DependencyGraph';
@@ -14,16 +11,23 @@ export interface UnitCardProps {
   name: string;
   description: string;
   note: string;
-
   // Flat list of videos (no sub-units)
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
+  // Mapping from topic key to abbreviated display name
+  groupLabels?: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
 /*                              COMPONENT                             */
 /* ------------------------------------------------------------------ */
 
-const UnitCard: React.FC<UnitCardProps> = (props) => {
+const UnitCard: React.FC<UnitCardProps> = ({
+  name,
+  description,
+  note,
+  videos,
+  groupLabels,
+}) => {
   /* helper: YouTube URL → embed */
   const toEmbed = (url: string) => {
     const m = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&\n]+)/);
@@ -32,7 +36,11 @@ const UnitCard: React.FC<UnitCardProps> = (props) => {
 
   /* per-video component so each row owns its own showGraph */
   type V = { t: string; u: string; tm: string; d: string };
-  const VideoRow: React.FC<{ video: V; idx: number; baseId: string }> = ({ video, idx, baseId }) => {
+  const VideoRow: React.FC<{
+    video: V;
+    idx: number;
+    baseId: string;
+  }> = ({ video, idx, baseId }) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -70,6 +78,7 @@ const UnitCard: React.FC<UnitCardProps> = (props) => {
               onClose={() => setOpen(false)}
               flowId={`${baseId}-v${idx}`}
               highlightId={video.t}
+              groupLabels={groupLabels}
             />
           </div>
         )}
@@ -78,17 +87,17 @@ const UnitCard: React.FC<UnitCardProps> = (props) => {
   };
 
   /* baseId ensures unique graph ids inside this card */
-  const baseId = `graph-${props.name.replace(/\s+/g, '-')}`;
+  const baseId = `graph-${name.replace(/\s+/g, '-')}`;
 
   // Build one flat list of videos (no sub-units), keep only non-empty
-  const nonEmpty = (props.videos || []).filter((v) => v.t && v.u);
+  const nonEmpty = (videos || []).filter((v) => v.t && v.u);
 
   return (
     <>
       <div className="frame-card">
         <div className="frame-card-unit">
-          <p className="frame-card-heading">{props.name}</p>
-          <p className="frame-card-description">{props.description}</p>
+          <p className="frame-card-heading">{name}</p>
+          <p className="frame-card-description">{description}</p>
         </div>
 
         {/* videos */}
@@ -98,9 +107,9 @@ const UnitCard: React.FC<UnitCardProps> = (props) => {
           ))}
         </div>
 
-        {props.note && (
+        {note && (
           <div className="frame-card-note">
-            <p className="frame-card-note-text">{props.note}</p>
+            <p className="frame-card-note-text">{note}</p>
           </div>
         )}
       </div>

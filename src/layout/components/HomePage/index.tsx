@@ -161,7 +161,7 @@ const HomePage: React.FC = () => {
               >
                 <b>View Dependencies</b>
               </button>
-              <a href="/about#/about" className="btn-secondary">
+              <a href="https://melvyn9.github.io/OCCTIVE/#/about" className="btn-secondary">
                 <b>About the Project</b>
               </a>
             </div>
@@ -169,7 +169,7 @@ const HomePage: React.FC = () => {
 
           <div className="home-page-hero-graphic" aria-hidden={false}>
             <img
-              src="/img/header_graphic.png"
+              src={`${process.env.PUBLIC_URL}/img/header_graphic.png`}
               alt="Illustration of a laptop with code windows and an octopus mascot"
               className="home-page-hero-graphic-img"
             />

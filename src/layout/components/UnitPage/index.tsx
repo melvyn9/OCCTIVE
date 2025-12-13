@@ -15,6 +15,7 @@ type UnitRow = {
   description: string;
   note?: string;
   order?: number | string;
+  abbreviated_name?: string;
 };
 
 type VideoRow = {
@@ -101,6 +102,28 @@ const UnitPage: React.FC = () => {
       });
   }, [units]);
 
+  function indexToGroupLabel(index: number): string {
+    let label = '';
+    let n = index;
+
+    while (n >= 0) {
+      label = String.fromCharCode((n % 26) + 65) + label;
+      n = Math.floor(n / 26) - 1;
+    }
+
+    return label;
+  }
+
+  const dependencyGroupLabels: Record<string, string> = {};
+
+  sortedUnits.forEach((u, idx) => {
+    const groupKey = indexToGroupLabel(idx);
+    const displayName = (u.abbreviated_name || u.name || '').trim();
+
+    if (groupKey && displayName && !dependencyGroupLabels[groupKey]) {
+      dependencyGroupLabels[groupKey] = displayName;
+    }
+  });
   return (
     <div className="unit-page">
       <div className="unit-page-content">
@@ -139,12 +162,12 @@ const UnitPage: React.FC = () => {
                   name={unit.name}
                   description={unit.description}
                   note={unit.note || ''}
-                  // Flat list of videos (no sub-units)
                   videos={list.map(({
                     t, u, tm, d,
                   }) => ({
                     t, u, tm, d,
                   }))}
+                  groupLabels={dependencyGroupLabels}
                 />
               </div>
             );
