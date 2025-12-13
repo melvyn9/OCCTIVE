@@ -2,6 +2,7 @@
 // Home landing page that renders unit cards and launches the dependency graph modal.
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
 import DependencyGraph from '../DependencyGraph';
@@ -161,9 +162,9 @@ const HomePage: React.FC = () => {
               >
                 <b>View Dependencies</b>
               </button>
-              <a href="https://melvyn9.github.io/OCCTIVE/#/about" className="btn-secondary">
+              <Link to="/about" className="btn-secondary">
                 <b>About the Project</b>
-              </a>
+              </Link>
             </div>
           </div>
 
