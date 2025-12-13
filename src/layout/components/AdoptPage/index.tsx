@@ -1,4 +1,5 @@
 // File: src/layout/components/AdoptPage/index.tsx
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './style.scss';
 
@@ -98,14 +99,9 @@ const AdoptPage: React.FC = () => (
         <h3>Guide to Videos</h3>
         <p>
           Check out the{' '}
-          <a
-            className="adopt-link"
-            href="https://melvyn9.github.io/OCCTIVE/#/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link to="/" className="adopt-link">
             full video list
-          </a>{' '}
+          </Link>{' '}
           and a{' '}
           <a
             className="adopt-link"

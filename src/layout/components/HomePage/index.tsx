@@ -2,6 +2,7 @@
 // Home landing page that renders unit cards and launches the dependency graph modal.
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
 import DependencyGraph from '../DependencyGraph';
@@ -161,15 +162,15 @@ const HomePage: React.FC = () => {
               >
                 <b>View Dependencies</b>
               </button>
-              <a href="/about#/about" className="btn-secondary">
+              <Link to="/about" className="btn-secondary">
                 <b>About the Project</b>
-              </a>
+              </Link>
             </div>
           </div>
 
           <div className="home-page-hero-graphic" aria-hidden={false}>
             <img
-              src="/img/header_graphic.png"
+              src={`${process.env.PUBLIC_URL}/img/header_graphic.png`}
               alt="Illustration of a laptop with code windows and an octopus mascot"
               className="home-page-hero-graphic-img"
             />

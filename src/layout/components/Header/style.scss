@@ -20,11 +20,14 @@
 
   &-logo {
     margin-top: 0.25rem;
-    transform-origin: center; // moved to correct order
+    transform-origin: center;
     transition: transform 0.2s ease-in-out;
     width: 56px;
+    z-index: 2;
 
-    z-index: 2;                    
+    &:hover {
+      transform: scale(1.1);
+    }               
   }
 
   &-links {
@@ -39,32 +42,31 @@
 
   &-link {
     @include font-nav-bar-text;
-    background: transparent;       // ensure no pill background for inactive links
+    background: transparent;
     border-radius: 10px;
     color: #f3f8f9 !important;     // force inactive text to be white
     display: inline-flex;
     font-size: 1rem;
     font-weight: 400;
     padding: 0.4rem 0.8rem;
-    text-decoration: none;         // remove underline
-    text-underline-offset: 0;      // ensure no browsers add underline offset
+    text-decoration: none;
+    text-underline-offset: 0;
     transform-origin: center;
     transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease;
     will-change: transform, background-color, filter;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.04); /* subtle pill like before */
-      color: #f3f8f9; /* keep hovered text white for contrast */
+      background-color: rgba(0, 0, 0, 0.04);
+      color: #f3f8f9;
       filter: brightness(1.05);
       transform: scale(1.02);
     }
 
     &.active {
-      background-color: #cdf1ff;   // updated: active pill background
+      background-color: #cdf1ff;
       box-shadow: none;
       color: #3d555e !important;
-      font-weight: 600;             // slightly stronger for active// updated: active pill text color
-    }
+      font-weight: 600;    }
 
     &:focus-visible {
       outline: 3px solid rgba(0, 0, 0, 0.08);
