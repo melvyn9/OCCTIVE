@@ -7,6 +7,7 @@ import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
 import DependencyGraph from '../DependencyGraph';
 import './style.scss';
+import { setTopicColorsInOrder } from '../../../utils/topicColors';
 
 /* eslint-disable camelcase */
 /* Row shape for Units spreadsheet */
@@ -115,6 +116,11 @@ const HomePage: React.FC = () => {
     });
   }, [units]);
 
+  useEffect(() => {
+    const orderedUnitIds = sortedUnits.map((u) => u.unit_id);
+    setTopicColorsInOrder(orderedUnitIds);
+  }, [sortedUnits]);
+
   /* Converts 0 → A, 1 → B, …, 26 → AA, etc. */
   function indexToGroupLabel(index: number): string {
     let label = '';
@@ -130,13 +136,19 @@ const HomePage: React.FC = () => {
 
   /* Maps dependency graph group keys to human-readable topic names */
   const dependencyGroupLabels: Record<string, string> = {};
+  const dependencyGroupColorKeys: Record<string, string> = {};
 
   sortedUnits.forEach((u, idx) => {
-    const groupKey = indexToGroupLabel(idx);
+    const groupKey = indexToGroupLabel(idx); // "A", "B", ...
     const displayName = (u.abbreviated_name || u.name || '').trim();
+    const unitId = (u.unit_id || '').trim();
 
     if (groupKey && displayName && !dependencyGroupLabels[groupKey]) {
       dependencyGroupLabels[groupKey] = displayName;
+    }
+
+    if (groupKey && unitId && !dependencyGroupColorKeys[groupKey]) {
+      dependencyGroupColorKeys[groupKey] = unitId; // ✅ A -> setting-context
     }
   });
 
@@ -183,6 +195,7 @@ const HomePage: React.FC = () => {
         isOpen={showGraph}
         onClose={() => setShowGraph(false)}
         groupLabels={dependencyGroupLabels}
+        groupColorKeys={dependencyGroupColorKeys}
       />
 
       {/* Unit cards */}
@@ -207,6 +220,7 @@ const HomePage: React.FC = () => {
                   time,
                   desc,
                 }))}
+                group={unitId}
               />
             );
           })}
