@@ -36,8 +36,7 @@ export function useGraphFromSheet() {
             id: r.id,
             data: {
               label: r.title,
-              topicName: r.title,
-              group,
+              topicKey: group,
               generation,
             },
           });

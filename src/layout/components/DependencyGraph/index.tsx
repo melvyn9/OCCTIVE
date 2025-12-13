@@ -1,19 +1,9 @@
-/* eslint-disable max-len, object-curly-newline, react/jsx-max-props-per-line,
-   implicit-arrow-linebreak, no-multi-spaces */
-
 import React, { useEffect, useState } from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
 import 'reactflow/dist/style.css';
 import { useGraphFromSheet } from '../../../useGraphFromSheet';
-
-/* ───────── colour palette ───────── */
-
-const palette = [
-  '#FF69B4', '#F5FF66', '#00AEEF', '#FF8866', '#FFD966', '#7FDBFF', '#32CD32',
-  '#8A2BE2', '#20B2AA', '#FF7034', '#4B0082', '#BA55D3', '#6A5ACD', '#DAA520',
-  '#48D1CC', '#FF6347', '#4682B4',
-];
+import { getColorForTopic } from '../../../utils/topicColors';
 
 /* ───────── helpers ───────── */
 
@@ -53,12 +43,11 @@ function layout(rawNodes: any[], edges: any[]) {
   });
 
   const colourOf = new Map<string, string>();
-  let next = 0;
 
-  positioned.forEach(({ data: { group } }) => {
-    if (!colourOf.has(group)) {
-      colourOf.set(group, palette[next % palette.length]);
-      next += 1;
+  positioned.forEach(({ data }) => {
+    const { topicKey } = data; // abbreviated_name or unit_id
+    if (topicKey && !colourOf.has(topicKey)) {
+      colourOf.set(topicKey, getColorForTopic(topicKey));
     }
   });
 
@@ -74,6 +63,7 @@ export interface DependencyGraphProps {
   highlightId?: string;
   isOpen: boolean;
   onClose: () => void;
+  groupLabels?: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -82,14 +72,14 @@ export interface DependencyGraphProps {
 
 interface LegendProps {
   colourOf: Map<string, string>;
-  topicNames: Map<string, string>;
+  groupLabels?: Record<string, string>;
   collapsed: boolean;
   onToggle: () => void;
 }
 
 const Legend: React.FC<LegendProps> = ({
   colourOf,
-  topicNames,
+  groupLabels,
   collapsed,
   onToggle,
 }) => {
@@ -184,20 +174,22 @@ const Legend: React.FC<LegendProps> = ({
 
           {/* ------- Topic Groups ------- */}
           <div style={{ marginBottom: 8, fontWeight: 600 }}>Topic Groups</div>
-
-          {Array.from(colourOf.entries()).map(([group, color]) => (
-            <div key={group} style={rowStyle}>
-              <span
-                aria-hidden
-                style={{
-                  ...chipBase,
-                  background: color,
-                  border: '2px solid #111827',
-                }}
-              />
-              <span>{topicNames.get(group) ?? group}</span>
-            </div>
-          ))}
+          {Array.from(colourOf.entries()).map(([group, color]) => {
+            const label = groupLabels?.[group] ?? group; // <-- use mapping if provided
+            return (
+              <div key={group} style={rowStyle}>
+                <span
+                  aria-hidden
+                  style={{
+                    ...chipBase,
+                    background: color,
+                    border: '2px solid #111827',
+                  }}
+                />
+                <span>{label}</span>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
@@ -213,6 +205,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   highlightId,
   isOpen,
   onClose,
+  groupLabels,
 }) => {
   /* Block scroll when modal is open */
   useEffect(() => {
@@ -257,10 +250,9 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
 
   const target = highlightId?.trim().toLowerCase() || '';
 
-  const hasTarget =    target !== ''
+  const hasTarget = target !== ''
     && positioned.some(
-      (n) =>
-        n.id.toLowerCase() === target
+      (n) => n.id.toLowerCase() === target
         || n.data.label.toLowerCase() === target,
     );
 
@@ -272,14 +264,14 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   };
 
   const graphNodes = positioned.map((n) => {
-    const isTarget =      hasTarget
+    const isTarget = hasTarget
       && (n.id.toLowerCase() === target
         || n.data.label.toLowerCase() === target);
 
     const genStatus = normaliseGeneration(n.data?.generation);
     const borderStyle = genStatus === 'old' ? 'dashed' : 'solid';
     const borderWidth = 5;
-    const borderColor = colourOf.get(n.data.group);
+    const borderColor = colourOf.get(n.data.topicKey);
 
     const base = {
       background: hasTarget ? '#d3d3d3' : '#ffffff',
@@ -370,7 +362,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
           <div style={{ position: 'relative', height: '100%' }}>
             <Legend
               colourOf={colourOf}
-              topicNames={topicNames}
+              groupLabels={groupLabels}
               collapsed={legendCollapsed}
               onToggle={() => setLegendCollapsed((v) => !v)}
             />

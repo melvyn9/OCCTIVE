@@ -1,6 +1,5 @@
 // File: src/layout/pages/AdoptPageContainer.tsx
 import React from 'react';
-
 import Header from '../components/Header';
 import PageLayout from './PageLayout';
 import AdoptPage from '../components/AdoptPage';

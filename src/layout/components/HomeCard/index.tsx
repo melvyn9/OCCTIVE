@@ -1,10 +1,14 @@
 // File: src/layout/components/HomeCard/index.tsx
+// Renders a unit card on the Home page with consistent topic-based coloring.
+
 import React, { useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import LinkedArrow from '../../../assets/LinkedArrow.svg';
 import CopyIcon from '../../../assets/CopyIcon.svg';
 import './style.scss';
+import { getColorForTopic } from '../../../utils/topicColors';
 
+/* Video metadata rendered inside the card */
 interface VideoItem {
   title: string;
   url: string;
@@ -12,58 +16,26 @@ interface VideoItem {
   desc?: string;
 }
 
+/* Props for a single Home unit card */
 interface HomeCardProps {
   name: string;
   description: string;
   note?: string;
   videos: VideoItem[];
   allVideosCopy: string;
-  group?: string; // optional, but no longer required
-}
-
-/* ───────────────────────── palette + helper ───────────────────────── */
-
-const palette = [
-  '#3E92B4', // softened pink (was FF69B4)
-  '#8a6fb9ff', // muted yellow (was F5FF66)
-  '#E18461', // softer cyan (was 00AEEF)
-  '#D9B337', // muted orange-red (was FF8866)
-  '#5d8952ff', // less saturated gold (was FFD966)
-  '#d86faeff', // gentler sky blue (was 7FDBFF)
-  '#3AA6A6', // softer lime green (was 32CD32)
-  '#9D7AD9', // less neon violet (was 8A2BE2)
-  '#3AA6A6', // muted teal (was 20B2AA)
-  '#F2874E', // warm coral (was FF7034)
-  '#5F3BAE', // subdued indigo (was 4B0082)
-  '#A870C6', // calmer lavender (was BA55D3)
-  '#7A6CD6', // softened slate purple (was 6A5ACD)
-  '#C9A542', // desaturated goldenrod (was DAA520)
-  '#51BFC0', // softer turquoise (was 48D1CC)
-  '#E3624D', // muted tomato red (was FF6347)
-  '#5C83B9', // gentler steel blue (was 4682B4)
-];
-
-const colourOf = new Map<string, string>();
-
-function getColorForGroup(key: string): string {
-  if (!colourOf.has(key)) {
-    const next = colourOf.size % palette.length;
-    colourOf.set(key, palette[next]);
-  }
-  return colourOf.get(key)!;
+  group?: string; // topic/group key used for consistent coloring
 }
 
 /* ───────────────────────── helpers ───────────────────────── */
 
-/** Strip any emoji / blanks that come before “Unit …” */
+/* Removes leading emoji/whitespace before "Unit …" for stable anchors */
 const cleanUnitName = (raw: string) => {
   const i = raw.search(/Unit/i);
   return i === -1 ? raw.trimStart() : raw.slice(i).trimStart();
 };
 
-/** Convert “Unit 1: Setting Context” → “Unit-1-Setting-Context” */
+/* Converts unit name into a hash-safe anchor id */
 const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
-
 const HomeCard: React.FC<HomeCardProps> = ({
   name,
   description,
@@ -72,15 +44,16 @@ const HomeCard: React.FC<HomeCardProps> = ({
   allVideosCopy,
   group,
 }) => {
-  /* ─────────────── notification toast ─────────────── */
+  /* Toast state for copy feedback */
   const [toast, setToast] = useState<string | null>(null);
 
+  /* Shows a short-lived toast message */
   const showToast = (message: string) => {
     setToast(message);
-    setTimeout(() => setToast(null), 2500); // disappears after 2.5s
+    setTimeout(() => setToast(null), 2500);
   };
 
-  /* ───────────── copy-all links handler ───────────── */
+  /* Copies all video links for the unit */
   const handleCopyAllClick = () => {
     navigator.clipboard
       .writeText(allVideosCopy || '')
@@ -88,7 +61,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
       .catch(() => showToast('Copy failed'));
   };
 
-  /* ───────────── render videos (single merged list) ───────────── */
+  /* Renders the list of videos for this unit */
   const renderVideos = (items: VideoItem[]) => {
     const filtered = (items || []).filter((v) => v.title && v.url);
     if (filtered.length === 0) return null;
@@ -112,7 +85,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
                 />
               </a>
 
-              {/* copy icon for this single link */}
+              {/* Copy button for a single video link */}
               <button
                 type="button"
                 className="copy-icon-button"
@@ -134,20 +107,21 @@ const HomeCard: React.FC<HomeCardProps> = ({
   };
 
   /* ───────────────────────── render ───────────────────────── */
-  const cleanedName = cleanUnitName(name); // for anchor only
-  const anchorId = toAnchorId(cleanedName); // for anchor only
-  const displayName = name.trim(); // keeps emoji in heading
 
-  // Use group if provided, otherwise fall back to cleanedName for consistent coloring
-  const headerColor = getColorForGroup(group || cleanedName);
+  const cleanedName = cleanUnitName(name); // anchor-only name
+  const anchorId = toAnchorId(cleanedName);
+  const displayName = name.trim(); // preserves emoji in UI
+
+  /* Resolve topic color via shared topic color registry */
+  const headerColor = getColorForTopic(group || cleanedName);
 
   return (
     <>
       <div className="home-card">
-        {/* ---------- TOP SECTION ---------- */}
+        {/* ---------- Header ---------- */}
         <div className="home-card-top">
           <div className="home-card-heading-container">
-            {/* heading text keeps emoji; link still targets cleaned anchor */}
+            {/* Title links to Library anchor with consistent topic color */}
             <Link
               smooth
               to={`/library#${anchorId}`}
@@ -157,6 +131,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
               {displayName}
             </Link>
 
+            {/* Copy-all button */}
             <button
               type="button"
               className="copy-icon-button"
@@ -169,10 +144,10 @@ const HomeCard: React.FC<HomeCardProps> = ({
           </div>
         </div>
 
-        {/* ---------- BOTTOM SECTION ---------- */}
+        {/* ---------- Content ---------- */}
         <div className="home-card-bottom">
           <div className="home-card-inner">
-            {/* ---------- Description ---------- */}
+            {/* Description */}
             {description && (
               <div className="home-card-info-group">
                 <p className="home-card-subheading">Description</p>
@@ -180,10 +155,10 @@ const HomeCard: React.FC<HomeCardProps> = ({
               </div>
             )}
 
-            {/* ---------- Videos ---------- */}
+            {/* Videos */}
             {renderVideos(videos)}
 
-            {/* ---------- Note (optional) ---------- */}
+            {/* Optional note */}
             {note && (
               <div className="home-card-note">
                 <p className="home-card-note-text">{note}</p>
@@ -193,7 +168,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
         </div>
       </div>
 
-      {/* toast */}
+      {/* Toast feedback */}
       {toast && <div className="copy-toast">{toast}</div>}
     </>
   );
