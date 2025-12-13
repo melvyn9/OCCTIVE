@@ -129,7 +129,7 @@ const Legend: React.FC<LegendProps> = ({
           boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
         }}
       >
-        Legend {collapsed ? '▸' : '▾'}
+        How to Read This {collapsed ? '▸' : '▾'}
       </button>
 
       {/* Only render the panel when expanded */}
@@ -236,7 +236,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   }, [isOpen, onClose]);
 
   const { nodes: rawNodes, edges: rawEdges } = useGraphFromSheet();
-  const [legendCollapsed, setLegendCollapsed] = useState(false);
+  const [legendCollapsed, setLegendCollapsed] = useState(true);
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
   const edges = rawEdges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target));
