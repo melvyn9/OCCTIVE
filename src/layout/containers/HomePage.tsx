@@ -1,6 +1,5 @@
 // File: src/layout/pages/HomePageContainer.tsx
 import React from 'react';
-
 import Header from '../components/Header';
 import PageLayout from './PageLayout';
 import HomePage from '../components/HomePage';

@@ -1,13 +1,14 @@
 // File: src/layout/components/HomePage/index.tsx
-import React, { useEffect, useMemo, useState } from 'react';
+// Home landing page that renders unit cards and launches the dependency graph modal.
 
+import React, { useEffect, useMemo, useState } from 'react';
 import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
 import DependencyGraph from '../DependencyGraph';
-
 import './style.scss';
 
 /* eslint-disable camelcase */
+/* Row shape for Units spreadsheet */
 type UnitRow = {
   unit_id: string;
   name: string;
@@ -15,8 +16,10 @@ type UnitRow = {
   note?: string;
   order?: number | string;
   'all_videos_copy'?: string;
+  abbreviated_name?: string;
 };
 
+/* Row shape for Videos spreadsheet */
 type VideoRow = {
   unit_id: string;
   video_order?: number | string;
@@ -28,8 +31,11 @@ type VideoRow = {
 /* eslint-enable camelcase */
 
 const HomePage: React.FC = () => {
+  /* Units + videos data loaded from CSVs */
   const [units, setUnits] = useState<UnitRow[]>([]);
   const [videos, setVideos] = useState<VideoRow[]>([]);
+
+  /* Controls dependency graph modal visibility */
   const [showGraph, setShowGraph] = useState(false);
 
   /* ---------- Fetch data ---------- */
@@ -43,15 +49,15 @@ const HomePage: React.FC = () => {
       .catch(() => setVideos([]));
   }, []);
 
-  /* ---------- Group videos ---------- */
+  /* ---------- Group videos by unit ---------- */
   const videosByUnit = useMemo(() => {
+    /* Normalizes numeric fields that may arrive as strings */
     const asNumber = (v: number | string | undefined) => {
-      if (typeof v === 'string') {
-        return parseFloat(v) || 0;
-      }
+      if (typeof v === 'string') return parseFloat(v) || 0;
       return v ?? 0;
     };
 
+    // Normalized video object used internally for grouping and sorting videos by unit
     type Item = {
       title: string;
       url: string;
@@ -60,6 +66,7 @@ const HomePage: React.FC = () => {
       order: number;
     };
 
+    /* Build and sort video lists per unit */
     const grouped = (videos || [])
       .filter((row) => {
         const unitId = (row.unit_id || '').trim();
@@ -78,13 +85,12 @@ const HomePage: React.FC = () => {
         },
       }))
       .reduce<Record<string, Item[]>>((acc, { unitId, item }) => {
-        if (!acc[unitId]) {
-          acc[unitId] = [];
-        }
+        if (!acc[unitId]) acc[unitId] = [];
         acc[unitId].push(item);
         return acc;
       }, {});
 
+    /* Sort videos within each unit */
     Object.keys(grouped).forEach((k) => {
       grouped[k].sort((a, b) => a.order - b.order);
     });
@@ -95,26 +101,48 @@ const HomePage: React.FC = () => {
   /* ---------- Sort units ---------- */
   const sortedUnits = useMemo(() => {
     const asNumber = (v: number | string | undefined) => {
-      if (typeof v === 'string') {
-        return parseFloat(v) || 0;
-      }
+      if (typeof v === 'string') return parseFloat(v) || 0;
       return v ?? 0;
     };
 
+    /* Primary sort by order, fallback by name */
     return [...units].sort((a, b) => {
       const ao = asNumber(a.order);
       const bo = asNumber(b.order);
-      if (ao !== bo) {
-        return ao - bo;
-      }
+      if (ao !== bo) return ao - bo;
       return (a.name || '').localeCompare(b.name || '');
     });
   }, [units]);
 
+  /* Converts 0 → A, 1 → B, …, 26 → AA, etc. */
+  function indexToGroupLabel(index: number): string {
+    let label = '';
+    let n = index;
+
+    while (n >= 0) {
+      label = String.fromCharCode((n % 26) + 65) + label;
+      n = Math.floor(n / 26) - 1;
+    }
+
+    return label;
+  }
+
+  /* Maps dependency graph group keys to human-readable topic names */
+  const dependencyGroupLabels: Record<string, string> = {};
+
+  sortedUnits.forEach((u, idx) => {
+    const groupKey = indexToGroupLabel(idx);
+    const displayName = (u.abbreviated_name || u.name || '').trim();
+
+    if (groupKey && displayName && !dependencyGroupLabels[groupKey]) {
+      dependencyGroupLabels[groupKey] = displayName;
+    }
+  });
+
   /* ---------- Render ---------- */
   return (
     <main className="home-page">
-      {/* Hero Section */}
+      {/* Hero section */}
       <section className="home-page-hero">
         <div className="home-page-hero-content">
           <div className="home-page-hero-text">
@@ -129,7 +157,7 @@ const HomePage: React.FC = () => {
               <button
                 type="button"
                 className="btn-primary"
-                onClick={() => setShowGraph((v) => !v)}
+                onClick={() => setShowGraph(true)}
               >
                 <b>View Dependencies</b>
               </button>
@@ -149,10 +177,14 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Optional dependency graph toggle */}
-      {showGraph && <DependencyGraph />}
+      {/* Dependency graph modal */}
+      <DependencyGraph
+        isOpen={showGraph}
+        onClose={() => setShowGraph(false)}
+        groupLabels={dependencyGroupLabels}
+      />
 
-      {/* Video Cards Section */}
+      {/* Unit cards */}
       <section className="home-page-content">
         <div className="home-page-cards">
           {sortedUnits.map((u) => {
@@ -167,25 +199,20 @@ const HomePage: React.FC = () => {
                 note={u.note || ''}
                 allVideosCopy={u.all_videos_copy || ''}
                 videos={list.map(({
+                  title, url, time, desc,
+                }) => ({
                   title,
                   url,
                   time,
                   desc,
-                }) => (
-                  {
-                    title,
-                    url,
-                    time,
-                    desc,
-                  }
-                ))}
+                }))}
               />
             );
           })}
         </div>
       </section>
 
-      {/* New Adoption Card Section */}
+      {/* Adoption call-to-action */}
       <section className="home-page-adoption-card">
         <h2 className="home-page-adoption-title">
           We are currently seeking non-CS faculty who are interested in adopting OCCTIVE
@@ -196,7 +223,10 @@ const HomePage: React.FC = () => {
           OCCTIVE adoption.
         </p>
         <div className="home-page-adoption-buttons">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScpxuvjaV3tUhRpPG2LDSxJmaam1A_OFaC7wKUDmOigIzveUQ/viewform" className="btn-primary">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScpxuvjaV3tUhRpPG2LDSxJmaam1A_OFaC7wKUDmOigIzveUQ/viewform"
+            className="btn-primary"
+          >
             <b>Fill Out Our Interest Form</b>
           </a>
         </div>

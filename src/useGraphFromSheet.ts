@@ -34,7 +34,11 @@ export function useGraphFromSheet() {
           const generation = (r.generation ?? '').trim().toUpperCase();
           n.push({
             id: r.id,
-            data: { label: r.title, group, generation },
+            data: {
+              label: r.title,
+              topicKey: group,
+              generation,
+            },
           });
 
           r.parentIds
