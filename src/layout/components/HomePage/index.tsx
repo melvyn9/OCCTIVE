@@ -184,9 +184,9 @@ const HomePage: React.FC = () => {
               >
                 <b>View Dependencies</b>
               </button>
-              <a href="https://melvyn9.github.io/OCCTIVE/#/about" className="btn-secondary">
+              <Link to="/about" className="btn-secondary">
                 <b>About the Project</b>
-              </a>
+              </Link>
             </div>
           </div>
 
