@@ -104,19 +104,6 @@ const UnitPage: React.FC = () => {
       });
   }, [units]);
 
-  /* Derives the ordered list of topic colors from the sorted units. */
-  const topicColorList = useMemo(
-    () => buildTopicColorList(sortedUnits),
-    [sortedUnits],
-  );
-
-  /* Builds a lookup map from unitId to color for efficient access. */
-  const topicColorMap = useMemo(
-    () => buildTopicColorMap(topicColorList),
-    [topicColorList],
-  );
-
-  /* Converts numeric index into spreadsheet-style labels (A, B, …, AA) */
   function indexToGroupLabel(index: number): string {
     let label = '';
     let n = index;
@@ -129,7 +116,6 @@ const UnitPage: React.FC = () => {
     return label;
   }
 
-  /* Maps dependency graph group keys to unit display names */
   const dependencyGroupLabels: Record<string, string> = {};
 
   sortedUnits.forEach((u, idx) => {
@@ -198,7 +184,6 @@ const UnitPage: React.FC = () => {
                     t, u, tm, d,
                   }))}
                   groupLabels={dependencyGroupLabels}
-                  topicColorMap={topicColorMap}
                 />
               </div>
             );
