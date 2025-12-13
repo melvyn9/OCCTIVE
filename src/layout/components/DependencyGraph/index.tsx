@@ -1,7 +1,7 @@
 /* eslint-disable max-len, object-curly-newline, react/jsx-max-props-per-line,
    implicit-arrow-linebreak, no-multi-spaces */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
 import 'reactflow/dist/style.css';
@@ -80,51 +80,129 @@ export interface DependencyGraphProps {
 /*                          LEGEND COMPONENT                          */
 /* ------------------------------------------------------------------ */
 
-const Legend: React.FC = () => (
-  <div
-    aria-hidden="false"
-    style={{
-      position: 'absolute',
-      top: 8,
-      left: 8,
-      background: '#ffffff',
-      border: '1px solid #e5e7eb',
-      borderRadius: 8,
-      padding: '10px 12px',
-      fontSize: 16,
-      lineHeight: 1.35,
-      boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-      zIndex: 10,
-    }}
-  >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-      <span
+interface LegendProps {
+  colourOf: Map<string, string>;
+  topicNames: Map<string, string>;
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+const Legend: React.FC<LegendProps> = ({
+  colourOf,
+  topicNames,
+  collapsed,
+  onToggle,
+}) => {
+  const rowStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: 10,
+    marginBottom: 6,
+  };
+
+  const chipBase: React.CSSProperties = {
+    display: 'inline-block',
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    flexShrink: 0,
+  };
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: 8,
+        left: 8,
+        zIndex: 10,
+      }}
+    >
+      {/* Toggle button */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={!collapsed}
+        aria-controls="dependency-legend-panel"
         style={{
-          display: 'inline-block',
-          width: 28,
-          height: 20,
-          borderRadius: 6,
-          border: '4px dotted #111827',
+          padding: '4px 10px',
+          borderRadius: 999,
+          border: '1px solid #d1d5db',
           background: '#ffffff',
+          fontSize: 13,
+          cursor: 'pointer',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
         }}
-      />
-      <span><strong>O.1 Generation</strong></span>
+      >
+        Legend {collapsed ? '▸' : '▾'}
+      </button>
+
+      {/* Only render the panel when expanded */}
+      {!collapsed && (
+        <div
+          id="dependency-legend-panel"
+          aria-label="Legend"
+          style={{
+            marginTop: 8,
+            background: '#ffffff',
+            border: '1px solid #e5e7eb',
+            borderRadius: 10,
+            padding: '12px 14px',
+            fontSize: 14,
+            lineHeight: 1.4,
+            boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
+            maxWidth: 260,
+            maxHeight: 260,
+            overflowY: 'auto',
+          }}
+        >
+          {/* ------- Generations ------- */}
+          <div style={{ marginBottom: 8, fontWeight: 600 }}>Generations</div>
+
+          <div style={rowStyle}>
+            <span
+              aria-hidden
+              style={{
+                ...chipBase,
+                border: '3px dotted #111827',
+                background: '#ffffff',
+              }}
+            />
+            <span>O.1 Generation</span>
+          </div>
+
+          <div style={{ ...rowStyle, marginBottom: 12 }}>
+            <span
+              aria-hidden
+              style={{
+                ...chipBase,
+                border: '3px solid #111827',
+                background: '#ffffff',
+              }}
+            />
+            <span>O.2 Generation</span>
+          </div>
+
+          {/* ------- Topic Groups ------- */}
+          <div style={{ marginBottom: 8, fontWeight: 600 }}>Topic Groups</div>
+
+          {Array.from(colourOf.entries()).map(([group, color]) => (
+            <div key={group} style={rowStyle}>
+              <span
+                aria-hidden
+                style={{
+                  ...chipBase,
+                  background: color,
+                  border: '2px solid #111827',
+                }}
+              />
+              <span>{topicNames.get(group) ?? group}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-      <span
-        style={{
-          display: 'inline-block',
-          width: 28,
-          height: 20,
-          borderRadius: 6,
-          border: '4px solid #111827',
-          background: '#ffffff',
-        }}
-      />
-      <span><strong>O.2 Generation</strong></span>
-    </div>
-  </div>
-);
+  );
+};
 
 /* ------------------------------------------------------------------ */
 /*                              COMPONENT                             */
@@ -158,12 +236,22 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   }, [isOpen, onClose]);
 
   const { nodes: rawNodes, edges: rawEdges } = useGraphFromSheet();
-
+  const [legendCollapsed, setLegendCollapsed] = useState(false);
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
   const edges = rawEdges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target));
 
   const { positioned, colourOf } = layout(nodes, edges);
+  // Map each group (A, B, C...) to a human-friendly topic name
+  const topicNames = new Map<string, string>();
+
+  positioned.forEach((n) => {
+    const { group } = n.data;
+    const name = n.data.topicName || n.data.label; // fallback to label just in case
+    if (group && name && !topicNames.has(group)) {
+      topicNames.set(group, name);
+    }
+  });
 
   /* ------------------------- TARGET HIGHLIGHTING ------------------------- */
 
@@ -280,7 +368,12 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         {/* Graph */}
         <ReactFlowProvider>
           <div style={{ position: 'relative', height: '100%' }}>
-            <Legend />
+            <Legend
+              colourOf={colourOf}
+              topicNames={topicNames}
+              collapsed={legendCollapsed}
+              onToggle={() => setLegendCollapsed((v) => !v)}
+            />
             <ReactFlow id={id} nodes={graphNodes} edges={edges} fitView>
               <Background />
             </ReactFlow>
