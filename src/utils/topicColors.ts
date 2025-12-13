@@ -1,9 +1,9 @@
 // src/utils/topicColors.ts
-// Centralized topic → color mapping to keep HomeCard and DependencyGraph colors consistent.
+// Centralized topic → color mapping (ORDER-BASED)
 
 /* Base palette used first for visual quality and accessibility */
 /* Only 17 possible colors, after this, generates more via golden-ratio spacing */
-const palette = [
+export const palette = [
   '#3E92B4', // softened pink (was FF69B4)
   '#8a6fb9ff', // muted yellow (was F5FF66)
   '#E18461', // softer cyan (was 00AEEF)
@@ -22,27 +22,25 @@ const palette = [
   '#E3624D', // muted tomato red (was FF6347)
   '#5C83B9', // gentler steel blue (was 4682B4)
 ];
-
-/* Single shared registry: same topic key always maps to the same color */
 const colourOf = new Map<string, string>();
 
-/* Uses palette first, then generates distinct colors via golden-ratio hue spacing */
-function generateColor(index: number): string {
-  if (index < palette.length) return palette[index];
+/**
+ * Initialize topic colors in a fixed order.
+ * This must be called exactly once after units are sorted.
+ */
+export function setTopicColorsInOrder(
+  orderedTopicKeys: string[],
+) {
+  colourOf.clear();
 
-  const hue = ((index - palette.length) * 137.508) % 360;
-  return `hsl(${hue}, 65%, 55%)`;
+  orderedTopicKeys.forEach((key, index) => {
+    colourOf.set(key, palette[index % palette.length]);
+  });
 }
 
-/* Returns a stable color for a topic key, assigning one if it doesn't exist */
+/**
+ * Read-only lookup used everywhere else
+ */
 export function getColorForTopic(topicKey: string): string {
-  if (!colourOf.has(topicKey)) {
-    colourOf.set(topicKey, generateColor(colourOf.size));
-  }
-  return colourOf.get(topicKey)!;
-}
-
-/* Exposes the full topic → color map (read-only usage expected) */
-export function getAllTopicColors(): Map<string, string> {
-  return colourOf;
+  return colourOf.get(topicKey) ?? '#9ca3af'; // gray fallback
 }

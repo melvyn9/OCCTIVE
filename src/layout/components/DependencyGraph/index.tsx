@@ -16,7 +16,11 @@ function uniqById(list: any[]) {
   });
 }
 
-function layout(rawNodes: any[], edges: any[]) {
+function layout(
+  rawNodes: any[],
+  edges: any[],
+  groupColorKeys?: Record<string, string>,
+) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
 
   g.setGraph({
@@ -45,10 +49,11 @@ function layout(rawNodes: any[], edges: any[]) {
   const colourOf = new Map<string, string>();
 
   positioned.forEach(({ data }) => {
-    const { topicKey } = data; // abbreviated_name or unit_id
-    if (topicKey && !colourOf.has(topicKey)) {
-      colourOf.set(topicKey, getColorForTopic(topicKey));
-    }
+    const { topicKey } = data; // "A", "B", ...
+    if (!topicKey || colourOf.has(topicKey)) return;
+
+    const colorKey = groupColorKeys?.[topicKey] ?? topicKey; // unit_id if available
+    colourOf.set(topicKey, getColorForTopic(colorKey));
   });
 
   return { positioned, edges, colourOf };
@@ -64,6 +69,7 @@ export interface DependencyGraphProps {
   isOpen: boolean;
   onClose: () => void;
   groupLabels?: Record<string, string>;
+  groupColorKeys?: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -206,6 +212,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   isOpen,
   onClose,
   groupLabels,
+  groupColorKeys,
 }) => {
   /* Block scroll when modal is open */
   useEffect(() => {
@@ -233,8 +240,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
   const edges = rawEdges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target));
-
-  const { positioned, colourOf } = layout(nodes, edges);
+  const { positioned, colourOf } = layout(nodes, edges, groupColorKeys);
   // Map each group (A, B, C...) to a human-friendly topic name
   const topicNames = new Map<string, string>();
 

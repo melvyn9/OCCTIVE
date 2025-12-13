@@ -1,3 +1,4 @@
+// File: src/layout/components/UnitCard/index.tsx
 import React, { useState } from 'react';
 import DependencyChartBtnIcon from '../../../assets/dependency_chart_btn_icon.svg';
 import DependencyGraph from '../DependencyGraph';
@@ -15,6 +16,7 @@ export interface UnitCardProps {
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
   // Mapping from topic key to abbreviated display name
   groupLabels?: Record<string, string>;
+  groupColorKeys?: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -27,6 +29,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
   note,
   videos,
   groupLabels,
+  groupColorKeys,
 }) => {
   /* helper: YouTube URL → embed */
   const toEmbed = (url: string) => {
@@ -79,6 +82,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               flowId={`${baseId}-v${idx}`}
               highlightId={video.t}
               groupLabels={groupLabels}
+              groupColorKeys={groupColorKeys}
             />
           </div>
         )}
