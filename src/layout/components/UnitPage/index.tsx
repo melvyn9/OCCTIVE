@@ -1,4 +1,6 @@
 // File: src/layout/components/UnitPage/index.tsx
+// Displays all units with a sidebar for in-page navigation.
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';

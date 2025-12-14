@@ -1,9 +1,11 @@
 // File: src/layout/components/Footer/index.tsx
+// Site-wide footer containing contact info, issue reporting, and grant acknowledgment.
+
 import React from 'react';
 import './style.scss';
 
 const Footer: React.FC = () => (
-  <div className="footer">
+  <footer className="footer">
     <div className="footer-content">
       <img
         className="footer-logo"
@@ -28,7 +30,7 @@ const Footer: React.FC = () => (
     </div>
 
     {/* NSF grant acknowledgment with logo */}
-    <div className="footer-grant" role="note" aria-label="NSF grant acknowledgment">
+    <section className="footer-grant" role="note" aria-label="NSF grant acknowledgment">
       <div className="footer-grant-inner">
         <a
           href="https://www.nsf.gov/"
@@ -111,8 +113,8 @@ const Footer: React.FC = () => (
           National Science Foundation.
         </p>
       </div>
-    </div>
-  </div>
+    </section>
+  </footer>
 );
 
 export default Footer;
