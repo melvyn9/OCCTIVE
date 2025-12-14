@@ -40,7 +40,7 @@ const HomePage: React.FC = () => {
   /* Controls dependency graph modal visibility */
   const [showGraph, setShowGraph] = useState(false);
 
-  /* ---------- Fetch data ---------- */
+  /* Fetch unit and video data on initial page load */
   useEffect(() => {
     useData(DataTypes.Units)
       .then((d) => setUnits((d || []) as UnitRow[]))
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
       .catch(() => setVideos([]));
   }, []);
 
-  /* ---------- Group videos by unit ---------- */
+  /* Groups and sorts videos by their associated unit */
   const videosByUnit = useMemo(() => {
     /* Normalizes numeric fields that may arrive as strings */
     const asNumber = (v: number | string | undefined) => {
@@ -100,7 +100,7 @@ const HomePage: React.FC = () => {
     return grouped;
   }, [videos]);
 
-  /* ---------- Sort units ---------- */
+  /* Sorts units for display order on the home page */
   const sortedUnits = useMemo(() => {
     const asNumber = (v: number | string | undefined) => {
       if (typeof v === 'string') return parseFloat(v) || 0;
@@ -116,11 +116,13 @@ const HomePage: React.FC = () => {
     });
   }, [units]);
 
+  /* Assigns consistent topic colors based on display order */
   useEffect(() => {
     const orderedUnitIds = sortedUnits.map((u) => u.unit_id);
     setTopicColorsInOrder(orderedUnitIds);
   }, [sortedUnits]);
 
+  /* Converts numeric index into spreadsheet-style group labels */
   /* Converts 0 → A, 1 → B, …, 26 → AA, etc. */
   function indexToGroupLabel(index: number): string {
     let label = '';
@@ -134,7 +136,7 @@ const HomePage: React.FC = () => {
     return label;
   }
 
-  /* Maps dependency graph group keys to human-readable topic names */
+  /* Maps dependency graph groups to display names and color keys */
   const dependencyGroupLabels: Record<string, string> = {};
   const dependencyGroupColorKeys: Record<string, string> = {};
 
@@ -155,10 +157,10 @@ const HomePage: React.FC = () => {
   /* ---------- Render ---------- */
   return (
     <main className="home-page">
-      {/* Hero section */}
+      {/* Hero introduces the site purpose and primary actions */}
       <section className="home-page-hero">
-        <div className="home-page-hero-content">
-          <div className="home-page-hero-text">
+        <header className="home-page-hero-content">
+          <section className="home-page-hero-text">
             <h1 className="home-page-title">
               Discover Computer Science, One Concept at a Time
             </h1>
@@ -166,6 +168,8 @@ const HomePage: React.FC = () => {
               A library of computer science videos, covering programming basics,
               problem-solving, and real-world applications.
             </p>
+
+            {/* Primary calls to action for new users */}
             <div className="home-page-hero-buttons">
               <button
                 type="button"
@@ -174,23 +178,25 @@ const HomePage: React.FC = () => {
               >
                 <b>View Dependencies</b>
               </button>
+
               <Link to="/about" className="btn-secondary">
                 <b>About the Project</b>
               </Link>
             </div>
-          </div>
+          </section>
 
-          <div className="home-page-hero-graphic" aria-hidden={false}>
+          {/* Decorative illustration supporting the hero content */}
+          <figure className="home-page-hero-graphic">
             <img
               src={`${process.env.PUBLIC_URL}/img/header_graphic.png`}
               alt="Illustration of a laptop with code windows and an octopus mascot"
               className="home-page-hero-graphic-img"
             />
-          </div>
-        </div>
+          </figure>
+        </header>
       </section>
 
-      {/* Dependency graph modal */}
+      {/* Dependency graph modal overlays the page when triggered */}
       <DependencyGraph
         isOpen={showGraph}
         onClose={() => setShowGraph(false)}
@@ -198,7 +204,7 @@ const HomePage: React.FC = () => {
         groupColorKeys={dependencyGroupColorKeys}
       />
 
-      {/* Unit cards */}
+      {/* Section containing all unit preview cards */}
       <section className="home-page-content">
         <div className="home-page-cards">
           {sortedUnits.map((u) => {
@@ -227,7 +233,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Adoption call-to-action */}
+      {/* Adoption call-to-action for instructors and faculty */}
       <section className="home-page-adoption-card">
         <h2 className="home-page-adoption-title">
           We are currently seeking non-CS faculty who are interested in adopting OCCTIVE
@@ -237,6 +243,8 @@ const HomePage: React.FC = () => {
           Click below for more information about the project in general or to explore
           OCCTIVE adoption.
         </p>
+
+        {/* External link to adoption interest form */}
         <div className="home-page-adoption-buttons">
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScpxuvjaV3tUhRpPG2LDSxJmaam1A_OFaC7wKUDmOigIzveUQ/viewform"

@@ -129,7 +129,7 @@ const Legend: React.FC<LegendProps> = ({
           boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
         }}
       >
-        How to Read This {collapsed ? '▸' : '▾'}
+        Color Key {collapsed ? '▸' : '▾'}
       </button>
 
       {/* Only render the panel when expanded */}
