@@ -2,10 +2,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
-
 import UnitCard from '../UnitCard';
 import { useData, DataTypes } from '../../../utils/data';
-
 import './style.scss';
 
 /* eslint-disable camelcase */
@@ -29,9 +27,11 @@ type VideoRow = {
 /* eslint-enable camelcase */
 
 const UnitPage: React.FC = () => {
+  /* Stores unit and video data loaded from CSVs */
   const [units, setUnits] = useState<UnitRow[]>([]);
   const [videos, setVideos] = useState<VideoRow[]>([]);
 
+  /* Fetch units and videos on initial render */
   useEffect(() => {
     // Units tab
     useData(DataTypes.Units)
@@ -50,7 +50,7 @@ const UnitPage: React.FC = () => {
     return i === -1 ? raw.trimStart() : raw.slice(i).trimStart();
   };
 
-  /** Convert the cleaned name to a safe ID: spaces→dashes, drop colons. */
+  /* Converts a unit name into a hash-safe anchor id */
   const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
   // Group videos by unit_id and sort by video_order (array methods only)
@@ -88,7 +88,7 @@ const UnitPage: React.FC = () => {
     return grouped;
   }, [videos]);
 
-  // Sort units by 'order' (fallback to name)
+  /* Sorts units for sidebar and content order */
   const sortedUnits = useMemo(() => {
     const toNum = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
 
@@ -102,6 +102,7 @@ const UnitPage: React.FC = () => {
       });
   }, [units]);
 
+  /* Converts numeric index into spreadsheet-style labels (A, B, …, AA) */
   function indexToGroupLabel(index: number): string {
     let label = '';
     let n = index;
@@ -114,6 +115,7 @@ const UnitPage: React.FC = () => {
     return label;
   }
 
+  /* Maps dependency graph group keys to unit display names */
   const dependencyGroupLabels: Record<string, string> = {};
 
   sortedUnits.forEach((u, idx) => {
@@ -125,12 +127,12 @@ const UnitPage: React.FC = () => {
     }
   });
   return (
-    <div className="unit-page">
+    <main className="unit-page">
       <div className="unit-page-content">
         {/* ---------- Side Panel ---------- */}
-        <div className="unit-page-side-items">
+        <aside className="unit-page-side-items">
           <div className="unit-page-sidebar-sticky">
-            <div className="unit-page-sidebar">
+            <nav className="unit-page-sidebar">
               <span className="unit-page-navbar-title">Units</span>
 
               {sortedUnits.map((unit, index) => {
@@ -142,12 +144,12 @@ const UnitPage: React.FC = () => {
                   </div>
                 );
               })}
-            </div>
+            </nav>
           </div>
-        </div>
+        </aside>
 
         {/* ---------- Main Content ---------- */}
-        <div className="unit-page-cards">
+        <section className="unit-page-cards">
           {sortedUnits.map((unit, index) => {
             const cleanName = cleanUnitName(unit.name);
             const anchorId = toAnchorId(cleanName);
@@ -172,9 +174,9 @@ const UnitPage: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 
