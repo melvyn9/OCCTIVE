@@ -109,7 +109,7 @@
   color: $color-neutrals-black;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   width: 100%;
 
   &:first-child {
@@ -465,6 +465,7 @@
 }
 
 .btn-dependencies {
+  @include font-side-bar-text;
   background: #71bfde;    /* moved before color */
   border: 0;              /* moved before border-radius */
   border-radius: 8px;
@@ -489,70 +490,58 @@
   }
 }
 
+/* ---------- MOBILE HARD CENTERING FIX ---------- */
 @media (max-width: 499px) {
-  .frame-card {
-    &-top {
-      flex-direction: column;
-      padding: 1rem;
-    }
-
-    &-bottom {
-      padding: 1.5rem 1rem;
-    }
-
-    &-desc,
-    &-description {
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-
-    &-note {
-      padding: 0.75rem 1rem;
-    }
-
-    &-video-title,
-    &-time,
-    &-desc {
-      font-size: 0.9rem;
-    }
-
-    .btn-lightblue {
-      font-size: 0.9rem;
-      padding: 0.5rem 1rem;
-      width: 100%;
-    }
+  /* Center the entire navy container */
+  .frame-card-video-block {
+    padding: 1rem !important;
+    padding-right: 1rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    box-sizing: border-box;
   }
 
+  /* Force each card to be perfectly centered */
+  .frame-card-video-block .video-entry-card {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 1rem !important;
+    box-sizing: border-box;
+  }
+
+  /* Kill any lingering width math */
   .video-entry-card {
-    flex-direction: column;
-    gap: 0.75rem;
-
-    .video-entry-left {
-      min-height: 220px;
-      padding: 0.5rem;
-
-      iframe {
-        aspect-ratio: 16 / 9;
-        border: 0;
-        border-radius: 8px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-        height: auto;
-        max-width: none;
-        width: 100%;
-      }
-    }
+    max-width: 100% !important;
   }
-}
 
-.copy-toast {
-  font-size: 0.8rem;
-  padding: 0.5rem 1rem;
-  right: 0.5rem;
-  top: 0.5rem;
-}
+  /* Center video column */
+  .video-entry-left {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
 
-.frame-card-heading {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  margin-top: 2.5rem;
+  .video-entry-left iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+
+  /* Center text column */
+  .video-entry-right {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Center buttons cleanly */
+  .btn-lightblue,
+  .btn-dependencies {
+    @include font-side-bar-text;
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }

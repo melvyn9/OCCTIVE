@@ -1,41 +1,52 @@
 @import '../../../styles';
 
 .header {
-  left: 0;
   position: fixed;
-  right: 0;
   top: 0;
+  left: 0;
+  right: 0;
+
+  /* 🔒 CRITICAL: prevent scrollbar-based overflow */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
   z-index: 99;
 
   &-content {
     align-items: center;
-    background-color: #38545b;     // updated: filled header blue
+    background-color: #38545b;
     border-bottom: 1px solid transparent;
     display: flex;
     flex: 0 0 auto;
-    height: 4.25rem;               // slightly shorter (reduced by 0.5rem)
-    padding: 0 2.5rem;             // smaller side padding
-    position: relative;            // <- needed so links can be absolutely centered
+    height: 4.25rem;
+    padding: 0 2.5rem;
+    position: relative;
+
+    /* 🔒 Ensure content never exceeds header */
+    box-sizing: border-box;
+    width: 100%;
   }
 
   &-logo {
     margin-top: 0.25rem;
     transform-origin: center;
     transition: transform 0.2s ease-in-out;
-    width: 56px;
+    width: 50px;
     z-index: 2;
 
     &:hover {
       transform: scale(1.1);
-    }               
+    }
   }
 
+  /* ---------- DESKTOP LINKS ---------- */
   &-links {
     align-items: center;
     display: flex;
-    gap: 1.5rem;                   // reduced spacing so pills sit closer together
+    gap: 1.5rem;
     justify-content: flex-end;
-    margin-left: auto;             // pushes links to the right of the header
+    margin-left: auto;
     position: static;
     z-index: 1;
   }
@@ -44,128 +55,146 @@
     @include font-nav-bar-text;
     background: transparent;
     border-radius: 10px;
-    color: #f3f8f9 !important;     // force inactive text to be white
+    color: #f3f8f9 !important;
     display: inline-flex;
     font-size: 1rem;
     font-weight: 400;
     padding: 0.4rem 0.8rem;
     text-decoration: none;
-    text-underline-offset: 0;
     transform-origin: center;
     transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease;
-    will-change: transform, background-color, filter;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
-      color: #f3f8f9;
       filter: brightness(1.05);
       transform: scale(1.02);
     }
 
     &.active {
       background-color: #cdf1ff;
-      box-shadow: none;
       color: #3d555e !important;
-      font-weight: 600;    }
+      font-weight: 600;
+    }
 
     &:focus-visible {
       outline: 3px solid rgba(0, 0, 0, 0.08);
       outline-offset: 3px;
     }
+  }
 
-    img {
-      transition: filter 0.18s ease;
+  /* ---------- HAMBURGER BUTTON ---------- */
+  &-mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 3;
+
+    img,
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: #3d555e;
     }
   }
 
-  &-mobile {
-    display: none;
-  }
-
+  /* ---------- MOBILE DROPDOWN ---------- */
   &-mobile-links {
-    background-color: #b0c2c9;
-    box-sizing: border-box;
+    background-color: #3d555e;
     display: flex;
     flex-direction: column;
-
-    /* use gap for consistent spacing between items */
     gap: 0.5rem;
-    justify-content: flex-start;
-    left: 0;
-    opacity: 0;
 
-    /* give the bottom plenty of breathing room
-       so the hover stays inside the panel */
-    padding: 0.5rem 0.75rem 0.25rem;
-    pointer-events: none;
+    /* 🔒 CRITICAL FIX */
     position: fixed;
+    left: 0;
     right: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 
-    /* animated open/close */
-    top: calc(-12.5rem + 4.75rem);
+    opacity: 0;
+    padding: 0.75rem 1rem 1rem;
+    pointer-events: none;
+    top: calc(-14rem + 4.25rem);
     transform: translateY(-10px);
-    transition:
-      top 0.5s ease,
-      opacity 0.4s ease,
-      transform 0.4s ease;
+    transition: top 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     z-index: -1;
 
     &.open {
       opacity: 1;
       pointer-events: auto;
-      top: 3rem; // removed trailing zero
+      top: 2.75rem;
       transform: translateY(0);
+      z-index: 98;
+    }
+
+    .header-link {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      text-align: left;
     }
   }
 
-  &-mobile-links a:last-child .header-link {
-    margin-bottom: 0.25rem;
-  }
-
+  /* ---------- TABLET ---------- */
   @media (max-width: 1000px) {
     &-content {
-      height: 3rem; // removed trailing zero
+      height: 3rem;
       padding: 0 1.5rem;
     }
 
-    /* on small screens revert to normal flow (logo + stacked links) */
     &-links {
-      gap: 1rem; // moved to correct order
-      margin-left: 0;
-      position: static;
+      gap: 1rem;
+    }
+  }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 600px) {
+    &-content {
+      height: 3.5rem;
+      padding: 0 1rem;
+    }
+
+    &-logo {
+      width: 45px;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       transform: none;
+    }
+
+    &-links {
+      display: none;
+    }
+
+    &-mobile {
+      display: flex;
     }
   }
 }
 
+/* ---------- SPACER ---------- */
 .spacer {
-  min-height: 4.75rem;
+  min-height: 4.25rem;
 
-  @media (max-width: $site-size-small) {
-    min-height: 3rem;
+  @media (max-width: 600px) {
+    min-height: 2.75rem;
   }
 }
 
-.hero {
-  flex-shrink: 0;
-  height: 20rem;
-  object-fit: cover;
-  width: 100%;
-
-  @media (max-width: $site-size-small) {
-    height: 3rem;
-  }
-}
-
+/* ---------- LINK OVERRIDES ---------- */
 .header-link,
 .header-link a {
   text-decoration: none !important;
 }
 
-/* mobile links should use same color rules inside the blue header */
-.header-mobile-links .header-link,
-.header-mobile .header-link {
-  color: #f3f8f9; // shortened hex color
+.header-mobile-links .header-link {
+  color: #3d555e;
 }
 
 .header-mobile-links .header-link.active {

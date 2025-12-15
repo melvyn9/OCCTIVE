@@ -7,6 +7,20 @@ import DependencyGraph from '../DependencyGraph';
 import './style.scss';
 
 /* ------------------------------------------------------------------ */
+/*                             COLOR MAP                              */
+/* ------------------------------------------------------------------ */
+
+const UNIT_COLORS: Record<string, string> = {
+  'Basics of Computational Problem Solving and Programming': '#2B8CBF',
+  'Setting Context': '#7B68C1',
+  'Naming and Assignment': '#F08A5D',
+  Functions: '#E3B341',
+  'Sequences and Data Frames': '#5A8F4E',
+  Troubleshooting: '#E45C9A',
+  'Old Videos': '#2FA4A9',
+};
+
+/* ------------------------------------------------------------------ */
 /*                             PROP TYPES                             */
 /* ------------------------------------------------------------------ */
 
@@ -15,9 +29,12 @@ export interface UnitCardProps {
   name: string;
   description: string;
   note: string;
-  // Flat list of videos (no sub-units)
+
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
-  // Mapping from topic key to abbreviated display name
+
+  /** Backward compatibility with UnitPage */
+  topicKey?: string;
+
   groupLabels?: Record<string, string>;
 }
 
@@ -30,9 +47,12 @@ const UnitCard: React.FC<UnitCardProps> = ({
   description,
   note,
   videos,
+  topicKey,
   groupLabels,
 }) => {
-  /* helper: YouTube URL → embed */
+  /* Resolve color from unit name, fallback to topicKey if needed */
+  const headerColor = UNIT_COLORS[name] ?? (topicKey ? UNIT_COLORS[topicKey] : undefined) ?? '#111827';
+
   const toEmbed = (url: string) => {
     const m = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&\n]+)/);
     return m ? `https://www.youtube.com/embed/${m[1]}` : url;
@@ -40,12 +60,14 @@ const UnitCard: React.FC<UnitCardProps> = ({
 
   /* Per-video row component so each video controls its own graph state */
   type V = { t: string; u: string; tm: string; d: string };
+
   const VideoRow: React.FC<{
     video: V;
     idx: number;
     baseId: string;
   }> = ({ video, idx, baseId }) => {
     const [open, setOpen] = useState(false);
+
     return (
       <>
         <li className="video-entry-card">
@@ -71,7 +93,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               onClick={() => setOpen((s) => !s)}
               aria-expanded={open}
             >
-              <img src={DependencyChartBtnIcon} alt="" className="dependency-icon" />
+              <img src={DependencyChartBtnIcon} alt="" />
               {open ? 'Hide Dependencies' : 'Dependencies'}
             </button>
           </section>
@@ -93,11 +115,8 @@ const UnitCard: React.FC<UnitCardProps> = ({
     );
   };
 
-  /* baseId ensures unique graph ids inside this card */
   const baseId = `graph-${name.replace(/\s+/g, '-')}`;
-
-  // Build one flat list of videos (no sub-units), keep only non-empty
-  const nonEmpty = (videos || []).filter((v) => v.t && v.u);
+  const nonEmpty = videos.filter((v) => v.t && v.u);
 
   // Determine the deterministic topic color for this unit
   const topicColor = topicColorMap[unitId];

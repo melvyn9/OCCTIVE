@@ -1,25 +1,129 @@
 @import '../../../styles';
 @import '../../../styles/base';
 
+/* ───────────── CSS Variables ───────────── */
 .home-card {
-  --link-blue-filter: invert(20%) sepia(88%) saturate(2321%)
-    hue-rotate(191deg) brightness(92%) contrast(101%);
   --hover-duration: 0.2s;
   --hover-ease: ease-in-out;
   --hover-brightness: 0.85;
 }
 
-/* ───────────── Global Link Styling ───────────── */
+/* ───────────── Base Card ───────────── */
+.home-card {
+  @include font-text;
+  background-color: $color-neutrals-white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  break-inside: avoid;
+  color: $color-neutrals-black;
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  page-break-inside: avoid;
+  transition:
+    box-shadow var(--hover-duration) var(--hover-ease),
+    transform var(--hover-duration) var(--hover-ease);
+  width: 100%;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+  }
+}
+
+/* ───────────── Global Link Rules ───────────── */
 .home-card a {
-  color: #1a1a1a;
+  color: inherit;
   text-decoration: none !important;
-  transition: color var(--hover-duration) var(--hover-ease),
+  transition:
+    color var(--hover-duration) var(--hover-ease),
     filter var(--hover-duration) var(--hover-ease);
 }
 
 .home-card a:hover {
-  color: #4a8ebc;
   filter: brightness(var(--hover-brightness));
+}
+
+/* ───────────── Header ───────────── */
+.home-card-top {
+  align-items: center;
+  background-color: $color-neutrals-white;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  display: flex;
+  padding-left: 32px;
+  padding-top: 1.5rem;
+}
+
+.home-card-heading-container {
+  align-items: center;
+  display: inline-flex;
+}
+
+.home-card-heading {
+  @include font-heading-3;
+  margin-right: 1rem;
+  max-width: 100%;
+}
+
+/* Topic-colored title link */
+.home-card-heading-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.25rem;
+  color: inherit; /* topic color from inline style */
+
+  &:hover {
+    filter: brightness(var(--hover-brightness));
+  }
+}
+
+/* ───────────── Copy Button ───────────── */
+.copy-icon-button {
+  align-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  transition: transform var(--hover-duration) var(--hover-ease);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Icons inherit text color */
+.copy-icon,
+.home-card-link-arrow {
+  color: currentColor;
+  height: 18px;
+  width: 18px;
+  border-radius: 4px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    box-shadow var(--hover-duration) var(--hover-ease),
+    outline-color var(--hover-duration) var(--hover-ease);
+}
+
+.copy-icon-button:hover .copy-icon,
+.home-card-video-link:hover .home-card-link-arrow {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  outline-color: currentColor;
+}
+
+/* ───────────── Content ───────────── */
+.home-card-bottom {
+  background-color: $color-neutrals-white;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0 2rem 2rem;
+}
+
+.home-card-inner {
+  padding-top: 0.5rem;
 }
 
 /* ───────────── Subheadings ───────────── */
@@ -30,26 +134,86 @@
   margin-bottom: 0.5rem;
 }
 
-.home-card-subheading-link {
-  align-items: center;
-  color: inherit;
+.home-card-subheading {
+  @include font-subtitle-1;
+  font-weight: bold;
+  margin: 0 0 0.5rem;
+}
+
+.home-card-description {
+  line-height: 1.6;
+  width: 100%;
+}
+
+/* ───────────── Video Links ───────────── */
+.home-card-videos {
+  margin-top: 1rem;
+}
+
+.home-card-video-list {
   display: flex;
-  gap: 4px;
-  text-decoration: none !important;
-  transition: color var(--hover-duration) var(--hover-ease);
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0;
+}
+
+.home-card-video-item {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.home-card-video-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.25rem;
+  color: inherit;
 
   &:hover {
     filter: brightness(var(--hover-brightness));
   }
 }
 
-.home-card-subheading {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0;
+/* ───────────── Note ───────────── */
+.home-card-note {
+  background-color: $color-neutrals-white;
+  border: 2px solid $color-primary-dark-yellow;
+  margin-top: 1.5rem;
+  padding: 1rem 2.5rem;
+  transition: transform var(--hover-duration) var(--hover-ease);
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &-text {
+    @include font-text;
+  }
 }
 
-/* ───────────── Notification Toast ───────────── */
+/* ───────────── Dependency Button ───────────── */
+.home-card-dependency-btn {
+  background-color: #cdf1ff;
+  border: 0;
+  border-radius: 6px;
+  color: $color-neutrals-black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  transition:
+    background var(--hover-duration) var(--hover-ease),
+    transform var(--hover-duration) var(--hover-ease);
+
+  &:hover {
+    background-color: #b1dbec;
+    transform: scale(1.03);
+  }
+}
+
+/* ───────────── Toast ───────────── */
 .copy-toast {
   align-items: center;
   animation: fadeOut 0.4s ease-in-out 2s forwards;
@@ -75,258 +239,31 @@
   }
 }
 
-/* ───────────── Copy Icon Styling ───────────── */
-.home-card-heading-container {
-  align-items: center;
-  display: inline-flex;
-}
-
-.home-card-video-item {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.home-card-video-link,
-.home-card-heading-link {
-  align-items: center;
-  color: #1a1a1a;
-  display: inline-flex;
-  gap: 0.25rem;
-  text-decoration: none !important;
-  transition: color var(--hover-duration) var(--hover-ease),
-    filter var(--hover-duration) var(--hover-ease);
-}
-
-.home-card-video-link:hover,
-.home-card-heading-link:hover {
-  color: #4a8ebc;
-  filter: brightness(var(--hover-brightness));
-}
-
-.copy-icon-button {
-  align-items: center;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  transition: transform var(--hover-duration) var(--hover-ease);
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.copy-icon,
-.home-card-link-arrow {
-  border-radius: 4px;
-  height: 18px;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  transition: box-shadow var(--hover-duration) var(--hover-ease),
-    filter var(--hover-duration) var(--hover-ease),
-    outline-color var(--hover-duration) var(--hover-ease);
-  width: 18px;
-}
-
-.copy-icon-button:hover .copy-icon,
-.home-card-video-link:hover .home-card-link-arrow {
-  box-shadow: 0 0 0 1px rgba(74, 142, 188, 0.18);
-  filter: var(--link-blue-filter);
-  outline-color: rgba(0, 122, 204, 0.35);
-}
-
-/* ───────────── Card Layout ───────────── */
-.home-card {
-  @include font-text;
-  background-color: $color-neutrals-white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  break-inside: avoid;
-  color: $color-neutrals-black;
-  display: inline-block;
-  margin: 0 0 1.5rem;
-  page-break-inside: avoid;
-  transition: box-shadow var(--hover-duration) var(--hover-ease),
-    transform var(--hover-duration) var(--hover-ease);
-  width: 100%;
-
-  &:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    transform: scale(1.02);
-  }
-
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &-top {
-    align-items: center;
-    background-color: $color-neutrals-white;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    display: flex;
-    padding-left: 32px;
-    padding-top: 1.5rem;
-  }
-
-  &-heading {
-    @include font-heading-3;
-    color: $color-neutrals-black;
-    margin-right: 1rem;
-    max-width: 100%;
-  }
-
-  &-bottom {
-    background-color: $color-neutrals-white;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    padding: 0 2rem 2rem;
-  }
-
-  &-inner {
-    padding-top: 0.5rem;
-  }
-
-  &-info {
-    display: flex;
-    flex-direction: column;
-
-    &-left {
-      margin-bottom: 2rem;
-    }
-
-    &-right {
-      margin-top: 1rem;
-    }
-  }
-
-  &-info-group {
-    margin-bottom: 2rem;
-
-    p {
-      margin: 0;
-    }
-
-    .home-card-subheading {
-      @include font-subtitle-1;
-      margin: 0 0 0.5rem;
-    }
-  }
-
-  &-subheading {
-    @include font-subtitle-1;
-    margin: 0 0 0.5rem;
-  }
-
-  &-description {
-    line-height: 1.6;
-    width: 100%;
-  }
-
-  &-links {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.25rem;
-  }
-
-  &-link {
-    margin-top: 0.5rem;
-
-    &,
-    &:link,
-    &:visited,
-    &:focus,
-    &:hover,
-    &:active {
-      @include font-linked-text;
-      transition: color var(--hover-duration) var(--hover-ease);
-    }
-
-    &-arrow {
-      margin-left: 0.5rem;
-    }
-  }
-
-  &-videos {
-    margin-top: 1rem;
-  }
-
-  &-video-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-left: 0;
-  }
-
-  &-note {
-    background-color: $color-neutrals-white;
-    border: 2px solid $color-primary-dark-yellow;
-    margin-top: 1.5rem;
-    padding: 1rem 2.5rem;
-    transition: transform var(--hover-duration) var(--hover-ease);
-
-    &:hover {
-      transform: scale(1.01);
-    }
-
-    &-text {
-      @include font-text;
-    }
-  }
-
-  &-dependency-btn {
-    background-color: #cdf1ff;
-    border: 0;
-    border-radius: 6px;
-    color: $color-neutrals-black;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    text-align: center;
-    transition: background var(--hover-duration) var(--hover-ease),
-      transform var(--hover-duration) var(--hover-ease);
-
-    &:hover {
-      background-color: #b1dbec;
-      transform: scale(1.03);
-    }
-  }
-
-  /* ───────────── Responsive ───────────── */
-  @media (max-width: $site-size-small) {
-    margin-bottom: 1.5rem;
+/* ───────────── Responsive ───────────── */
+@media (max-width: $site-size-small) {
+  .home-card {
     width: unset;
+  }
 
-    &-top {
-      padding: 1.25rem 1.5rem 0.5rem;
-    }
+  .home-card-top {
+    padding: 1.25rem 1.5rem 0.5rem;
+  }
 
-    &-bottom {
-      padding: 0.5rem 1.5rem 1.5rem;
-    }
+  .home-card-bottom {
+    padding: 0.5rem 1.5rem 1.5rem;
+  }
 
-    &-description {
-      margin-top: 0.5rem;
-      width: unset;
-    }
+  .home-card-description {
+    margin-top: 0.5rem;
+    width: unset;
+  }
 
-    &-note {
-      padding: 0.5rem 1rem;
-    }
-
-    &-video-list {
-      padding-left: 0;
-    }
+  .home-card-note {
+    padding: 0.5rem 1rem;
   }
 }
 
-/* Legacy btn-lightblue (kept for dependencies) */
+/* Legacy dependency */
 .btn-lightblue.btn-dependencies {
   cursor: pointer;
 }
