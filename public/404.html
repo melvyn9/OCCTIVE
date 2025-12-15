@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      var pathname = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      var redirectPath = '/www/?p=' + pathname + search + hash;
+      window.location.replace(redirectPath);
+    </script>
+  </head>
+</html>

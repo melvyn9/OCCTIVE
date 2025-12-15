@@ -2,7 +2,7 @@
   "name": "new",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://occtive.github.io/",
+  "homepage": "https://occtive.github.io/www",
   "dependencies": {
     "@dagrejs/dagre": "^1.1.5",
     "html-to-image": "^1.11.13",

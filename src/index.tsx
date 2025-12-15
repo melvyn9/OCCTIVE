@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import smoothscroll from 'smoothscroll-polyfill';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import HomePage from './layout/containers/HomePage';
 import UnitPage from './layout/containers/UnitPage';
@@ -14,15 +14,21 @@ import './index.scss';
 
 smoothscroll.polyfill();
 
+const params = new URLSearchParams(window.location.search);
+const redirectPath = params.get('p');
+if (redirectPath) {
+  window.history.replaceState(null, '', redirectPath);
+}
+
 ReactDOM.render(
-  <Router>
+  <Router basename="/www">
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/library" component={UnitPage} />
       <Route exact path="/adopt" component={AdoptPage} />
       <Route exact path="/about" component={AboutPage} />
       <Route exact path="/workshop" component={WorkshopPage} />
-      <Route path="/" component={ErrorPage} />
+      <Route component={ErrorPage} />
     </Switch>
   </Router>,
   document.getElementById('root'),
