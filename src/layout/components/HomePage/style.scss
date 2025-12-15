@@ -36,14 +36,10 @@
 .home-page {
   &-hero {
     background-color: #37555b;
-    left: 50%;
-    margin: 0;
-    margin-left: -50vw;
-    margin-right: -50vw;
     padding: 4rem 0;
     position: relative;
     text-align: left;
-    width: 100vw;
+    width: 100%;
   }
 
   &-hero-content {
@@ -153,12 +149,9 @@
   &-adoption-card {
     background-color: #506a74;
     box-sizing: border-box;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
     padding: 3rem;
     position: relative;
-    width: 100vw; 
+    width: 100%; 
   }
 
   &-adoption-inner {
