@@ -119,7 +119,7 @@ const Legend: React.FC<LegendProps> = ({
         zIndex: 10,
       }}
     >
-      {/* Toggle button */}
+      {/* Toggle button controls legend visibility */}
       <button
         type="button"
         onClick={onToggle}
@@ -138,11 +138,12 @@ const Legend: React.FC<LegendProps> = ({
         Color Key {collapsed ? '▸' : '▾'}
       </button>
 
-      {/* Only render the panel when expanded */}
+      {/* Legend panel explaining visual encodings */}
       {!collapsed && (
         <div
           id="dependency-legend-panel"
-          aria-label="Legend"
+          role="region"
+          aria-labelledby="legend-title"
           style={{
             marginTop: 8,
             background: '#ffffff',
@@ -157,6 +158,24 @@ const Legend: React.FC<LegendProps> = ({
             overflowY: 'auto',
           }}
         >
+          {/* Visually hidden heading for screen readers */}
+          <h3
+            id="legend-title"
+            style={{
+              position: 'absolute',
+              width: 1,
+              height: 1,
+              padding: 0,
+              margin: -1,
+              overflow: 'hidden',
+              clip: 'rect(0, 0, 0, 0)',
+              whiteSpace: 'nowrap',
+              border: 0,
+            }}
+          >
+            Dependency graph legend
+          </h3>
+
           {/* ------- Generations ------- */}
           <div style={{ marginBottom: 8, fontWeight: 600 }}>Generations</div>
 
@@ -268,6 +287,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         || n.data.label.toLowerCase() === target,
     );
 
+  // Categorize o.1 and o.2 generations into old or new
   const normaliseGeneration = (value: unknown): 'old' | 'new' | 'unknown' => {
     const s = (value ?? '').toString().trim().toLowerCase();
     if (s.startsWith('o.1') || s.startsWith('q.1') || s === '0.1' || s === '1') return 'old';
@@ -275,6 +295,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
     return 'unknown';
   };
 
+  // Dotted vs Solid border for o.1 vs o.2 generations
   const graphNodes = positioned.map((n) => {
     const isTarget = hasTarget
       && (n.id.toLowerCase() === target
@@ -293,6 +314,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
       border: `${borderWidth}px ${borderStyle} ${borderColor}`,
     } as React.CSSProperties;
 
+    // Highlight target node with star and purple border
     return isTarget
       ? {
         ...n,
@@ -306,6 +328,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
       : { ...n, style: base };
   });
 
+  // Unique flow ID for React Flow instance
   const id = React.useMemo(
     () => flowId ?? `flow-${Math.random().toString(36).slice(2)}`,
     [flowId],
@@ -317,7 +340,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
 
   return (
     <>
-      {/* Screen overlay */}
+      {/* Visual overlay blocks background interaction */}
       <div
         onClick={onClose}
         style={{
@@ -330,7 +353,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         }}
       />
 
-      {/* Modal container */}
+      {/* Dialog container for dependency graph */}
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -353,7 +376,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Close Dependency Graph"
           type="button"
           style={{
             position: 'absolute',

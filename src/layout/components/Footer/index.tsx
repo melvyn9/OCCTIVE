@@ -6,7 +6,8 @@ import './style.scss';
 
 const Footer: React.FC = () => (
   <footer className="footer">
-    <div className="footer-content">
+    {/* Contact information section */}
+    <address className="footer-content">
       <img
         className="footer-logo"
         src={`${process.env.PUBLIC_URL}/img/occtive_dark.png`}
@@ -16,9 +17,10 @@ const Footer: React.FC = () => (
       <a href="mailto:occtive@gmail.com">
         <p className="footer-email">occtive@gmail.com</p>
       </a>
-    </div>
+    </address>
 
-    <div className="footer-issue">
+    {/* Issue reporting section with link to Google Form */}
+    <section className="footer-issue">
       <p className="footer-issue-heading">Have an issue?</p>
       <a
         target="_blank"
@@ -27,7 +29,7 @@ const Footer: React.FC = () => (
       >
         <p className="footer-issue-link">Fill out this form</p>
       </a>
-    </div>
+    </section>
 
     {/* NSF grant acknowledgment with logo */}
     <section className="footer-grant" role="note" aria-label="NSF grant acknowledgment">
