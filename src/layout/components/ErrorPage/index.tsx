@@ -5,18 +5,19 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import './style.scss';
 
 // The ErrorPage component is a functional component that renders an error message
 // and a button for users to navigate back to the homepage.
 const ErrorPage: React.FC = () => (
-  <div className="error-page">
-    <p className="error-page-message">Oops, our gears are broken. Let’s find you a better page for you to go to.</p>
-    <Link to="/">
-      <button className="error-page-button" type="button">Home</button>
-    </Link>
-  </div>
+  <main className="error-page">
+    <section>
+      <p className="error-page-message">Oops, our gears are broken. Let’s find you a better page for you to go to.</p>
+      <Link to="/">
+        <button className="error-page-button" type="button">Home</button>
+      </Link>
+    </section>
+  </main>
 );
 
 export default ErrorPage;

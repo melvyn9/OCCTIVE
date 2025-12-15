@@ -1,3 +1,6 @@
+// File: src/layout/components/DependencyGraph/index.tsx
+// Renders an accessible modal dialog containing a visual dependency graph.
+
 import React, { useEffect, useState } from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
@@ -7,6 +10,7 @@ import { getColorForTopic } from '../../../utils/topicColors';
 
 /* ───────── helpers ───────── */
 
+// Removes duplicate nodes by ID
 function uniqById(list: any[]) {
   const seen = new Set<string>();
   return list.filter((n) => {
@@ -16,6 +20,7 @@ function uniqById(list: any[]) {
   });
 }
 
+// Computes graph layout and assigns topic colors
 function layout(
   rawNodes: any[],
   edges: any[],
@@ -76,6 +81,7 @@ export interface DependencyGraphProps {
 /*                          LEGEND COMPONENT                          */
 /* ------------------------------------------------------------------ */
 
+// Explains visual encodings used in the graph
 interface LegendProps {
   colourOf: Map<string, string>;
   groupLabels?: Record<string, string>;

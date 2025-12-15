@@ -1,4 +1,6 @@
 // File: src/layout/components/AdoptPage/index.tsx
+// Provides information and resources for faculty interested in adopting OCCTIVE.
+
 import { Link } from 'react-router-dom';
 import React from 'react';
 import './style.scss';
@@ -7,21 +9,21 @@ const AdoptPage: React.FC = () => (
   <main className="adopt-page">
     {/* OCCTIVE hero */}
     <section className="home-page-hero">
-      <div className="home-page-hero-content">
-        <div className="home-page-hero-text">
+      <header className="home-page-hero-content">
+        <section className="home-page-hero-text">
           <h1 className="home-page-title">Adopt OCCTIVE</h1>
           <p className="home-page-text">
             Bring OCCTIVE into your course. Below you’ll find who can participate, what’s
             involved, the support you’ll receive, and resources to help you adopt the video
             toolkit.
           </p>
-        </div>
-      </div>
+        </section>
+      </header>
     </section>
 
     {/* Intro */}
     <section className="adopt-section">
-      <div className="adopt-block">
+      <article className="adopt-block">
         <p>
           Do you use computing in your science, social science, math, humanities, or arts
           courses? Your students will benefit from additional material to help them get
@@ -88,12 +90,12 @@ const AdoptPage: React.FC = () => (
           the NSF grant “Evaluating Frameworks for Incorporating Computing Across the
           Curriculum” (award nos. 1935113, 1935099, 1935061).
         </p>
-      </div>
+      </article>
     </section>
 
     {/* Faculty Resources */}
     <section className="adopt-section">
-      <div className="adopt-block">
+      <article className="adopt-block">
         <h2>Faculty Resources</h2>
 
         <h3>Guide to Videos</h3>
@@ -182,7 +184,7 @@ const AdoptPage: React.FC = () => (
             </a>
           </li>
         </ul>
-      </div>
+      </article>
     </section>
 
   </main>
