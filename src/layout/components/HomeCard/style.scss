@@ -69,9 +69,9 @@
 /* Topic-colored title link */
 .home-card-heading-link {
   align-items: center;
+  color: inherit; /* topic color from inline style */
   display: inline-flex;
   gap: 0.25rem;
-  color: inherit; /* topic color from inline style */
 
   &:hover {
     filter: brightness(var(--hover-brightness));
@@ -97,15 +97,15 @@
 /* Icons inherit text color */
 .copy-icon,
 .home-card-link-arrow {
+  border-radius: 4px;
   color: currentColor;
   height: 18px;
-  width: 18px;
-  border-radius: 4px;
   outline: 2px solid transparent;
   outline-offset: 2px;
   transition:
     box-shadow var(--hover-duration) var(--hover-ease),
     outline-color var(--hover-duration) var(--hover-ease);
+  width: 18px;
 }
 
 .copy-icon-button:hover .copy-icon,
@@ -165,9 +165,9 @@
 
 .home-card-video-link {
   align-items: center;
+  color: inherit;
   display: inline-flex;
   gap: 0.25rem;
-  color: inherit;
 
   &:hover {
     filter: brightness(var(--hover-brightness));

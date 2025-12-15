@@ -150,21 +150,21 @@
     }
   }
 
-&-adoption-card {
-  background-color: #506a74;
-  position: relative;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 3rem 3rem;
-  box-sizing: border-box; 
-}
+  &-adoption-card {
+    background-color: #506a74;
+    box-sizing: border-box;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 3rem;
+    position: relative;
+    width: 100vw; 
+  }
 
   &-adoption-inner {
-    max-width: 1400px;
     margin: 0 auto;
-    padding: 8rem 8rem;
+    max-width: 1400px;
+    padding: 8rem;
   }
 
   &-adoption-title {
@@ -293,10 +293,10 @@
   .home-page-hero-content {
     margin-left: auto;
     margin-right: auto;
+    max-width: 100%;
     padding-left: 0;
     padding-right: 0;
     width: 100%;
-    max-width: 100%;
   }
 
   .home-page-hero-content {

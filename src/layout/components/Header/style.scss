@@ -1,15 +1,15 @@
 @import '../../../styles';
 
 .header {
-  position: fixed;
-  top: 0;
   left: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: fixed;
   right: 0;
+  top: 0;
 
   /* 🔒 CRITICAL: prevent scrollbar-based overflow */
   width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
 
   z-index: 99;
 
@@ -17,14 +17,14 @@
     align-items: center;
     background-color: #38545b;
     border-bottom: 1px solid transparent;
+
+    /* 🔒 Ensure content never exceeds header */
+    box-sizing: border-box;
     display: flex;
     flex: 0 0 auto;
     height: 4.25rem;
     padding: 0 2.5rem;
     position: relative;
-
-    /* 🔒 Ensure content never exceeds header */
-    box-sizing: border-box;
     width: 100%;
   }
 
@@ -84,45 +84,45 @@
 
   /* ---------- HAMBURGER BUTTON ---------- */
   &-mobile {
-    display: none;
     align-items: center;
+    cursor: pointer;
+    display: none;
+    height: 40px;
     justify-content: center;
     margin-left: auto;
     width: 40px;
-    height: 40px;
-    cursor: pointer;
     z-index: 3;
 
     img,
     svg {
-      width: 24px;
-      height: 24px;
       fill: #3d555e;
+      height: 24px;
+      width: 24px;
     }
   }
 
   /* ---------- MOBILE DROPDOWN ---------- */
   &-mobile-links {
     background-color: #3d555e;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    left: 0;
+    max-width: 100%;
+
+    opacity: 0;
+    overflow-x: hidden;
+    padding: 0.75rem 1rem 1rem;
+    pointer-events: none;
 
     /* 🔒 CRITICAL FIX */
     position: fixed;
-    left: 0;
     right: 0;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-
-    opacity: 0;
-    padding: 0.75rem 1rem 1rem;
-    pointer-events: none;
     top: calc(-14rem + 4.25rem);
     transform: translateY(-10px);
     transition: top 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+    width: 100%;
     z-index: -1;
 
     &.open {
@@ -134,11 +134,11 @@
     }
 
     .header-link {
-      width: 100%;
-      padding: 0.6rem 0.75rem;
       border-radius: 8px;
       font-size: 0.95rem;
+      padding: 0.6rem 0.75rem;
       text-align: left;
+      width: 100%;
     }
   }
 
@@ -162,10 +162,10 @@
     }
 
     &-logo {
-      width: 45px;
-      margin-top: 1rem;
       margin-bottom: 1rem;
+      margin-top: 1rem;
       transform: none;
+      width: 45px;
     }
 
     &-links {

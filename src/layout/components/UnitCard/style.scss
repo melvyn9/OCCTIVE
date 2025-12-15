@@ -494,21 +494,21 @@
 @media (max-width: 499px) {
   /* Center the entire navy container */
   .frame-card-video-block {
-    padding: 1rem !important;
-    padding-right: 1rem !important;
+    box-sizing: border-box;
     margin-left: auto !important;
     margin-right: auto !important;
+    padding: 1rem !important;
+    padding-right: 1rem !important;
     width: 100% !important;
-    box-sizing: border-box;
   }
 
   /* Force each card to be perfectly centered */
   .frame-card-video-block .video-entry-card {
-    width: 100% !important;
+    box-sizing: border-box;
     margin-left: auto !important;
     margin-right: auto !important;
     padding: 1rem !important;
-    box-sizing: border-box;
+    width: 100% !important;
   }
 
   /* Kill any lingering width math */
@@ -518,30 +518,30 @@
 
   /* Center video column */
   .video-entry-left {
-    width: 100% !important;
     margin: 0 auto !important;
     padding: 0 !important;
+    width: 100% !important;
   }
 
   .video-entry-left iframe {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
     display: block;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   /* Center text column */
   .video-entry-right {
-    width: 100% !important;
     margin: 0 auto !important;
     padding: 0 !important;
+    width: 100% !important;
   }
 
   /* Center buttons cleanly */
   .btn-lightblue,
   .btn-dependencies {
     @include font-side-bar-text;
-    width: 100% !important;
     justify-content: center !important;
+    width: 100% !important;
   }
 }
