@@ -1,3 +1,6 @@
+// File: src/layout/components/AboutPage/index.tsx
+// Describes the OCCTIVE project, its goals, and project leadership.
+
 import React from 'react';
 import './style.scss';
 
@@ -5,20 +8,20 @@ const AboutPage: React.FC = () => (
   <main className="about-page">
     {/* OCCTIVE hero */}
     <section className="home-page-hero">
-      <div className="home-page-hero-content">
-        <div className="home-page-hero-text">
+      <header className="home-page-hero-content">
+        <section className="home-page-hero-text">
           <h1 className="home-page-title">The OCCTIVE Project</h1>
           <p className="home-page-text">
             The OCCTIVE Project offers resources to introduce foundational computing concepts
             with applications in the sciences, humanities, and beyond.
           </p>
-        </div>
-      </div>
+        </section>
+      </header>
     </section>
 
     {/* Short Intro Section */}
     <section className="about-section">
-      <div className="about-block">
+      <article className="about-block">
         <p>
           This multi-institution,{' '}
           <a
@@ -57,12 +60,12 @@ const AboutPage: React.FC = () => (
           impact on students&rsquo; understanding of and ability to use core computing
           concepts.
         </p>
-      </div>
+      </article>
     </section>
 
     {/* Project overview */}
     <section className="about-section">
-      <div className="about-block">
+      <article className="about-block">
         <h2 className="about-section-title">
           The efficacy of a computing-concepts video library for students and peer
           tutors in multidisciplinary contexts
@@ -107,12 +110,12 @@ const AboutPage: React.FC = () => (
           creation, exploration, and implementation of promising practices and
           tools.
         </p>
-      </div>
+      </article>
     </section>
 
-    {/* People */}
+    {/* Project leadership and contributors */}
     <section className="about-section">
-      <div className="about-block">
+      <article className="about-block">
         <h2 className="about-section-title">Project Leadership</h2>
         <table className="about-table about-table--three">
           <colgroup>
@@ -141,7 +144,7 @@ const AboutPage: React.FC = () => (
             <tr><td>Nick Webb</td><td>Workshop Collaboration</td><td>Union College</td></tr>
           </tbody>
         </table>
-      </div>
+      </article>
     </section>
   </main>
 );

@@ -47,7 +47,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
   /* Toast state for copy feedback */
   const [toast, setToast] = useState<string | null>(null);
 
-  /* Shows a short-lived toast message */
+  /* Displays a temporary status message */
   const showToast = (message: string) => {
     setToast(message);
     setTimeout(() => setToast(null), 2500);
@@ -61,16 +61,25 @@ const HomeCard: React.FC<HomeCardProps> = ({
       .catch(() => showToast('Copy failed'));
   };
 
+  /* Precompute values */
+  const cleanedName = cleanUnitName(name);
+  const anchorId = toAnchorId(cleanedName);
+  const displayName = name.trim();
+
   /* Renders the list of videos for this unit */
   const renderVideos = (items: VideoItem[]) => {
     const filtered = (items || []).filter((v) => v.title && v.url);
     if (filtered.length === 0) return null;
 
     return (
-      <div className="home-card-videos">
-        <div className="home-card-video-list">
+      <section
+        className="home-card-videos"
+        aria-labelledby={`${anchorId}-videos`}
+      >
+        <ul className="home-card-video-list">
           {filtered.map((video) => (
-            <div key={video.url} className="home-card-video-item">
+            <li key={video.url} className="home-card-video-item">
+              {/* External video link with visual and textual affordances */}
               <a
                 href={video.url}
                 target="_blank"
@@ -80,12 +89,12 @@ const HomeCard: React.FC<HomeCardProps> = ({
                 {video.title}
                 <img
                   src={LinkedArrow}
-                  alt="Link arrow"
+                  alt="External link"
                   className="home-card-link-arrow"
                 />
               </a>
 
-              {/* Copy button for a single video link */}
+              {/* Copy button scoped to a single video link */}
               <button
                 type="button"
                 className="copy-icon-button"
@@ -97,29 +106,22 @@ const HomeCard: React.FC<HomeCardProps> = ({
                 }}
                 aria-label={`Copy link for ${video.title}`}
               >
-                <img src={CopyIcon} alt="Copy link" className="copy-icon" />
+                <img src={CopyIcon} alt="" className="copy-icon" />
               </button>
-            </div>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </section>
     );
   };
-
-  /* ───────────────────────── render ───────────────────────── */
-
-  const cleanedName = cleanUnitName(name); // anchor-only name
-  const anchorId = toAnchorId(cleanedName);
-  const displayName = name.trim(); // preserves emoji in UI
-
-  /* Resolve topic color via shared topic color registry */
+  /* Determine header color based on topic/group */
   const headerColor = getColorForTopic(group || cleanedName);
-
+  /* ───────────────────────── render ───────────────────────── */
   return (
     <>
-      <div className="home-card">
+      <article className="home-card">
         {/* ---------- Header ---------- */}
-        <div className="home-card-top">
+        <header className="home-card-top">
           <div className="home-card-heading-container">
             {/* Title links to Library anchor with consistent topic color */}
             <Link
@@ -142,17 +144,17 @@ const HomeCard: React.FC<HomeCardProps> = ({
               <img src={CopyIcon} alt="Copy all" className="copy-icon" />
             </button>
           </div>
-        </div>
+        </header>
 
         {/* ---------- Content ---------- */}
-        <div className="home-card-bottom">
+        <section className="home-card-bottom">
           <div className="home-card-inner">
             {/* Description */}
             {description && (
-              <div className="home-card-info-group">
+              <section className="home-card-info-group">
                 <p className="home-card-subheading">Description</p>
                 <p className="home-card-description">{description}</p>
-              </div>
+              </section>
             )}
 
             {/* Videos */}
@@ -160,13 +162,13 @@ const HomeCard: React.FC<HomeCardProps> = ({
 
             {/* Optional note */}
             {note && (
-              <div className="home-card-note">
+              <aside className="home-card-note">
                 <p className="home-card-note-text">{note}</p>
-              </div>
+              </aside>
             )}
           </div>
-        </div>
-      </div>
+        </section>
+      </article>
 
       {/* Toast feedback */}
       {toast && <div className="copy-toast">{toast}</div>}

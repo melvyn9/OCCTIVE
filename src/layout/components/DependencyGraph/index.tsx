@@ -1,3 +1,6 @@
+// File: src/layout/components/DependencyGraph/index.tsx
+// Renders an accessible modal dialog containing a visual dependency graph.
+
 import React, { useEffect, useState } from 'react';
 import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
@@ -7,6 +10,7 @@ import { getColorForTopic } from '../../../utils/topicColors';
 
 /* ───────── helpers ───────── */
 
+// Removes duplicate nodes by ID
 function uniqById(list: any[]) {
   const seen = new Set<string>();
   return list.filter((n) => {
@@ -16,6 +20,7 @@ function uniqById(list: any[]) {
   });
 }
 
+// Computes graph layout and assigns topic colors
 function layout(
   rawNodes: any[],
   edges: any[],
@@ -76,6 +81,7 @@ export interface DependencyGraphProps {
 /*                          LEGEND COMPONENT                          */
 /* ------------------------------------------------------------------ */
 
+// Explains visual encodings used in the graph
 interface LegendProps {
   colourOf: Map<string, string>;
   groupLabels?: Record<string, string>;
@@ -113,7 +119,7 @@ const Legend: React.FC<LegendProps> = ({
         zIndex: 10,
       }}
     >
-      {/* Toggle button */}
+      {/* Toggle button controls legend visibility */}
       <button
         type="button"
         onClick={onToggle}
@@ -129,14 +135,15 @@ const Legend: React.FC<LegendProps> = ({
           boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
         }}
       >
-        Legend {collapsed ? '▸' : '▾'}
+        Color Key {collapsed ? '▸' : '▾'}
       </button>
 
-      {/* Only render the panel when expanded */}
+      {/* Legend panel explaining visual encodings */}
       {!collapsed && (
         <div
           id="dependency-legend-panel"
-          aria-label="Legend"
+          role="region"
+          aria-labelledby="legend-title"
           style={{
             marginTop: 8,
             background: '#ffffff',
@@ -151,6 +158,24 @@ const Legend: React.FC<LegendProps> = ({
             overflowY: 'auto',
           }}
         >
+          {/* Visually hidden heading for screen readers */}
+          <h3
+            id="legend-title"
+            style={{
+              position: 'absolute',
+              width: 1,
+              height: 1,
+              padding: 0,
+              margin: -1,
+              overflow: 'hidden',
+              clip: 'rect(0, 0, 0, 0)',
+              whiteSpace: 'nowrap',
+              border: 0,
+            }}
+          >
+            Dependency graph legend
+          </h3>
+
           {/* ------- Generations ------- */}
           <div style={{ marginBottom: 8, fontWeight: 600 }}>Generations</div>
 
@@ -236,7 +261,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   }, [isOpen, onClose]);
 
   const { nodes: rawNodes, edges: rawEdges } = useGraphFromSheet();
-  const [legendCollapsed, setLegendCollapsed] = useState(false);
+  const [legendCollapsed, setLegendCollapsed] = useState(true);
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
   const edges = rawEdges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target));
@@ -262,6 +287,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         || n.data.label.toLowerCase() === target,
     );
 
+  // Categorize o.1 and o.2 generations into old or new
   const normaliseGeneration = (value: unknown): 'old' | 'new' | 'unknown' => {
     const s = (value ?? '').toString().trim().toLowerCase();
     if (s.startsWith('o.1') || s.startsWith('q.1') || s === '0.1' || s === '1') return 'old';
@@ -269,6 +295,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
     return 'unknown';
   };
 
+  // Dotted vs Solid border for o.1 vs o.2 generations
   const graphNodes = positioned.map((n) => {
     const isTarget = hasTarget
       && (n.id.toLowerCase() === target
@@ -287,6 +314,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
       border: `${borderWidth}px ${borderStyle} ${borderColor}`,
     } as React.CSSProperties;
 
+    // Highlight target node with star and purple border
     return isTarget
       ? {
         ...n,
@@ -300,6 +328,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
       : { ...n, style: base };
   });
 
+  // Unique flow ID for React Flow instance
   const id = React.useMemo(
     () => flowId ?? `flow-${Math.random().toString(36).slice(2)}`,
     [flowId],
@@ -311,7 +340,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
 
   return (
     <>
-      {/* Screen overlay */}
+      {/* Visual overlay blocks background interaction */}
       <div
         onClick={onClose}
         style={{
@@ -324,7 +353,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         }}
       />
 
-      {/* Modal container */}
+      {/* Dialog container for dependency graph */}
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -347,7 +376,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Close Dependency Graph"
           type="button"
           style={{
             position: 'absolute',

@@ -1,10 +1,13 @@
 // File: src/layout/components/Footer/index.tsx
+// Site-wide footer containing contact info, issue reporting, and grant acknowledgment.
+
 import React from 'react';
 import './style.scss';
 
 const Footer: React.FC = () => (
-  <div className="footer">
-    <div className="footer-content">
+  <footer className="footer">
+    {/* Contact information section */}
+    <address className="footer-content">
       <img
         className="footer-logo"
         src={`${process.env.PUBLIC_URL}/img/occtive_dark.png`}
@@ -14,9 +17,10 @@ const Footer: React.FC = () => (
       <a href="mailto:occtive@gmail.com">
         <p className="footer-email">occtive@gmail.com</p>
       </a>
-    </div>
+    </address>
 
-    <div className="footer-issue">
+    {/* Issue reporting section with link to Google Form */}
+    <section className="footer-issue">
       <p className="footer-issue-heading">Have an issue?</p>
       <a
         target="_blank"
@@ -25,10 +29,10 @@ const Footer: React.FC = () => (
       >
         <p className="footer-issue-link">Fill out this form</p>
       </a>
-    </div>
+    </section>
 
     {/* NSF grant acknowledgment with logo */}
-    <div className="footer-grant" role="note" aria-label="NSF grant acknowledgment">
+    <section className="footer-grant" role="note" aria-label="NSF grant acknowledgment">
       <div className="footer-grant-inner">
         <a
           href="https://www.nsf.gov/"
@@ -111,8 +115,8 @@ const Footer: React.FC = () => (
           National Science Foundation.
         </p>
       </div>
-    </div>
-  </div>
+    </section>
+  </footer>
 );
 
 export default Footer;

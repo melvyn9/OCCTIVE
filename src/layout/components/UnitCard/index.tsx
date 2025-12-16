@@ -1,4 +1,6 @@
 // File: src/layout/components/UnitCard/index.tsx
+// Renders a semantic, accessible unit card with embedded videos and dependency graphs.
+
 import React, { useState } from 'react';
 import DependencyChartBtnIcon from '../../../assets/dependency_chart_btn_icon.svg';
 import DependencyGraph from '../DependencyGraph';
@@ -31,49 +33,53 @@ const UnitCard: React.FC<UnitCardProps> = ({
   groupLabels,
   groupColorKeys,
 }) => {
-  /* helper: YouTube URL → embed */
+  /* Converts a YouTube watch URL into an embeddable iframe URL */
   const toEmbed = (url: string) => {
     const m = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&\n]+)/);
     return m ? `https://www.youtube.com/embed/${m[1]}` : url;
   };
 
-  /* per-video component so each row owns its own showGraph */
+  /* Per-video row component so each video controls its own graph state */
   type V = { t: string; u: string; tm: string; d: string };
   const VideoRow: React.FC<{
     video: V;
     idx: number;
     baseId: string;
   }> = ({ video, idx, baseId }) => {
+    /* Controls visibility of the dependency graph for this video */
     const [open, setOpen] = useState(false);
     return (
       <>
-        <div className="video-entry-card">
+        <li className="video-entry-card">
           <div className="video-entry-left">
             <iframe
               src={toEmbed(video.u)}
               title={`video-${idx}`}
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
 
-          <div className="video-entry-right">
+          {/* Right side contains video metadata and actions */}
+          <section className="video-entry-right">
             <p className="frame-card-video-title">{video.t}</p>
             <p className="frame-card-time">{video.tm}</p>
             <p className="frame-card-desc">{video.d}</p>
 
+            {/* Button toggles the dependency graph for this video */}
             <button
               type="button"
               className="btn-lightblue btn-dependencies"
               onClick={() => setOpen((s) => !s)}
+              aria-expanded={open}
             >
               <img src={DependencyChartBtnIcon} alt="" className="dependency-icon" />
               {open ? 'Hide Dependencies' : 'Dependencies'}
             </button>
-          </div>
-        </div>
+          </section>
+        </li>
 
+        {/* Dependency graph modal is rendered conditionally per video */}
         {open && (
           <div className="video-entry-graph-wrapper">
             <DependencyGraph
@@ -90,33 +96,42 @@ const UnitCard: React.FC<UnitCardProps> = ({
     );
   };
 
-  /* baseId ensures unique graph ids inside this card */
+  /* Base id guarantees unique dependency graph ids within this unit */
   const baseId = `graph-${name.replace(/\s+/g, '-')}`;
 
-  // Build one flat list of videos (no sub-units), keep only non-empty
+  /* Filter out incomplete video rows before rendering */
   const nonEmpty = (videos || []).filter((v) => v.t && v.u);
 
   return (
     <>
-      <div className="frame-card">
-        <div className="frame-card-unit">
+      {/* Heading of the unit card */}
+      <article className="frame-card">
+        <header className="frame-card-unit">
           <p className="frame-card-heading">{name}</p>
           <p className="frame-card-description">{description}</p>
-        </div>
+        </header>
 
-        {/* videos */}
-        <div className="frame-card-video-block">
-          {nonEmpty.map((v, i) => (
-            <VideoRow key={`${v.u}-${i}`} video={v} idx={i} baseId={baseId} />
-          ))}
-        </div>
+        {/* Section contains the full list of videos for this unit */}
+        <section className="frame-card-video-block">
+          <ul className="frame-card-video-list">
+            {nonEmpty.map((v, i) => (
+              <VideoRow
+                key={`${v.u}-${i}`}
+                video={v}
+                idx={i}
+                baseId={baseId}
+              />
+            ))}
+          </ul>
+        </section>
 
+        {/* Optional note at the bottom of the unit card */}
         {note && (
-          <div className="frame-card-note">
+          <aside className="frame-card-note">
             <p className="frame-card-note-text">{note}</p>
-          </div>
+          </aside>
         )}
-      </div>
+      </article>
     </>
   );
 };

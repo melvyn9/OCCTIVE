@@ -1,4 +1,6 @@
 // File: src/layout/components/WorkshopPage/index.tsx
+// Presents information about the OCCTIVE adopter workshop.
+
 import React from 'react';
 import './style.scss';
 
@@ -6,19 +8,19 @@ const WorkshopPage: React.FC = () => (
   <main className="workshop-page">
     {/* Hero */}
     <section className="home-page-hero">
-      <div className="home-page-hero-content">
-        <div className="home-page-hero-text">
+      <header className="home-page-hero-content">
+        <section className="home-page-hero-text">
           <h1 className="home-page-title">About the Workshop</h1>
           <p className="home-page-text">
             Details for OCCTIVE adopters — dates, participation, and support provided.
           </p>
-        </div>
-      </div>
+        </section>
+      </header>
     </section>
 
     {/* Content */}
     <section className="workshop-section">
-      <div className="workshop-block">
+      <article className="workshop-block">
         <p>
           The workshop for OCCTIVE adopters will be at Union College, November 10-11, 2025.
         </p>
@@ -112,7 +114,7 @@ const WorkshopPage: React.FC = () => (
           </a>
           .
         </p>
-      </div>
+      </article>
     </section>
   </main>
 );
