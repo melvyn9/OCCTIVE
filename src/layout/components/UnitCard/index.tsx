@@ -11,6 +11,7 @@ import './style.scss';
 /* ------------------------------------------------------------------ */
 
 export interface UnitCardProps {
+  unitId: string;
   name: string;
   description: string;
   note: string;
@@ -26,6 +27,7 @@ export interface UnitCardProps {
 /* ------------------------------------------------------------------ */
 
 const UnitCard: React.FC<UnitCardProps> = ({
+  unitId,
   name,
   description,
   note,
@@ -102,12 +104,19 @@ const UnitCard: React.FC<UnitCardProps> = ({
   /* Filter out incomplete video rows before rendering */
   const nonEmpty = (videos || []).filter((v) => v.t && v.u);
 
+  // Determine the deterministic topic color for this unit
+  const topicColor = topicColorMap[unitId];
   return (
     <>
       {/* Heading of the unit card */}
       <article className="frame-card">
         <header className="frame-card-unit">
-          <p className="frame-card-heading">{name}</p>
+          <p
+            className="frame-card-heading"
+            style={{ color: topicColor }}
+          >
+            {name}
+          </p>
           <p className="frame-card-description">{description}</p>
         </header>
 

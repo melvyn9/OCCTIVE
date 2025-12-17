@@ -176,6 +176,7 @@ const UnitPage: React.FC = () => {
                 <div id={anchorId} className="unit-page-anchor" aria-hidden="true" />
 
                 <UnitCard
+                  unitId={unit.unit_id}
                   name={unit.name}
                   description={unit.description}
                   note={unit.note || ''}
