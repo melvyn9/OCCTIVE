@@ -18,11 +18,47 @@
     }
   }
 
+  &-nav-button {
+    all: unset;
+    border-radius: 6px;
+
+    color: #f3f8f9;
+    cursor: pointer;
+    display: block;
+    font-weight: 400;
+    line-height: 1.8;
+
+    padding: 0.4rem 0.75rem;
+
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      transform 0.15s ease;
+    width: 100%;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #71bfde;
+      transform: translateX(2px);
+    }
+  }
+
   &-navbar-title {
     @include font-nav-bar-title;
     color: #fff;
     display: block;
-    margin: 0 0 1.5rem 20px;
+    letter-spacing: 0.08em;
+    margin: 0 0 1.5rem 1rem;
+    opacity: 0.85;
+  }
+
+  &-navbar-title::after {
+    background: rgba(255, 255, 255, 0.15);
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 0.75rem 0 1rem;
   }
 
   &-hero {
@@ -111,26 +147,6 @@
     position: sticky;
     top: 8rem;
     z-index: 10;
-  }
-
-  &-link {
-    display: block;
-    margin: 1rem 0;
-    padding: 0 20px;
-
-    a {
-      color: #f3f8f9 !important;
-      font-weight: 400 !important;
-      line-height: 1.8 !important;
-      text-decoration: none !important;
-      transition: all 0.2s ease;
-
-      &:hover,
-      &:focus {
-        color: #71bfde !important;
-        text-decoration: none;
-      }
-    }
   }
 
   .btn-orange {
