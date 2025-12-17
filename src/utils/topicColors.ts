@@ -32,6 +32,7 @@ export interface TopicColorEntry {
 /**
  * Builds an ordered list of topic color assignments from the
  * already-sorted unit list. */
+/* eslint-disable camelcase */
 export function buildTopicColorList(
   sortedUnits: Array<{ unit_id: string; name: string }>,
 ): TopicColorEntry[] {
@@ -41,6 +42,7 @@ export function buildTopicColorList(
     color: palette[i % palette.length],
   }));
 }
+/* eslint-enable camelcase */
 
 /**
  * Converts an ordered TopicColorEntry list into a lookup table
