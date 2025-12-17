@@ -2,7 +2,6 @@
 // Displays all units with a sidebar for in-page navigation.
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
 import 'react-dropdown/style.css';
 import UnitCard from '../UnitCard';
 import { useData, DataTypes } from '../../../utils/data';
@@ -150,12 +149,25 @@ const UnitPage: React.FC = () => {
             <nav className="unit-page-sidebar">
               <span className="unit-page-navbar-title">Units</span>
 
-              {sortedUnits.map((unit, index) => {
+              {/* Links to each unit section */}
+              {sortedUnits.map((unit) => {
                 const cleanName = cleanUnitName(unit.name);
                 const anchorId = toAnchorId(cleanName);
+
                 return (
-                  <div className="unit-page-link" key={index}>
-                    <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
+                  <div className="unit-page-link" key={unit.unit_id}>
+                    <button
+                      type="button"
+                      className="unit-page-nav-button"
+                      onClick={() => {
+                        const el = document.getElementById(anchorId);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                    >
+                      {cleanName}
+                    </button>
                   </div>
                 );
               })}
@@ -165,13 +177,13 @@ const UnitPage: React.FC = () => {
 
         {/* ---------- Main Content ---------- */}
         <section className="unit-page-cards">
-          {sortedUnits.map((unit, index) => {
+          {sortedUnits.map((unit) => {
             const cleanName = cleanUnitName(unit.name);
             const anchorId = toAnchorId(cleanName);
             const list = videosByUnit[(unit.unit_id || '').trim()] || [];
 
             return (
-              <div key={index}>
+              <div key={unit.unit_id}>
                 {/* anchor that matches the sidebar link */}
                 <div id={anchorId} className="unit-page-anchor" aria-hidden="true" />
 

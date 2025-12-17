@@ -125,7 +125,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
           <ul className="frame-card-video-list">
             {nonEmpty.map((v, i) => (
               <VideoRow
-                key={`${v.u}-${i}`}
+                key={v.u}
                 video={v}
                 idx={i}
                 baseId={baseId}
