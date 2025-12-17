@@ -11,6 +11,7 @@ import './style.scss';
 /* ------------------------------------------------------------------ */
 
 export interface UnitCardProps {
+  unitId: string;
   name: string;
   description: string;
   note: string;
@@ -18,7 +19,7 @@ export interface UnitCardProps {
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
   // Mapping from topic key to abbreviated display name
   groupLabels?: Record<string, string>;
-  groupColorKeys?: Record<string, string>;
+  topicColorMap: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -26,12 +27,13 @@ export interface UnitCardProps {
 /* ------------------------------------------------------------------ */
 
 const UnitCard: React.FC<UnitCardProps> = ({
+  unitId,
   name,
   description,
   note,
   videos,
   groupLabels,
-  groupColorKeys,
+  topicColorMap,
 }) => {
   /* Converts a YouTube watch URL into an embeddable iframe URL */
   const toEmbed = (url: string) => {
@@ -88,7 +90,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               flowId={`${baseId}-v${idx}`}
               highlightId={video.t}
               groupLabels={groupLabels}
-              groupColorKeys={groupColorKeys}
+              topicColorMap={topicColorMap}
             />
           </div>
         )}
@@ -102,12 +104,19 @@ const UnitCard: React.FC<UnitCardProps> = ({
   /* Filter out incomplete video rows before rendering */
   const nonEmpty = (videos || []).filter((v) => v.t && v.u);
 
+  // Determine the deterministic topic color for this unit
+  const topicColor = topicColorMap[unitId];
   return (
     <>
       {/* Heading of the unit card */}
       <article className="frame-card">
         <header className="frame-card-unit">
-          <p className="frame-card-heading">{name}</p>
+          <p
+            className="frame-card-heading"
+            style={{ color: topicColor }}
+          >
+            {name}
+          </p>
           <p className="frame-card-description">{description}</p>
         </header>
 
