@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/www/static/css/main.25d1fed1.css",
-    "main.js": "/www/static/js/main.4ba47cc8.js",
+    "main.js": "/www/static/js/main.fef185df.js",
     "static/media/kefir-regular.otf": "/www/static/media/kefir-regular.3b3d57883fef1b86ff39.otf",
     "static/media/SpaceGrotesk-SemiBold.otf": "/www/static/media/SpaceGrotesk-SemiBold.63d05cfd2eaac0be6085.otf",
     "static/media/SpaceGrotesk-Regular.otf": "/www/static/media/SpaceGrotesk-Regular.107ef1bf316015682af9.otf",
@@ -12,10 +12,10 @@
     "static/media/HeaderMenu.svg": "/www/static/media/HeaderMenu.fbe584f8ebcba54603d9b2fde7609fb4.svg",
     "static/media/LinkedArrow.svg": "/www/static/media/LinkedArrow.7ec96cdf34db1b7c6a6548e5514084e2.svg",
     "main.25d1fed1.css.map": "/www/static/css/main.25d1fed1.css.map",
-    "main.4ba47cc8.js.map": "/www/static/js/main.4ba47cc8.js.map"
+    "main.fef185df.js.map": "/www/static/js/main.fef185df.js.map"
   },
   "entrypoints": [
     "static/css/main.25d1fed1.css",
-    "static/js/main.4ba47cc8.js"
+    "static/js/main.fef185df.js"
   ]
 }
