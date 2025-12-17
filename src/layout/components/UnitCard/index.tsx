@@ -18,7 +18,7 @@ export interface UnitCardProps {
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
   // Mapping from topic key to abbreviated display name
   groupLabels?: Record<string, string>;
-  groupColorKeys?: Record<string, string>;
+  topicColorMap: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -31,7 +31,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
   note,
   videos,
   groupLabels,
-  groupColorKeys,
+  topicColorMap,
 }) => {
   /* Converts a YouTube watch URL into an embeddable iframe URL */
   const toEmbed = (url: string) => {
@@ -88,7 +88,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               flowId={`${baseId}-v${idx}`}
               highlightId={video.t}
               groupLabels={groupLabels}
-              groupColorKeys={groupColorKeys}
+              topicColorMap={topicColorMap}
             />
           </div>
         )}

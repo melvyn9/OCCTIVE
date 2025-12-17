@@ -7,7 +7,7 @@ import HomeCard from '../HomeCard';
 import { useData, DataTypes } from '../../../utils/data';
 import DependencyGraph from '../DependencyGraph';
 import './style.scss';
-import { setTopicColorsInOrder } from '../../../utils/topicColors';
+import { buildTopicColorList, buildTopicColorMap } from '../../../utils/topicColors';
 
 /* eslint-disable camelcase */
 /* Row shape for Units spreadsheet */
@@ -116,11 +116,17 @@ const HomePage: React.FC = () => {
     });
   }, [units]);
 
-  /* Assigns consistent topic colors based on display order */
-  useEffect(() => {
-    const orderedUnitIds = sortedUnits.map((u) => u.unit_id);
-    setTopicColorsInOrder(orderedUnitIds);
-  }, [sortedUnits]);
+  /*  Derives the ordered list of topic colors from the sorted units. */
+  const topicColorList = useMemo(
+    () => buildTopicColorList(sortedUnits),
+    [sortedUnits],
+  );
+
+  /* Builds a lookup map from unitId to color for efficient access. */
+  const topicColorMap = useMemo(
+    () => buildTopicColorMap(topicColorList),
+    [topicColorList],
+  );
 
   /* Converts numeric index into spreadsheet-style group labels */
   /* Converts 0 → A, 1 → B, …, 26 → AA, etc. */
@@ -202,6 +208,7 @@ const HomePage: React.FC = () => {
         onClose={() => setShowGraph(false)}
         groupLabels={dependencyGroupLabels}
         groupColorKeys={dependencyGroupColorKeys}
+        topicColorMap={topicColorMap}
       />
 
       {/* Section containing all unit preview cards */}
@@ -226,7 +233,7 @@ const HomePage: React.FC = () => {
                   time,
                   desc,
                 }))}
-                group={unitId}
+                topicColor={topicColorMap[unitId]}
               />
             );
           })}

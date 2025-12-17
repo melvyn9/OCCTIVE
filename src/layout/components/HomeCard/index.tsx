@@ -6,7 +6,6 @@ import { HashLink as Link } from 'react-router-hash-link';
 import LinkedArrow from '../../../assets/LinkedArrow.svg';
 import CopyIcon from '../../../assets/CopyIcon.svg';
 import './style.scss';
-import { getColorForTopic } from '../../../utils/topicColors';
 
 /* Video metadata rendered inside the card */
 interface VideoItem {
@@ -23,7 +22,7 @@ interface HomeCardProps {
   note?: string;
   videos: VideoItem[];
   allVideosCopy: string;
-  group?: string; // topic/group key used for consistent coloring
+  topicColor: string;
 }
 
 /* ───────────────────────── helpers ───────────────────────── */
@@ -42,7 +41,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
   note,
   videos,
   allVideosCopy,
-  group,
+  topicColor,
 }) => {
   /* Toast state for copy feedback */
   const [toast, setToast] = useState<string | null>(null);
@@ -114,8 +113,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
       </section>
     );
   };
-  /* Determine header color based on topic/group */
-  const headerColor = getColorForTopic(group || cleanedName);
+
   /* ───────────────────────── render ───────────────────────── */
   return (
     <>
@@ -128,7 +126,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
               smooth
               to={`/library#${anchorId}`}
               className="home-card-heading home-card-heading-link"
-              style={{ color: headerColor }}
+              style={{ color: topicColor }}
             >
               {displayName}
             </Link>

@@ -6,7 +6,6 @@ import ReactFlow, { Background, ReactFlowProvider } from 'reactflow';
 import dagre from '@dagrejs/dagre';
 import 'reactflow/dist/style.css';
 import { useGraphFromSheet } from '../../../useGraphFromSheet';
-import { getColorForTopic } from '../../../utils/topicColors';
 
 /* ───────── helpers ───────── */
 
@@ -24,7 +23,8 @@ function uniqById(list: any[]) {
 function layout(
   rawNodes: any[],
   edges: any[],
-  groupColorKeys?: Record<string, string>,
+  groupColorKeys: Record<string, string> | undefined,
+  topicColorMap: Record<string, string>,
 ) {
   const g = new dagre.graphlib.Graph({ multigraph: true });
 
@@ -54,11 +54,10 @@ function layout(
   const colourOf = new Map<string, string>();
 
   positioned.forEach(({ data }) => {
-    const { topicKey } = data; // "A", "B", ...
-    if (!topicKey || colourOf.has(topicKey)) return;
-
-    const colorKey = groupColorKeys?.[topicKey] ?? topicKey; // unit_id if available
-    colourOf.set(topicKey, getColorForTopic(colorKey));
+    const { topicKey } = data;
+    const unitId = groupColorKeys?.[topicKey];
+    if (!topicKey || !unitId || colourOf.has(topicKey)) return;
+    colourOf.set(topicKey, topicColorMap[unitId]);
   });
 
   return { positioned, edges, colourOf };
@@ -75,6 +74,7 @@ export interface DependencyGraphProps {
   onClose: () => void;
   groupLabels?: Record<string, string>;
   groupColorKeys?: Record<string, string>;
+  topicColorMap: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -238,6 +238,7 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   onClose,
   groupLabels,
   groupColorKeys,
+  topicColorMap,
 }) => {
   /* Block scroll when modal is open */
   useEffect(() => {
@@ -265,7 +266,12 @@ const DependencyGraph: React.FC<DependencyGraphProps> = ({
   const nodes = uniqById(rawNodes);
   const nodeIds = new Set(nodes.map((n) => n.id));
   const edges = rawEdges.filter((e) => nodeIds.has(e.source) && nodeIds.has(e.target));
-  const { positioned, colourOf } = layout(nodes, edges, groupColorKeys);
+  const { positioned, colourOf } = layout(
+    nodes,
+    edges,
+    groupColorKeys,
+    topicColorMap,
+  );
   // Map each group (A, B, C...) to a human-friendly topic name
   const topicNames = new Map<string, string>();
 

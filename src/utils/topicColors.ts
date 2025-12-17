@@ -21,26 +21,35 @@ export const palette = [
   '#51BFC0', // softer turquoise (was 48D1CC)
   '#E3624D', // muted tomato red (was FF6347)
   '#5C83B9', // gentler steel blue (was 4682B4)
-];
-const colourOf = new Map<string, string>();
+] as const;
 
-/**
- * Initialize topic colors in a fixed order.
- * This must be called exactly once after units are sorted.
- */
-export function setTopicColorsInOrder(
-  orderedTopicKeys: string[],
-) {
-  colourOf.clear();
-
-  orderedTopicKeys.forEach((key, index) => {
-    colourOf.set(key, palette[index % palette.length]);
-  });
+export interface TopicColorEntry {
+  unitId: string;
+  label: string;
+  color: string;
 }
 
 /**
- * Read-only lookup used everywhere else
- */
-export function getColorForTopic(topicKey: string): string {
-  return colourOf.get(topicKey) ?? '#9ca3af'; // gray fallback
+ * Builds an ordered list of topic color assignments from the
+ * already-sorted unit list. */
+export function buildTopicColorList(
+  sortedUnits: Array<{ unit_id: string; name: string }>,
+): TopicColorEntry[] {
+  return sortedUnits.map((u, i) => ({
+    unitId: u.unit_id,
+    label: u.name,
+    color: palette[i % palette.length],
+  }));
+}
+
+/**
+ * Converts an ordered TopicColorEntry list into a lookup table
+ * for fast access during render. */
+export function buildTopicColorMap(
+  entries: TopicColorEntry[],
+): Record<string, string> {
+  return entries.reduce<Record<string, string>>((acc, e) => {
+    acc[e.unitId] = e.color;
+    return acc;
+  }, {});
 }

@@ -7,6 +7,7 @@ import 'react-dropdown/style.css';
 import UnitCard from '../UnitCard';
 import { useData, DataTypes } from '../../../utils/data';
 import './style.scss';
+import { buildTopicColorList, buildTopicColorMap } from '../../../utils/topicColors';
 
 /* eslint-disable camelcase */
 type UnitRow = {
@@ -104,6 +105,18 @@ const UnitPage: React.FC = () => {
       });
   }, [units]);
 
+  /* Derives the ordered list of topic colors from the sorted units. */
+  const topicColorList = useMemo(
+    () => buildTopicColorList(sortedUnits),
+    [sortedUnits],
+  );
+
+  /* Builds a lookup map from unitId to color for efficient access. */
+  const topicColorMap = useMemo(
+    () => buildTopicColorMap(topicColorList),
+    [topicColorList],
+  );
+
   /* Converts numeric index into spreadsheet-style labels (A, B, …, AA) */
   function indexToGroupLabel(index: number): string {
     let label = '';
@@ -172,6 +185,7 @@ const UnitPage: React.FC = () => {
                     t, u, tm, d,
                   }))}
                   groupLabels={dependencyGroupLabels}
+                  topicColorMap={topicColorMap}
                 />
               </div>
             );
