@@ -141,7 +141,7 @@ const UnitPage: React.FC = () => {
     }
   });
   return (
-    <main className="unit-page">
+    <section className="unit-page">
       <div className="unit-page-content">
         {/* ---------- Side Panel ---------- */}
         <aside className="unit-page-side-items">
@@ -205,7 +205,7 @@ const UnitPage: React.FC = () => {
           })}
         </section>
       </div>
-    </main>
+    </section>
   );
 };
 

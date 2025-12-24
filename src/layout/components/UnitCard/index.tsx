@@ -7,6 +7,20 @@ import DependencyGraph from '../DependencyGraph';
 import './style.scss';
 
 /* ------------------------------------------------------------------ */
+/*                             COLOR MAP                              */
+/* ------------------------------------------------------------------ */
+
+// const UNIT_COLORS: Record<string, string> = {
+//   'Basics of Computational Problem Solving and Programming': '#2B8CBF',
+//   'Setting Context': '#7B68C1',
+//   'Naming and Assignment': '#F08A5D',
+//   Functions: '#E3B341',
+//   'Sequences and Data Frames': '#5A8F4E',
+//   Troubleshooting: '#E45C9A',
+//   'Old Videos': '#2FA4A9',
+// };
+
+/* ------------------------------------------------------------------ */
 /*                             PROP TYPES                             */
 /* ------------------------------------------------------------------ */
 

@@ -5,7 +5,7 @@ import React from 'react';
 import './style.scss';
 
 const WorkshopPage: React.FC = () => (
-  <main className="workshop-page">
+  <section className="workshop-page">
     {/* Hero */}
     <section className="home-page-hero">
       <header className="home-page-hero-content">
@@ -116,7 +116,7 @@ const WorkshopPage: React.FC = () => (
         </p>
       </article>
     </section>
-  </main>
+  </section>
 );
 
 export default WorkshopPage;

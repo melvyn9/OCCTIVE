@@ -36,31 +36,25 @@
 .home-page {
   &-hero {
     background-color: #37555b;
-    left: 50%;
-    margin: 0;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    padding: 1rem 0;
+    padding: 4rem 0;
     position: relative;
     text-align: left;
-    width: 100vw;
+    width: 100%;
   }
 
   &-hero-content {
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8rem;
+    gap: 4rem;
     justify-content: space-between;
-    margin: 0;
-    margin-left: 8rem;
-    margin-right: 8rem;
-    max-width: none;
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 0 3rem;
   }
 
   &-hero-text {
-    flex: 1 1 500px;
-    max-width: 1000px;
+    flex: 1;
+    max-width: 700px;
   }
 
   &-hero-graphic {
@@ -98,10 +92,7 @@
 
   &-hero-buttons {
     display: flex;
-    gap: 1.5rem;
-    justify-content: flex-start;
-    margin-top: 2rem;
-    width: 100%;
+    gap: 1.25rem;
   }
 
   &-content {
@@ -149,16 +140,36 @@
       transform: scale(1.02);
     }
   }
+  
+  .btn-primary,
+  .btn-secondary {
+    align-items: center;
+
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: inline-flex;
+
+    font-weight: 600;
+
+    height: 52px;
+    justify-content: center;
+    line-height: 1;
+    padding: 0 2rem;
+    white-space: nowrap;
+  }
 
   &-adoption-card {
     background-color: #506a74;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    padding: 3rem 8rem;
+    box-sizing: border-box;
+    padding: 3rem;
     position: relative;
-    text-align: left;
-    width: 100vw;
+    width: 100%; 
+  }
+
+  &-adoption-inner {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 8rem;
   }
 
   &-adoption-title {
@@ -213,7 +224,7 @@
 
       &-img,
       .home-page-hero-graphic-img {
-        max-width: 400px;
+        max-width: 250px;
       }
     }
   }
@@ -230,7 +241,6 @@
       &-img,
       .home-page-hero-graphic-img {
         margin: 0 auto;
-        max-width: 80%;
       }
     }
 
@@ -272,7 +282,6 @@
     }
 
     &-content {
-      margin: 1.5rem -1.5rem -1.5rem;
       padding: 1.5rem;
     }
   }
@@ -280,10 +289,17 @@
 
 /* MOBILE + SMALL TABLETS */
 @media (max-width: 900px) {
-  .home-page-hero {
+  body {
     margin: 0;
-    padding: 2rem 1.25rem;
-    text-align: center;
+  }
+
+  .home-page-hero-content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
   }
 
   .home-page-hero-content {
@@ -341,6 +357,7 @@
   }
 
   .home-page-content {
+    margin: 0.25rem;
     padding: 1.5rem 1rem;
   }
 

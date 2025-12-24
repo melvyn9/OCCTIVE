@@ -156,13 +156,13 @@ const HomePage: React.FC = () => {
     }
 
     if (groupKey && unitId && !dependencyGroupColorKeys[groupKey]) {
-      dependencyGroupColorKeys[groupKey] = unitId; // ✅ A -> setting-context
+      dependencyGroupColorKeys[groupKey] = unitId;
     }
   });
 
   /* ---------- Render ---------- */
   return (
-    <main className="home-page">
+    <section className="home-page">
       {/* Hero introduces the site purpose and primary actions */}
       <section className="home-page-hero">
         <header className="home-page-hero-content">
@@ -261,7 +261,7 @@ const HomePage: React.FC = () => {
           </a>
         </div>
       </section>
-    </main>
+    </section>
   );
 };
 

@@ -2,11 +2,11 @@
 
 .content {
   flex: 1 0 auto;
-  padding: 3rem 7rem;
+  // padding: 3rem 7rem;
   position: relative;
   vertical-align: top;
 
   @media(max-width: $site-size-small) { 
-    padding: 1.5rem;
+    // padding: 1.5rem;
   }
 }

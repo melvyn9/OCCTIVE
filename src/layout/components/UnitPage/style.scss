@@ -12,8 +12,8 @@
     text-transform: uppercase;
 
     img {
-      height: 16px;
-      margin-right: 8px;
+      // height: 16px;
+      // margin-right: 8px;
       width: auto;
     }
   }
@@ -21,13 +21,11 @@
   &-nav-button {
     all: unset;
     border-radius: 6px;
-
     color: #f3f8f9;
     cursor: pointer;
     display: block;
     font-weight: 400;
     line-height: 1.8;
-
     padding: 0.4rem 0.75rem;
 
     transition:
@@ -59,31 +57,6 @@
     display: block;
     height: 1px;
     margin: 0.75rem 0 1rem;
-  }
-
-  &-hero {
-    background-color: $color-background-grey;
-    margin: 3rem -7rem -3rem;
-    padding: 5rem 7rem;
-  }
-
-  &-hero-content {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  &-hero-text {
-    flex: 1 1 500px;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  &-hero-image {
-    height: auto;
-    max-width: 100%;
-    width: 100%;
   }
 
   &-sidebuttons {
@@ -118,14 +91,14 @@
     background-color: $color-tag-white;
     display: flex;
     gap: 2rem;
-    margin: 3rem -7rem -3rem;
+    margin: 1rem;
     padding: 3rem 150px 3rem 75px;
   }
 
   &-side-items {
     flex-shrink: 0;
     margin-right: 27px;
-    margin-top: 40px;
+    margin-top: 7px;
     width: 280px;
   }
 
@@ -134,9 +107,7 @@
     background-color: #3d555e;
     border-radius: 12px;
     padding: 1.5rem 0;
-
     position: sticky;
-    top: 2rem;
 
     a {
       color: #fff !important;
@@ -211,42 +182,31 @@
 
 @media (max-width: 1199px) {
   .unit-page {
-    &-hero {
-      margin: 2rem -2rem;
-      padding: 3rem 2rem;
-    }
- 
- 
     &-content {
       flex-direction: column;
-      margin: 2rem -2rem;
       padding: 2rem;
     }
  
- 
     &-side-items {
       margin-right: 0;
+      margin-top: 2rem;
       width: 100%;
     }
- 
  
     &-cards {
       grid-template-columns: 1fr;
       padding: 0 1rem;
     }
  
- 
     &-sidebuttons {
       gap: 1rem;
       grid-template-columns: 1fr 1fr;
     }
  
- 
     &-title,
     &-subheading {
       text-align: center;
     }
- 
  
     &-text {
       margin-top: 1rem;
@@ -254,39 +214,28 @@
   }
 }
  
- 
 @media (max-width: 499px) {
   .unit-page {
-    &-hero {
-      margin: 1.5rem -1rem;
-      padding: 2rem 1rem;
-    }
- 
- 
     &-content {
       flex-direction: column;
-      margin: 1.5rem -1rem;
-      padding: 1.5rem 1rem;
+      padding: 1.5rem 1.25rem;
     }
- 
  
     &-side-items {
       margin-right: 0;
+      margin-top: 3rem;
       width: 100%;
     }
- 
  
     &-cards {
       grid-template-columns: 1fr;
       padding: 0;
     }
  
- 
     &-sidebuttons {
       gap: 1rem;
       grid-template-columns: 1fr;
     }
- 
  
     &-title,
     &-subheading {
@@ -294,19 +243,16 @@
       text-align: center;
     }
  
- 
     &-text {
       font-size: 1rem;
       margin-top: 1rem;
     }
  
- 
     &-back-to-main-menu,
     &-navbar-title {
-      font-size: 0.9rem;
-      margin-left: 10px;
+      font-size: 1.25rem;
+      margin-left: 20px;
     }
- 
  
     .btn-orange,
     .btn-blue {
