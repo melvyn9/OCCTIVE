@@ -6,7 +6,7 @@ import React from 'react';
 import './style.scss';
 
 const AdoptPage: React.FC = () => (
-  <main className="adopt-page">
+  <section className="adopt-page">
     {/* OCCTIVE hero */}
     <section className="home-page-hero">
       <header className="home-page-hero-content">
@@ -187,7 +187,7 @@ const AdoptPage: React.FC = () => (
       </article>
     </section>
 
-  </main>
+  </section>
 );
 
 export default AdoptPage;

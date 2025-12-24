@@ -28,48 +28,6 @@ type VideoRow = {
 };
 /* eslint-enable camelcase */
 
-/* ------------------------------------------------------------------ */
-/*                          HELPER FUNCTIONS                          */
-/* ------------------------------------------------------------------ */
-
-function cleanUnitName(raw: string): string {
-  const index = raw.search(/Unit/i);
-  if (index === -1) {
-    return raw.trimStart();
-  }
-  return raw.slice(index).trimStart();
-}
-
-function toAnchorId(name: string): string {
-  return name.replace(/\s+/g, '-').replace(/:/g, '');
-}
-
-function indexToGroupLabel(index: number): string {
-  let label = '';
-  let n = index;
-
-  while (n >= 0) {
-    label = String.fromCharCode((n % 26) + 65) + label;
-    n = Math.floor(n / 26) - 1;
-  }
-
-  return label;
-}
-
-function toNumber(value: number | string | undefined): number {
-  if (typeof value === 'string') {
-    return parseFloat(value) || 0;
-  }
-  if (typeof value === 'number') {
-    return value;
-  }
-  return 0;
-}
-
-/* ------------------------------------------------------------------ */
-/*                              COMPONENT                             */
-/* ------------------------------------------------------------------ */
-
 const UnitPage: React.FC = () => {
   /* Stores unit and video data loaded from CSVs */
   const [units, setUnits] = useState<UnitRow[]>([]);
@@ -77,10 +35,12 @@ const UnitPage: React.FC = () => {
 
   /* Fetch units and videos on initial render */
   useEffect(() => {
+    // Units tab
     useData(DataTypes.Units)
       .then((data) => setUnits((data || []) as UnitRow[]))
       .catch(() => setUnits([]));
 
+    // Videos tab (long form)
     useData(DataTypes.Videos)
       .then((data) => setVideos((data || []) as VideoRow[]))
       .catch(() => setVideos([]));
@@ -92,84 +52,96 @@ const UnitPage: React.FC = () => {
     return i === -1 ? raw.trimStart() : raw.slice(i).trimStart();
   };
 
-  /** Convert the cleaned name to a safe ID: spaces→dashes, drop colons. */
+  /* Converts a unit name into a hash-safe anchor id */
   const toAnchorId = (name: string) => name.replace(/\s+/g, '-').replace(/:/g, '');
 
   // Group videos by unit_id and sort by video_order (array methods only)
   const videosByUnit = useMemo(() => {
-    type Item = {
-      t: string;
-      u: string;
-      tm: string;
-      d: string;
-      order: number;
-    };
+    const toNum = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
 
-    const grouped: Record<string, Item[]> = {};
+    type Item = { t: string; u: string; tm: string; d: string; order: number };
 
-    videos.forEach((row) => {
-      const unitId = (row.unit_id || '').trim();
-      const title = (row.video_title || '').trim();
-      const url = (row.video_url || '').trim();
+    const grouped = (videos || [])
+      .filter((row) => {
+        const unitId = (row.unit_id || '').trim();
+        const t = (row.video_title || '').trim();
+        const u = (row.video_url || '').trim();
+        return unitId && t && u;
+      })
+      .map((row) => ({
+        unitId: (row.unit_id || '').trim(),
+        item: {
+          t: (row.video_title || '').trim(),
+          u: (row.video_url || '').trim(),
+          tm: (row.video_time || '').trim(),
+          d: (row.video_desc || '').trim(),
+          order: toNum(row.video_order),
+        } as Item,
+      }))
+      .reduce<Record<string, Item[]>>((acc, { unitId, item }) => {
+        (acc[unitId] ||= []).push(item);
+        return acc;
+      }, {});
 
-      if (!unitId || !title || !url) {
-        return;
-      }
-
-      if (!grouped[unitId]) {
-        grouped[unitId] = [];
-      }
-
-      grouped[unitId].push({
-        t: title,
-        u: url,
-        tm: (row.video_time || '').trim(),
-        d: (row.video_desc || '').trim(),
-        order: toNumber(row.video_order),
-      });
-    });
-
-    Object.keys(grouped).forEach((key) => {
-      grouped[key].sort((a, b) => a.order - b.order);
+    Object.keys(grouped).forEach((k) => {
+      grouped[k].sort((a, b) => a.order - b.order);
     });
 
     return grouped;
   }, [videos]);
 
-  // Sort units by 'order' (fallback to name)
+  /* Sorts units for sidebar and content order */
   const sortedUnits = useMemo(() => {
-    const filtered = units.filter(
-      (u) => Boolean(u && u.name && u.name.trim()),
-    );
+    const toNum = (v: number | string | undefined) => (typeof v === 'string' ? parseFloat(v) || 0 : v ?? 0);
 
-    filtered.sort((a, b) => {
-      const ao = toNumber(a.order);
-      const bo = toNumber(b.order);
-
-      if (ao !== bo) {
-        return ao - bo;
-      }
-
-      return (a.name || '').localeCompare(b.name || '');
-    });
-
-    return filtered;
+    return [...units]
+      .filter((u) => u && typeof u.name === 'string' && u.name.trim())
+      .sort((a, b) => {
+        const ao = toNum(a.order);
+        const bo = toNum(b.order);
+        if (ao !== bo) return ao - bo;
+        return (a.name || '').localeCompare(b.name || '');
+      });
   }, [units]);
 
-  // Build dependency group labels
+  /* Derives the ordered list of topic colors from the sorted units. */
+  const topicColorList = useMemo(
+    () => buildTopicColorList(sortedUnits),
+    [sortedUnits],
+  );
+
+  /* Builds a lookup map from unitId to color for efficient access. */
+  const topicColorMap = useMemo(
+    () => buildTopicColorMap(topicColorList),
+    [topicColorList],
+  );
+
+  /* Converts numeric index into spreadsheet-style labels (A, B, …, AA) */
+  function indexToGroupLabel(index: number): string {
+    let label = '';
+    let n = index;
+
+    while (n >= 0) {
+      label = String.fromCharCode((n % 26) + 65) + label;
+      n = Math.floor(n / 26) - 1;
+    }
+
+    return label;
+  }
+
+  /* Maps dependency graph group keys to unit display names */
   const dependencyGroupLabels: Record<string, string> = {};
 
-  sortedUnits.forEach((unit, idx) => {
+  sortedUnits.forEach((u, idx) => {
     const groupKey = indexToGroupLabel(idx);
-    const displayName = (unit.abbreviated_name || unit.name || '').trim();
+    const displayName = (u.abbreviated_name || u.name || '').trim();
 
-    if (!dependencyGroupLabels[groupKey] && displayName) {
+    if (groupKey && displayName && !dependencyGroupLabels[groupKey]) {
       dependencyGroupLabels[groupKey] = displayName;
     }
   });
-
   return (
-    <main className="unit-page">
+    <section className="unit-page">
       <div className="unit-page-content">
         {/* ---------- Side Panel ---------- */}
         <aside className="unit-page-side-items">
@@ -183,8 +155,19 @@ const UnitPage: React.FC = () => {
                 const anchorId = toAnchorId(cleanName);
 
                 return (
-                  <div className="unit-page-link" key={index}>
-                    <Link smooth to={`#${anchorId}`}>{cleanName}</Link>
+                  <div className="unit-page-link" key={unit.unit_id}>
+                    <button
+                      type="button"
+                      className="unit-page-nav-button"
+                      onClick={() => {
+                        const el = document.getElementById(anchorId);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                    >
+                      {cleanName}
+                    </button>
                   </div>
                 );
               })}
@@ -197,12 +180,10 @@ const UnitPage: React.FC = () => {
           {sortedUnits.map((unit) => {
             const cleanName = cleanUnitName(unit.name);
             const anchorId = toAnchorId(cleanName);
-            const unitId = (unit.unit_id || '').trim();
-            const list = videosByUnit[unitId] || [];
-            const topicKey = indexToGroupLabel(index);
+            const list = videosByUnit[(unit.unit_id || '').trim()] || [];
 
             return (
-              <div key={index}>
+              <div key={unit.unit_id}>
                 {/* anchor that matches the sidebar link */}
                 <div id={anchorId} className="unit-page-anchor" aria-hidden="true" />
 
@@ -211,21 +192,20 @@ const UnitPage: React.FC = () => {
                   name={unit.name}
                   description={unit.description}
                   note={unit.note || ''}
-                  videos={list.map((video) => ({
-                    t: video.t,
-                    u: video.u,
-                    tm: video.tm,
-                    d: video.d,
+                  videos={list.map(({
+                    t, u, tm, d,
+                  }) => ({
+                    t, u, tm, d,
                   }))}
-                  topicKey={topicKey}
                   groupLabels={dependencyGroupLabels}
+                  topicColorMap={topicColorMap}
                 />
               </div>
             );
           })}
         </section>
       </div>
-    </main>
+    </section>
   );
 };
 

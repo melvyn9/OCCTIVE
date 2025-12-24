@@ -10,15 +10,15 @@ import './style.scss';
 /*                             COLOR MAP                              */
 /* ------------------------------------------------------------------ */
 
-const UNIT_COLORS: Record<string, string> = {
-  'Basics of Computational Problem Solving and Programming': '#2B8CBF',
-  'Setting Context': '#7B68C1',
-  'Naming and Assignment': '#F08A5D',
-  Functions: '#E3B341',
-  'Sequences and Data Frames': '#5A8F4E',
-  Troubleshooting: '#E45C9A',
-  'Old Videos': '#2FA4A9',
-};
+// const UNIT_COLORS: Record<string, string> = {
+//   'Basics of Computational Problem Solving and Programming': '#2B8CBF',
+//   'Setting Context': '#7B68C1',
+//   'Naming and Assignment': '#F08A5D',
+//   Functions: '#E3B341',
+//   'Sequences and Data Frames': '#5A8F4E',
+//   Troubleshooting: '#E45C9A',
+//   'Old Videos': '#2FA4A9',
+// };
 
 /* ------------------------------------------------------------------ */
 /*                             PROP TYPES                             */
@@ -29,13 +29,11 @@ export interface UnitCardProps {
   name: string;
   description: string;
   note: string;
-
+  // Flat list of videos (no sub-units)
   videos: Array<{ t: string; u: string; tm: string; d: string }>;
-
-  /** Backward compatibility with UnitPage */
-  topicKey?: string;
-
+  // Mapping from topic key to abbreviated display name
   groupLabels?: Record<string, string>;
+  topicColorMap: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -43,16 +41,15 @@ export interface UnitCardProps {
 /* ------------------------------------------------------------------ */
 
 const UnitCard: React.FC<UnitCardProps> = ({
+  unitId,
   name,
   description,
   note,
   videos,
-  topicKey,
   groupLabels,
+  topicColorMap,
 }) => {
-  /* Resolve color from unit name, fallback to topicKey if needed */
-  const headerColor = UNIT_COLORS[name] ?? (topicKey ? UNIT_COLORS[topicKey] : undefined) ?? '#111827';
-
+  /* Converts a YouTube watch URL into an embeddable iframe URL */
   const toEmbed = (url: string) => {
     const m = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&\n]+)/);
     return m ? `https://www.youtube.com/embed/${m[1]}` : url;
@@ -60,14 +57,13 @@ const UnitCard: React.FC<UnitCardProps> = ({
 
   /* Per-video row component so each video controls its own graph state */
   type V = { t: string; u: string; tm: string; d: string };
-
   const VideoRow: React.FC<{
     video: V;
     idx: number;
     baseId: string;
   }> = ({ video, idx, baseId }) => {
+    /* Controls visibility of the dependency graph for this video */
     const [open, setOpen] = useState(false);
-
     return (
       <>
         <li className="video-entry-card">
@@ -93,7 +89,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               onClick={() => setOpen((s) => !s)}
               aria-expanded={open}
             >
-              <img src={DependencyChartBtnIcon} alt="" />
+              <img src={DependencyChartBtnIcon} alt="" className="dependency-icon" />
               {open ? 'Hide Dependencies' : 'Dependencies'}
             </button>
           </section>
@@ -108,6 +104,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               flowId={`${baseId}-v${idx}`}
               highlightId={video.t}
               groupLabels={groupLabels}
+              topicColorMap={topicColorMap}
             />
           </div>
         )}
@@ -115,18 +112,27 @@ const UnitCard: React.FC<UnitCardProps> = ({
     );
   };
 
+  /* Base id guarantees unique dependency graph ids within this unit */
   const baseId = `graph-${name.replace(/\s+/g, '-')}`;
-  const nonEmpty = videos.filter((v) => v.t && v.u);
+
+  /* Filter out incomplete video rows before rendering */
+  const nonEmpty = (videos || []).filter((v) => v.t && v.u);
 
   // Determine the deterministic topic color for this unit
   const topicColor = topicColorMap[unitId];
   return (
     <>
+      {/* Heading of the unit card */}
       <article className="frame-card">
-        <div className="frame-card-unit">
-          <p className="frame-card-heading">{name}</p>
+        <header className="frame-card-unit">
+          <p
+            className="frame-card-heading"
+            style={{ color: topicColor }}
+          >
+            {name}
+          </p>
           <p className="frame-card-description">{description}</p>
-        </div>
+        </header>
 
         {/* Section contains the full list of videos for this unit */}
         <section className="frame-card-video-block">
@@ -142,10 +148,11 @@ const UnitCard: React.FC<UnitCardProps> = ({
           </ul>
         </section>
 
+        {/* Optional note at the bottom of the unit card */}
         {note && (
-          <div className="frame-card-note">
+          <aside className="frame-card-note">
             <p className="frame-card-note-text">{note}</p>
-          </div>
+          </aside>
         )}
       </article>
     </>
