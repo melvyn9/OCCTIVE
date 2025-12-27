@@ -74,16 +74,16 @@
   &-text {
     @include body-text;
     color: $color-tag-white;
+    font-weight: 400;
     margin: 0 0 1.75rem;
     max-width: 700px;
-    font-weight: 400;
     opacity: 0.95;
   }
 
   &-hero-buttons {
+    align-items: stretch;
     display: flex;
     gap: 1.25rem;
-    align-items: stretch;
   }
 
   &-hero-buttons > * {
@@ -97,16 +97,16 @@
   /* Shared button styles */
   .btn-primary,
   .btn-secondary {
-    display: inline-flex;
+    @include button-text;
     align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    @include button-text;
+    display: inline-flex;
     font-weight: 400;
+    justify-content: center;
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
     transition: background-color 0.2s ease, transform 0.15s ease;
 
     &:hover {

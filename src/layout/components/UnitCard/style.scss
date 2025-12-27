@@ -1,3 +1,4 @@
+@use '../../../styles/media' as *;
 @import '../../../styles';
 @import '../../../styles/base';
 
@@ -72,8 +73,8 @@
     background-color: #71bfde;
     border-radius: 8px;
     color: #f3f8f9;
-    padding: 0.5rem;
     cursor: pointer;
+    padding: 0.5rem;
 
     &:hover {
       filter: brightness(1.05);
@@ -174,8 +175,8 @@
 
   /* Force each card to be centered */
   .frame-card-video-block .video-entry-card {
-    flex-direction: column;
     box-sizing: border-box;
+    flex-direction: column;
     padding: 1rem;
   }
   

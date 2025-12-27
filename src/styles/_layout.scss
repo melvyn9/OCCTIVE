@@ -13,17 +13,24 @@
 /* ------------------------- Home Page Styling ---------------- */
 /* Multi-column card layout (HomePage + UnitPage) */
 .cards-column-layout {
+  /* Default: desktop and up */
+  column-count: 3;
   column-gap: 1.5rem;
   column-width: 45rem;
 
-  @include down(lg) {
+  /* Medium screens (still multi-column) */
+  @include down(xl) {
+    column-count: 2;
     column-width: 30rem;
   }
 
+  /* Tablets: still multi-column */
   @include down(md) {
+    column-count: 2;
     column-width: 20rem;
   }
 
+  /* Mobile: Single column */
   @include down(sm) {
     column-count: 1;
     column-width: auto;

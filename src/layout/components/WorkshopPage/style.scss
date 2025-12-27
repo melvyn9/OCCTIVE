@@ -1,46 +1,88 @@
-/* Same boxed look as About/Adopt */
+@use '../../../styles/media' as *;
+@import '../../../styles';
+@import '../../../styles/base';
+
+/* ─────────────────────────────
+   Page wrapper
+   ───────────────────────────── */
+
+.workshop-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─────────────────────────────
+   Section layout (same as About/Adopt)
+   ───────────────────────────── */
+
 .workshop-section {
   margin: 2rem auto;
   max-width: 900px;
   padding: 0 1rem;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.85;
+    }
+  }
 }
+
+/* ─────────────────────────────
+   Content block (card)
+   ───────────────────────────── */
 
 .workshop-block {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  padding: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem 2rem;
+
+  p {
+    @include body-text;
+    margin: 0 0 1rem;
+  }
+
+  h2 {
+    @include heading-2;
+    margin: 0 0 0.75rem;
+  }
+
+  h3 {
+    @include small-text;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 1.25rem 0 0.5rem;
+    text-transform: uppercase;
+  }
+
+  ul {
+    list-style: disc inside;
+    margin: 0.5rem 0 1rem;
+    padding: 0;
+
+    li {
+      @include body-text;
+      margin: 0.35rem 0;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
 }
 
-/* Body copy */
-.workshop-block p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0 0 1rem;
-}
+/* ─────────────────────────────
+   Mobile spacing only
+   ───────────────────────────── */
 
-/* Lists flush with the text edge, consistent spacing */
-.workshop-block ul {
-  list-style: disc inside;
-  margin: 0.5rem 0;
-  padding-left: 0;
-}
-
-.workshop-block li {
-  margin: 0.35rem 0;
-}
-
-/* If you add any h2 in this block later, keep it at 24px like About */
-.workshop-block h2 {
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  line-height: 1.25;
-  margin: 0 0 0.75rem;
-}
-
-/* Mobile padding tweak */
-@media (max-width: 600px) {
-  .workshop-section { padding: 0 1rem; }
-  .workshop-block { padding: 1rem; }
+@include down(sm) {
+  .workshop-block {
+    padding: 1.25rem 1rem;
+  }
 }

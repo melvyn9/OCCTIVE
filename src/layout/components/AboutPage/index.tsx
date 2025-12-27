@@ -117,7 +117,7 @@ const AboutPage: React.FC = () => (
     <section className="about-section">
       <article className="about-block">
         <h2 className="about-section-title">Project Leadership</h2>
-        <table className="about-table about-table--three">
+        <table className="about-table about-table--leadership">
           <colgroup>
             <col style={{ width: '30%' }} /> {/* Name */}
             <col style={{ width: '20%' }} /> {/* Role */}

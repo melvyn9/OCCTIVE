@@ -47,6 +47,8 @@
 
 /* ───────────── Header ───────────── */
 .home-card-top {
+
+  @include card-padding-compact;
   align-items: center;
   background-color: $color-neutrals-white;
   border-top-left-radius: 1rem;
@@ -54,8 +56,6 @@
   display: flex;
   padding-left: 32px;
   padding-top: 1.5rem;
-
-  @include card-padding-compact;
 }
 
 .home-card-heading-container {
@@ -119,12 +119,12 @@
 
 /* ───────────── Content ───────────── */
 .home-card-bottom {
+
+  @include card-section-compact;
   background-color: $color-neutrals-white;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   padding: 0 2rem 2rem;
-
-  @include card-section-compact;
 }
 
 .home-card-inner {
@@ -171,10 +171,10 @@
 
 .home-card-video-link {
   @include body-text;
-  font-weight: 500;
   align-items: center;
   color: inherit;
   display: inline-flex;
+  font-weight: 500;
   gap: 0.25rem;
 
   &:hover {
@@ -184,13 +184,13 @@
 
 /* ───────────── Note ───────────── */
 .home-card-note {
+
+  @include card-note-compact;
   background-color: $color-neutrals-white;
   border: 2px solid $color-primary-dark-yellow;
   margin-top: 1.5rem;
   padding: 1rem 2.5rem;
   transition: transform var(--hover-duration) var(--hover-ease);
-
-  @include card-note-compact;
 
   &:hover {
     transform: scale(1.01);
