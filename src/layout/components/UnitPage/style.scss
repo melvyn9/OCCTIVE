@@ -1,38 +1,21 @@
-@import '../../../styles/fonts';
-@import '../../../styles/vars';
+@use '../../../styles/media' as *;
+@use '../../../styles/typography' as *;
+@use '../../../styles/vars' as *;
 
 .unit-page {
-  &-back-to-main-menu {
-    @include font-back-to-main-menu;
-    align-items: center;
-    color: #fff;
-    display: inline-flex;
-    font-weight: bold;
-    margin: 1rem 0 0.5rem 20px;
-    text-transform: uppercase;
-
-    img {
-      // height: 16px;
-      // margin-right: 8px;
-      width: auto;
-    }
-  }
-
   &-nav-button {
+    @include body-text;
     all: unset;
     border-radius: 6px;
     color: #f3f8f9;
     cursor: pointer;
     display: block;
     font-weight: 400;
-    line-height: 1.8;
     padding: 0.4rem 0.75rem;
-
     transition:
       color 0.2s ease,
       background-color 0.2s ease,
       transform 0.15s ease;
-    width: 100%;
 
     &:hover,
     &:focus-visible {
@@ -43,7 +26,7 @@
   }
 
   &-navbar-title {
-    @include font-nav-bar-title;
+    @include heading-3;
     color: #fff;
     display: block;
     letter-spacing: 0.08em;
@@ -59,28 +42,6 @@
     margin: 0.75rem 0 1rem;
   }
 
-  &-sidebuttons {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr;
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  &-title {
-    @include font-heading-1-kefir;
-  }
-
-  &-text {
-    @include font-text;
-    line-height: 1.75;
-    margin-top: 1.5rem;
-  }
-
-  &-subheading {
-    @include font-heading-2-kefir;
-  }
-
   &-cards {
     display: grid;
     flex: 1;
@@ -91,27 +52,16 @@
     background-color: $color-tag-white;
     display: flex;
     gap: 2rem;
-    margin: 1rem;
-    padding: 3rem 150px 3rem 75px;
-  }
-
-  &-side-items {
-    flex-shrink: 0;
-    margin-right: 27px;
-    margin-top: 7px;
-    width: 280px;
+    padding: 3rem 5rem 3rem 3rem;
   }
 
   &-sidebar {
-    @include font-side-bar-text;
+    @include small-text;
     background-color: #3d555e;
     border-radius: 12px;
+    max-width: 275px;
     padding: 1.5rem 0;
     position: sticky;
-
-    a {
-      color: #fff !important;
-    }
   }
 
   &-sidebar-sticky {
@@ -120,29 +70,14 @@
     z-index: 10;
   }
 
-  .btn-orange {
-    background-color: #ff8c66;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    color: $color-tag-white;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 1rem 2rem;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-
-    &:hover {
-      filter: brightness(1.05);
-      transform: scale(1.02);
-    }
-  }
-
   .btn-blue {
+    @include button-text;
     background-color: #77c5e7;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     color: $color-tag-white;
     cursor: pointer;
-    font-size: 1rem;
+    font-weight: 400;
     padding: 1rem 2rem;
     transition: background-color 0.2s ease, transform 0.15s ease;
 
@@ -158,107 +93,44 @@
       flex-direction: column;
     }
   }
-
-  .unit-page-card-anchor {
-    position: relative;
-  }
-
-  .unit-page-card-anchor::before {
-    content: '';
-    display: block;
-    height: 5rem; // Match sticky sidebar/header height
-    margin-top: -5rem;
-    pointer-events: none;
-  }
-
-  .unit-page-anchor {
-    display: block;
-    height: 0;
-    position: relative;
-    top: -5rem; // Match sticky sidebar/header height
-    visibility: hidden;
-  }
 }
 
-@media (max-width: 1199px) {
+// For small laptops
+@include down(md) {
   .unit-page {
     &-content {
       flex-direction: column;
       padding: 2rem;
     }
- 
+
     &-side-items {
-      margin-right: 0;
       margin-top: 2rem;
-      width: 100%;
     }
- 
+
     &-cards {
       grid-template-columns: 1fr;
       padding: 0 1rem;
     }
- 
-    &-sidebuttons {
-      gap: 1rem;
-      grid-template-columns: 1fr 1fr;
-    }
- 
-    &-title,
-    &-subheading {
-      text-align: center;
-    }
- 
-    &-text {
-      margin-top: 1rem;
-    }
   }
 }
- 
-@media (max-width: 499px) {
+
+// For small devices
+@include down(xs) {
   .unit-page {
     &-content {
-      flex-direction: column;
       padding: 1.5rem 1.25rem;
     }
- 
+
     &-side-items {
-      margin-right: 0;
       margin-top: 3rem;
-      width: 100%;
     }
- 
+
     &-cards {
-      grid-template-columns: 1fr;
       padding: 0;
     }
- 
-    &-sidebuttons {
-      gap: 1rem;
-      grid-template-columns: 1fr;
-    }
- 
-    &-title,
-    &-subheading {
-      font-size: 1.5rem;
-      text-align: center;
-    }
- 
-    &-text {
-      font-size: 1rem;
-      margin-top: 1rem;
-    }
- 
-    &-back-to-main-menu,
-    &-navbar-title {
-      font-size: 1.25rem;
-      margin-left: 20px;
-    }
- 
-    .btn-orange,
+    
     .btn-blue {
-      font-size: 0.9rem;
       padding: 0.75rem 1.25rem;
     }
   }
 }
- 

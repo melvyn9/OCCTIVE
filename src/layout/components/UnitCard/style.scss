@@ -1,107 +1,6 @@
+@use '../../../styles/media' as *;
 @import '../../../styles';
 @import '../../../styles/base';
-
-/* Unified link style for all links inside cards */
-.frame-card a {
-  color: #30383c;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.frame-card a:hover {
-  color: #007acc;
-}
-
-.video-card-container {
-  align-items: flex-start;
-  display: flex;
-}
-
-.frame-hyperlink {
-  display: block;
-  position: relative;
-  top: calc(-4.75rem - 2.25rem);
-  visibility: hidden;
-
-  @media (max-width: $site-size-small) {
-    top: calc(-3rem - 1rem);
-  }
-}
-
-// Frame Card Styling
-.frame-card-subheading-container {
-  align-items: center;
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.frame-card-subheading-link {
-  align-items: center;
-  color: inherit;
-  display: flex;
-  gap: 4px;
-  text-decoration: none;
-}
-
-.frame-card-subheading {
-  @include font-heading-3;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-// Notification Toast Styling
-.copy-toast {
-  align-items: center;
-  animation: fadeOut 0.4s ease-in-out 2s forwards;
-  background-color: #70c57f;
-  border-radius: 6px;
-  color: #f3f8f9;
-  display: flex;
-  font-size: 0.9rem;
-  font-weight: 500;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  position: fixed;
-  right: 1rem;
-  top: 1rem;
-  z-index: 9999;
-}
-
-.toast-check {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-// Copy Icon Styling
-.copy-icon-button {
-  align-items: center;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.copy-icon,
-.frame-card-link-arrow {
-  height: 18px;
-  transition: opacity 0.2s ease;
-  width: 18px;
-}
-
-.copy-icon:hover,
-.frame-card-link-arrow:hover {
-  opacity: 1;
-}
 
 .frame-card {
   background-color: $color-tag-white;
@@ -110,149 +9,45 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
+  margin-top: 2rem;
   width: 100%;
 
   &:first-child {
     margin-top: 0;
   }
 
-  &-subunit {
-    background-color: #3d555e;
-    border-radius: 8px;
-    color: $color-tag-white;
-    margin-bottom: 39px;
-    padding: 19px 25px 1px;
-  }
-
   &-video-title {
-    @include font-video-title;
+    @include heading-3;
     color: #30383c;
-    margin-bottom: 14px;
+    margin-bottom: 1rem;
   }
 
   &-time {
-    @include font-time;
+    @include small-text;
     color: #30383c;
-    margin-bottom: 12px;
+    margin-bottom: 0.4rem;
   }
 
   &-desc {
-    @include font-desc;
+    @include body-text;
     color: #30383c;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     width: 100%;
   }
 
-  &-video-cards {
-    background-color: #f3f8f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    color: #30383c;
-    padding: 31px 31px 31px 24px;
-  }
-
-  &-resources {
-    @include font-resources;
-    color: #f3f8f9;
-  }
-
-  &-practice-questions {
-    @include font-practice;
-    color: #f3f8f9;
-    margin-bottom: 19px;
-  }
-
-  &-top {
-    align-items: center;
-    background-color: $color-neutrals-white;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    display: flex;
-    padding: 1.5rem;
-  }
-
   &-heading {
-    @include font-heading-2;
+    @include heading-2;
     color: $color-neutrals-black;
     margin-bottom: 15px;
     margin-right: 1rem;
     max-width: 100%;
   }
 
-  &-bottom {
-    background-color: $color-neutrals-white;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    padding: 3rem;
-  }
-
-  &-inner {
-    padding-top: 0.5rem;
-  }
-
-  &-info {
-    display: flex;
-    flex-direction: column;
-
-    &-left {
-      margin-bottom: 2rem;
-    }
-
-    &-right {
-      margin-top: 1rem;
-    }
-  }
-
-  &-info-group {
-    margin-bottom: 2rem;
-
-    p {
-      margin: 0;
-    }
-
-    .frame-card-subheading {
-      @include font-subtitle-1;
-      margin: 0 0 0.5rem;
-    }
-  }
-
-  &-subheading {
-    @include font-subtitle-1;
-    margin: 0 0 0.5rem;
-  }
-
   &-description {
-    @include font-frame2-unit-description;
+    @include body-text;
     line-height: 1.6;
     margin-bottom: 30px;
     width: 100%;
-  }
-
-  &-links {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.25rem;
-  }
-
-  &-link {
-    margin-top: 0.5rem;
-
-    &,
-    &:link,
-    &:visited,
-    &:focus,
-    &:hover,
-    &:active {
-      @include font-linked-text;
-    }
-
-    &-arrow {
-      margin-left: 0.5rem;
-    }
-  }
-
-  &-videos {
-    margin-top: 2rem;
   }
 
   &-video-list {
@@ -269,35 +64,7 @@
     padding: 1rem 2.5rem;
 
     &-text {
-      @include font-text;
-    }
-  }
-
-  @media (max-width: $site-size-small) {
-    margin-bottom: 1.5rem;
-    width: unset;
-
-    &-top {
-      align-items: flex-start;
-      flex-direction: column;
-      padding: 0.75rem 1rem;
-    }
-
-    &-bottom {
-      padding: 1.5rem 1rem;
-    }
-
-    &-description {
-      margin-top: 0.5rem;
-      width: unset;
-    }
-
-    &-note {
-      padding: 0.5rem 1rem;
-    }
-
-    &-video-list {
-      padding-left: 0;
+      @include body-text;
     }
   }
 
@@ -306,9 +73,8 @@
     background-color: #71bfde;
     border-radius: 8px;
     color: #f3f8f9;
-    height: 35px;
-    padding: 8px;
-    width: 145px;
+    cursor: pointer;
+    padding: 0.5rem;
 
     &:hover {
       filter: brightness(1.05);
@@ -324,30 +90,29 @@
   box-shadow: 0 6px 18px rgba(13, 40, 60, 0.12);
   color: $color-tag-white;
   color: #000;
-  display: flex;         /* reordered */
+  display: flex;
   flex-direction: column;
   gap: 1.75rem;
   margin-top: 1rem;
   padding: 24px 32px;
   width: 100%;
+}
 
-  .video-entry-card {
-    align-items: center; /* moved before display */
-    background-color: #f3f8f9;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    display: flex;
-    gap: 2rem;
-    justify-content: space-between;
-    margin: 0 auto;
-    padding: 1.5rem 2rem;
-    width: 100%;
-  }
+.video-entry-card {
+  align-items: center;
+  background-color: #f3f8f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
 }
 
 /* Left column: video */
 .video-entry-left {
-  align-items: center;   /* moved before display */
+  align-items: center;
   display: flex;
   flex: 0 0 50%;
   justify-content: center;
@@ -357,95 +122,31 @@
     border: 0;
     border-radius: 8px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    height: auto;       /* moved before max-width */
-    max-width: 520px;
-    width: 100%;
-  }
-}
-
-/* SECOND .frame-card-video-block (kept per Option A) */
-.frame-card-video-block {
-  background-color: #3d555e;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(13, 40, 60, 0.12);
-  display: flex; /* reordered */
-  flex-direction: column;
-  gap: 2rem;
-  padding-bottom: 32px; /* reordered and fixed spacing */
-  padding-right: 42px;
-  padding-top: 32px;
-  width: 100%;
-
-  .video-entry-card {
-    align-items: center; /* moved before display */
-    background-color: #f3f8f9;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    display: flex;
-    gap: 1.75rem;
-    justify-content: space-between;
-    margin: 0 auto;
-    padding: 1.5rem 1.75rem;
-    width: 96%;
-  }
-}
-
-/* SECOND .video-entry-left */
-.video-entry-left {
-  align-items: center; /* moved before display */
-  display: flex;
-  flex: 0 0 48%;
-  justify-content: center;
-  padding: 0;
-
-  iframe {
-    aspect-ratio: 16 / 9; /* moved before max-width */
-    border: 0;
-    border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    height: auto;     /* reordered */
+    height: auto;
     max-width: 520px;
     width: 100%;
   }
 }
 
 .video-entry-right {
-  align-items: flex-start; /* added to satisfy order */
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0;
   text-align: left;
 
-  .frame-card-video-title {
-    @include font-video-title;
-    margin-bottom: 0.4rem;
-    text-decoration: none;
-  }
-
-  .frame-card-time {
-    @include font-time;
-    color: #30383c;
-    margin-bottom: 0.4rem;
-  }
-
-  .frame-card-desc {
-    color: #30383c;
-    font-size: 15px;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-
   .btn-lightblue,
   .btn-dependencies {
-    align-items: center;  /* moved before background */
-    align-self: flex-start; /* moved before transition */
+    @include button-text;
+    align-items: center;
+    align-self: flex-start;
     background-color: #71bfde;
     border: none;
     border-radius: 8px;
     color: #f3f8f9;
     display: inline-flex;
-    font-size: 0.9rem;    /* moved before font-weight */
+    font-size: 0.9rem;
     font-weight: 400;
     gap: 0.4rem;
     margin-left: 0;
@@ -458,90 +159,31 @@
     }
 
     img {
-      height: 18px; /* moved before width */
+      height: 18px;
       width: 18px;
     }
   }
 }
 
-.btn-dependencies {
-  @include font-side-bar-text;
-  background: #71bfde;    /* moved before color */
-  border: 0;              /* moved before border-radius */
-  border-radius: 8px;
-  color: #f3f8f9;
-  padding: 0.45rem 0.9rem;
-}
-
-/* Responsive */
-@media (max-width: 1199px) {
-  .frame-card-video-block {
-    padding: 20px;
-  }
-
-  .frame-card-video-block .video-entry-card {
-    flex-direction: column;
-    padding: 14px;
-  }
-
-  .frame-card-video-block .video-entry-left {
-    min-height: 300px;
-    padding: 0.5rem;
-  }
-}
-
-/* ---------- MOBILE HARD CENTERING FIX ---------- */
-@media (max-width: 499px) {
+/* ---------- < 1199 px ---------- */
+@media (max-width: $site-size-small) {
   /* Center the entire navy container */
   .frame-card-video-block {
     box-sizing: border-box;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 1rem !important;
-    padding-right: 1rem !important;
-    width: 100% !important;
+    padding: 1rem;
   }
 
-  /* Force each card to be perfectly centered */
+  /* Force each card to be centered */
   .frame-card-video-block .video-entry-card {
     box-sizing: border-box;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 1rem !important;
-    width: 100% !important;
+    flex-direction: column;
+    padding: 1rem;
   }
-
-  /* Kill any lingering width math */
-  .video-entry-card {
-    max-width: 100% !important;
-  }
-
-  /* Center video column */
-  .video-entry-left {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-  }
-
-  .video-entry-left iframe {
-    display: block;
-    margin: 0 auto !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  /* Center text column */
-  .video-entry-right {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-  }
-
-  /* Center buttons cleanly */
+  
+  /* Center buttons */
   .btn-lightblue,
   .btn-dependencies {
-    @include font-side-bar-text;
-    justify-content: center !important;
-    width: 100% !important;
+    justify-content: center;
+    width: 100%;
   }
 }

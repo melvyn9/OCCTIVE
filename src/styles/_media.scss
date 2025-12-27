@@ -1,0 +1,14 @@
+// styles/_media.scss
+@use 'breakpoints' as *;
+
+@mixin down($key) {
+  @media (max-width: map-get($breakpoints, $key)) {
+    @content;
+  }
+}
+
+@mixin up($key) {
+  @media (min-width: map-get($breakpoints, $key)) {
+    @content;
+  }
+}

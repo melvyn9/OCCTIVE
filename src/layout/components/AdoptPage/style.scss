@@ -1,30 +1,40 @@
-/* Adopt OCCTIVE page styles */
-/* Match About page H2 size (24px) */
-.adopt-block h2 {
-  font-size: 1.5rem;   /* 24px */
-  font-weight: 700;
-  line-height: 1.25;
-  margin: 0 0 0.75rem;
+@use '../../../styles/media' as *;
+@import '../../../styles';
+@import '../../../styles/base';
+
+/* ─────────────────────────────
+   Page wrapper
+   ───────────────────────────── */
+
+.adopt-page {
+  display: flex;
+  flex-direction: column;
 }
+
+/* ─────────────────────────────
+   Section layout (same as About)
+   ───────────────────────────── */
 
 .adopt-section {
   margin: 2rem auto;
   max-width: 900px;
   padding: 0 1rem;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.85;
+    }
+  }
 }
 
-/* Align list bullets with the section headings */
-.adopt-block ul {
-  list-style: disc inside; /* puts the • inside the box, flush with the text edge */
-  margin-bottom: 1rem;
-  margin-left: 0;          /* kill default left margin */
-  margin-top: 0.5rem;
-  padding-left: 0;         /* kill default left padding */
-}
-
-.adopt-block li {
-  margin: 0.35rem 0;       /* comfy spacing */
-}
+/* ─────────────────────────────
+   Content block (card)
+   ───────────────────────────── */
 
 .adopt-block {
   background: rgba(255, 255, 255, 0.03);
@@ -34,49 +44,39 @@
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
 
+  h2 {
+    @include heading-2;
+    margin: 0 0 0.75rem;
+  }
+
+  h3 {
+    @include small-text;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 1rem 0 0.5rem;
+    text-transform: uppercase;
+  }
+
   p {
-    font-size: 1rem;
-    line-height: 1.6;
+    @include body-text;
     margin: 0 0 1rem;
   }
 
-  /* links: underline always; color change on hover */
-  a {
-    color: #1a1a1a;
-    text-decoration: underline;
-    transition: color 0.2s ease;
-  }
+  ul {
+    list-style: disc inside;
+    margin: 0.5rem 0 1rem;
+    padding: 0;
 
-  a:hover,
-  a:focus-visible {
-    color: #007acc;
-  }
-}
-
-.adopt-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 0.75rem;
-}
-
-.adopt-subtitle {
-  color: #333;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin: 1rem 0 0.5rem;
-  text-transform: uppercase;
-}
-
-.adopt-list {
-  margin: 0 0 1rem 1.25rem;
-  padding: 0;
-
-  li {
-    line-height: 1.6;
-    margin: 0 0 0.5rem;
+    li {
+      @include body-text;
+      margin: 0.35rem 0;
+    }
   }
 }
+
+/* ─────────────────────────────
+   Quotes
+   ───────────────────────────── */
 
 .adopt-quote {
   border-left: 4px solid rgba(0, 0, 0, 0.15);
@@ -85,19 +85,12 @@
   padding-left: 0.75rem;
 }
 
-/* Adopt page links */
-.adopt-link {
-  color: #007acc;
-  text-decoration: underline;
-  transition: color 0.2s ease;
-}
+/* ─────────────────────────────
+   Responsive spacing only
+   ───────────────────────────── */
 
-.adopt-link:hover {
-  text-decoration: underline;
-  transition: color 0.2s ease;
-}
-
-@media (max-width: 600px) {
-  .adopt-section { padding: 0 1rem; }
-  .adopt-block { padding: 1.25rem 1rem; }
+@include down(sm) {
+  .adopt-block {
+    padding: 1.25rem 1rem;
+  }
 }

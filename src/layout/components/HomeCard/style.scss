@@ -1,5 +1,6 @@
 @import '../../../styles';
 @import '../../../styles/base';
+@import '../../../styles/layout';
 
 /* ───────────── CSS Variables ───────────── */
 .home-card {
@@ -46,6 +47,8 @@
 
 /* ───────────── Header ───────────── */
 .home-card-top {
+
+  @include card-padding-compact;
   align-items: center;
   background-color: $color-neutrals-white;
   border-top-left-radius: 1rem;
@@ -61,7 +64,7 @@
 }
 
 .home-card-heading {
-  @include font-heading-3;
+  @include heading-3;
   margin-right: 1rem;
   max-width: 100%;
 }
@@ -116,6 +119,8 @@
 
 /* ───────────── Content ───────────── */
 .home-card-bottom {
+
+  @include card-section-compact;
   background-color: $color-neutrals-white;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
@@ -135,14 +140,15 @@
 }
 
 .home-card-subheading {
-  @include font-subtitle-1;
-  font-weight: bold;
-  margin: 0 0 0.5rem;
+  @include small-text;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
 }
 
 .home-card-description {
-  line-height: 1.6;
-  width: 100%;
+  @include body-text;
+  font-weight: 450;
 }
 
 /* ───────────── Video Links ───────────── */
@@ -164,9 +170,11 @@
 }
 
 .home-card-video-link {
+  @include body-text;
   align-items: center;
   color: inherit;
   display: inline-flex;
+  font-weight: 500;
   gap: 0.25rem;
 
   &:hover {
@@ -176,6 +184,8 @@
 
 /* ───────────── Note ───────────── */
 .home-card-note {
+
+  @include card-note-compact;
   background-color: $color-neutrals-white;
   border: 2px solid $color-primary-dark-yellow;
   margin-top: 1.5rem;
@@ -191,7 +201,16 @@
   }
 }
 
-/* ───────────── Dependency Button ───────────── */
+.home-card-note-text {
+  @include small-text;
+}
+
+/* ───────────── Dependency Button & Copy Button───────────── */
+.copy-icon-button,
+.home-card-dependency-btn {
+  @include button-text;
+}
+
 .home-card-dependency-btn {
   background-color: #cdf1ff;
   border: 0;
@@ -215,6 +234,7 @@
 
 /* ───────────── Toast ───────────── */
 .copy-toast {
+  @include small-text;
   align-items: center;
   animation: fadeOut 0.4s ease-in-out 2s forwards;
   background-color: #70c57f;
@@ -237,33 +257,4 @@
     opacity: 0;
     transform: translateY(-10px);
   }
-}
-
-/* ───────────── Responsive ───────────── */
-@media (max-width: $site-size-small) {
-  .home-card {
-    width: unset;
-  }
-
-  .home-card-top {
-    padding: 1.25rem 1.5rem 0.5rem;
-  }
-
-  .home-card-bottom {
-    padding: 0.5rem 1.5rem 1.5rem;
-  }
-
-  .home-card-description {
-    margin-top: 0.5rem;
-    width: unset;
-  }
-
-  .home-card-note {
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* Legacy dependency */
-.btn-lightblue.btn-dependencies {
-  cursor: pointer;
 }

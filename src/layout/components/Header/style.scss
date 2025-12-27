@@ -7,18 +7,14 @@
   position: fixed;
   right: 0;
   top: 0;
-
-  /* 🔒 CRITICAL: prevent scrollbar-based overflow */
   width: 100%;
-
   z-index: 99;
 
   &-content {
     align-items: center;
     background-color: #38545b;
     border-bottom: 1px solid transparent;
-
-    /* 🔒 Ensure content never exceeds header */
+    /* Ensure content never exceeds header */
     box-sizing: border-box;
     display: flex;
     flex: 0 0 auto;
@@ -110,27 +106,25 @@
     gap: 0.5rem;
     left: 0;
     max-width: 100%;
-
     opacity: 0;
     overflow-x: hidden;
     padding: 0.75rem 1rem 1rem;
     pointer-events: none;
 
-    /* 🔒 CRITICAL FIX */
+    /* CRITICAL FIX */
     position: fixed;
     right: 0;
-    top: calc(-14rem + 4.25rem);
-    transform: translateY(-10px);
+    top: 3.5rem; // directly under header
+    transform: translateY(-100%);
     transition: top 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     width: 100%;
-    z-index: -1;
 
     &.open {
       opacity: 1;
       pointer-events: auto;
       top: 2.75rem;
       transform: translateY(0);
-      z-index: 98;
+      z-index: 100;
     }
 
     .header-link {
@@ -158,6 +152,7 @@
   @media (max-width: 600px) {
     &-content {
       height: 3.5rem;
+      overflow: hidden;
       padding: 0 1rem;
     }
 

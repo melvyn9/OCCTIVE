@@ -89,7 +89,7 @@ const UnitCard: React.FC<UnitCardProps> = ({
               onClick={() => setOpen((s) => !s)}
               aria-expanded={open}
             >
-              <img src={DependencyChartBtnIcon} alt="" className="dependency-icon" />
+              <img src={DependencyChartBtnIcon} alt="Dependency Icon" className="dependency-icon" />
               {open ? 'Hide Dependencies' : 'Dependencies'}
             </button>
           </section>
