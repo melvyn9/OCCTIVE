@@ -1,5 +1,4 @@
-@import '../../../styles/fonts';
-@import '../../../styles/vars';
+@import '../../../styles';
 
 /* Notice box */
 .home-page-notice {
@@ -11,9 +10,7 @@
 }
 
 .home-page-notice-text {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin: 0;
+  @include body-text;
 }
 
 .home-page-notice-link {
@@ -24,12 +21,6 @@
 
 .home-page-notice-link:hover {
   color: #007acc;
-}
-
-@media (max-width: $site-size-small) {
-  .home-page-notice {
-    border-radius: 8px;
-  }
 }
 
 /* Only targets HomePage */
@@ -74,88 +65,67 @@
   }
 
   &-title {
+    @include heading-1;
     @include font-heading-1-kefir;
     color: $color-tag-white;
-    font-size: 3.5rem;
-    line-height: 1.05;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
   }
 
   &-text {
-    @include font-text;
+    @include body-text;
     color: $color-tag-white;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    margin: 0 0 1.6rem;
+    margin: 0 0 1.75rem;
     max-width: 700px;
+    font-weight: 400;
+    opacity: 0.95;
   }
 
   &-hero-buttons {
     display: flex;
     gap: 1.25rem;
+    align-items: stretch;
   }
 
-  &-content {
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+  &-hero-buttons > * {
+    flex: 1;
   }
 
   &-cards {
-    column-gap: 1.5rem;
-    column-width: 45rem;
     padding: 0 0.75rem;
   }
 
-  /* buttons */
+  /* Shared button styles */
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    @include button-text;
+    font-weight: 400;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: scale(1.02);
+    }
+  }
+
+  /* Primary button */
   .btn-primary {
     background-color: #cdf1ff;
     border: none;
-    border-radius: 0.5rem;
     color: $color-neutrals-black;
-    cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1rem;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-
-    &:hover {
-      filter: brightness(1.05);
-      transform: scale(1.02);
-    }
   }
 
+  /* Secondary button */
   .btn-secondary {
     background-color: #d4f8cc;
-    border-radius: 0.5rem;
     color: $color-neutrals-black;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-
-    &:hover {
-      filter: brightness(1.05);
-      transform: scale(1.02);
-    }
-  }
-  
-  .btn-primary,
-  .btn-secondary {
-    align-items: center;
-
-    border-radius: 0.5rem;
-    cursor: pointer;
-    display: inline-flex;
-
-    font-weight: 600;
-
-    height: 52px;
-    justify-content: center;
-    line-height: 1;
-    padding: 0 2rem;
-    white-space: nowrap;
   }
 
   &-adoption-card {
@@ -173,18 +143,15 @@
   }
 
   &-adoption-title {
+    @include heading-2;
     @include font-heading-1-kefir;
     color: $color-tag-white;
-    font-size: 2rem;
-    line-height: 1.2;
     margin-bottom: 1rem;
   }
 
   &-adoption-text {
-    @include font-text;
+    @include body-text;
     color: $color-tag-white;
-    font-size: 1.2rem;
-    line-height: 1.5;
     margin-bottom: 2rem;
   }
 
@@ -195,175 +162,7 @@
 
     .btn-primary,
     .btn-secondary {
-      font-size: 1rem;
       padding: 1rem 2rem;
     }
-  }
-}
-
-/* Wide viewports */
-@media (min-width: 500px) {
-  .home-page {
-    &-hero {
-      text-align: left;
-    }
-
-    &-hero-text {
-      margin-left: 1.5rem;
-    }
-
-    &-hero-content {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &-hero-graphic {
-      flex: 0 0 400px;
-      justify-content: flex-end;
-
-      &-img,
-      .home-page-hero-graphic-img {
-        max-width: 250px;
-      }
-    }
-  }
-}
-
-/* Stack graphic under text */
-@media (max-width: $site-size-small) {
-  .home-page {
-    &-hero-graphic {
-      flex: 1 1 100%;
-      order: 2;
-      padding-top: 1rem;
-
-      &-img,
-      .home-page-hero-graphic-img {
-        margin: 0 auto;
-      }
-    }
-
-    &-hero-text {
-      margin: 0 auto;
-      max-width: 80%;
-      order: 1;
-      text-align: center;
-    }
-  }
-}
-
-/* Larger screens (<2881px Mac) */
-@media (max-width: 2881px) {
-  .home-page-cards {
-    column-width: 40rem;
-  }
-}
-
-/* Larger screens (<2000px) */
-@media (max-width: 2000px) {
-  .home-page-cards {
-    column-width: 30rem;
-  }
-}
-
-/* Larger screens (<1500px) */
-@media (max-width: 1500px) {
-  .home-page-cards {
-    column-width: 20rem;
-  }
-}
-
-/* Medium screens (<1200px) */
-@media (max-width: $site-size-small) {
-  .home-page {
-    &-cards {
-      column-width: 20rem;
-    }
-
-    &-content {
-      padding: 1.5rem;
-    }
-  }
-}
-
-/* MOBILE + SMALL TABLETS */
-@media (max-width: 900px) {
-  body {
-    margin: 0;
-  }
-
-  .home-page-hero-content {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    width: 100%;
-  }
-
-  .home-page-hero-content {
-    flex-direction: column;
-    gap: 2rem;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .home-page-hero-text {
-    flex: 1 1 100%;
-    margin: 0 auto;
-    max-width: 90%;
-    text-align: center;
-  }
-
-  .home-page-title {
-    font-size: 2.2rem;
-    line-height: 1.2;
-  }
-
-  .home-page-text {
-    font-size: 1rem;
-    line-height: 1.45;
-    margin-bottom: 1.25rem;
-  }
-
-  .home-page-hero-buttons {
-    align-items: center;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    font-size: 1rem;
-    max-width: 280px;
-    padding: 0.85rem 1.25rem;
-    text-align: center;
-    width: 100%;
-  }
-
-  .home-page-hero-graphic {
-    display: flex;
-    justify-content: center;
-    order: 2;
-    padding: 0;
-    width: 100%;
-  }
-
-  .home-page-hero-graphic-img {
-    height: auto;
-    max-width: 260px;
-    width: 70%;
-  }
-
-  .home-page-content {
-    margin: 0.25rem;
-    padding: 1.5rem 1rem;
-  }
-
-  .home-page-cards {
-    column-count: 1 !important;
-    column-width: auto !important;
-    padding: 0;
   }
 }

@@ -165,7 +165,7 @@ const HomePage: React.FC = () => {
     <section className="home-page">
       {/* Hero introduces the site purpose and primary actions */}
       <section className="home-page-hero">
-        <header className="home-page-hero-content">
+        <header className="home-page-hero-content hero-stack">
           <section className="home-page-hero-text">
             <h1 className="home-page-title">
               Discover Computer Science, One Concept at a Time
@@ -176,7 +176,7 @@ const HomePage: React.FC = () => {
             </p>
 
             {/* Primary calls to action for new users */}
-            <div className="home-page-hero-buttons">
+            <div className="home-page-hero-buttons hero-buttons-stack">
               <button
                 type="button"
                 className="btn-primary"
@@ -212,8 +212,8 @@ const HomePage: React.FC = () => {
       />
 
       {/* Section containing all unit preview cards */}
-      <section className="home-page-content">
-        <div className="home-page-cards">
+      <section className="home-page-content page-content">
+        <div className="home-page-cards cards-column-layout">
           {sortedUnits.map((u) => {
             const unitId = (u.unit_id || '').trim();
             const list = videosByUnit[unitId] || [];

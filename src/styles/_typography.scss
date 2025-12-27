@@ -1,0 +1,69 @@
+/* ─────────────────────────────────────────────
+   Typography tokens + semantic mixins
+   Single source of truth for font sizes
+   ───────────────────────────────────────────── */
+
+@use './media' as *;
+
+/* Base font sizes (mobile-first) */
+:root {
+  /* Headings */
+  --font-size-h1: 2rem;      /* 32px */
+  --font-size-h2: 1.5rem;    /* 24px */
+  --font-size-h3: 1.25rem;   /* 20px */
+  --font-size-h4: 1.125rem;  /* 18px */
+
+  /* Body text */
+  --font-size-body: 1rem;    /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-xs: 0.75rem;   /* 12px */
+
+  /* Line heights */
+  --line-height-heading: 1.2;
+  --line-height-body: 1.5;
+}
+
+/* Desktop+ scaling (keep minimal) */
+@include up(md) {
+  :root {
+    --font-size-h1: 2.5rem;  /* 40px */
+    --font-size-h2: 2rem;    /* 32px */
+    --font-size-h3: 1.5rem;  /* 24px */
+  }
+}
+
+/* ───────── Semantic mixins ───────── */
+
+@mixin heading-1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-heading);
+  font-weight: 700;
+}
+
+@mixin heading-2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+@mixin heading-3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading);
+  font-weight: 600;
+}
+
+@mixin body-text {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+@mixin small-text {
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+}
+
+@mixin button-text {
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  line-height: 1;
+}

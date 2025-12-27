@@ -1,0 +1,8 @@
+// Breakpoint definitions for responsive design
+$breakpoints: (
+  xs: 480px,   // phones
+  sm: 768px,   // tablets
+  md: 1024px,  // small laptops
+  lg: 1280px,  // desktops
+  xl: 1600px,  // wide
+);
