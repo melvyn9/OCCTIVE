@@ -70,6 +70,10 @@
     z-index: 10;
   }
 
+  &-anchor {
+    scroll-margin-top: 3rem; // scrolls 3rem above the anchor element
+  }
+
   .btn-blue {
     @include button-text;
     background-color: #77c5e7;

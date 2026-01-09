@@ -182,11 +182,11 @@ const HomePage: React.FC = () => {
                 className="btn-primary"
                 onClick={() => setShowGraph(true)}
               >
-                <b>View Dependencies</b>
+                View Dependencies
               </button>
 
               <Link to="/about" className="btn-secondary">
-                <b>About the Project</b>
+                About the Project
               </Link>
             </div>
           </section>
