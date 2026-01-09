@@ -98,11 +98,11 @@
   .btn-primary,
   .btn-secondary {
     @include button-text;
-    font-family: inherit;
     align-items: center;
     border-radius: 0.5rem;
     cursor: pointer;
     display: inline-flex;
+    font-family: inherit;
     justify-content: center;
     padding: 1rem 2rem;
     text-align: center;
